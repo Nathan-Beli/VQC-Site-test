@@ -3,15 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ville De Québec Roleplay - Communauté RP</title>
+    <title>Ville De Québec Roleplay - Accueil</title>
     
-    <!-- FontAwesome pour les icônes -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
     <style>
-        /* ==========================================
-           STYLE GÉNÉRAL & VARIABLES
-           ========================================== */
         :root {
             --bg-dark: #0f172a;
             --card-bg: #1e293b;
@@ -29,7 +25,6 @@
             padding: 0;
             box-sizing: border-box;
             font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
-            scroll-behavior: smooth;
         }
 
         body {
@@ -38,14 +33,10 @@
             line-height: 1.6;
         }
 
-        /* FIX DES LIENS (Évite la couleur mauve visitée) */
         a, a:visited, a:hover, a:active {
             text-decoration: none;
         }
 
-        /* ==========================================
-           NAVBAR (EN-TÊTE)
-           ========================================== */
         .navbar {
             display: flex;
             justify-content: space-between;
@@ -122,9 +113,6 @@
             background-color: var(--discord-hover);
         }
 
-        /* ==========================================
-           HERO SECTION
-           ========================================== */
         .hero {
             min-height: 100vh;
             display: flex;
@@ -195,9 +183,6 @@
             background-color: rgba(56, 189, 248, 0.15);
         }
 
-        /* ==========================================
-           SECTION STATISTIQUES
-           ========================================== */
         .stats {
             display: flex;
             justify-content: center;
@@ -238,97 +223,6 @@
             font-size: 0.95rem;
         }
 
-        /* ==========================================
-           SECTION RÈGLEMENT
-           ========================================== */
-        .rules-section {
-            padding: 6rem 5% 4rem 5%;
-            background-color: #0f172a;
-        }
-
-        .rules-title {
-            text-align: center;
-            margin-bottom: 3rem;
-        }
-
-        .rules-title h2 {
-            font-size: 2.5rem;
-            color: #ffffff;
-        }
-
-        .rules-title h2 span {
-            color: var(--primary);
-        }
-
-        .rules-container {
-            display: flex;
-            gap: 2rem;
-            justify-content: center;
-            flex-wrap: wrap;
-        }
-
-        .rules-card {
-            background-color: var(--card-bg);
-            border: 1px solid var(--border-color);
-            border-radius: 12px;
-            padding: 2rem;
-            flex: 1;
-            min-width: 320px;
-            max-width: 550px;
-        }
-
-        .rules-card h3 {
-            font-size: 1.5rem;
-            color: var(--primary);
-            margin-bottom: 1.5rem;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            border-bottom: 1px solid var(--border-color);
-            padding-bottom: 0.8rem;
-        }
-
-        .rules-list {
-            list-style: none;
-        }
-
-        .rules-list li {
-            margin-bottom: 1.2rem;
-            color: #cbd5e1;
-            font-size: 0.98rem;
-            line-height: 1.5;
-        }
-
-        .rules-list li strong {
-            color: #ffffff;
-            display: block;
-            margin-bottom: 0.2rem;
-        }
-
-        .rules-list ul {
-            list-style: none;
-            padding-left: 1rem;
-            margin-top: 0.4rem;
-        }
-
-        .rules-list ul li {
-            position: relative;
-            margin-bottom: 0.4rem;
-            color: var(--text-muted);
-        }
-
-        .rules-list ul li::before {
-            content: "•";
-            color: var(--primary);
-            font-weight: bold;
-            display: inline-block; 
-            width: 1em;
-            margin-left: -1em;
-        }
-
-        /* ==========================================
-           FOOTER
-           ========================================== */
         footer {
             text-align: center;
             padding: 1.8rem;
@@ -341,17 +235,16 @@
 </head>
 <body>
 
-    <!-- Barre de Navigation -->
     <header class="navbar">
-        <a href="#accueil" class="logo-link">
+        <a href="index.html" class="logo-link">
             <img src="logo.png" alt="Logo Ville De Québec RP" class="site-logo">
             <div class="logo-text">
                 <span class="logo-bold">VILLE DE QUÉBEC</span> <span class="logo-tag">RP</span>
             </div>
         </a>
         <nav class="nav-links">
-            <a href="#accueil" class="active">Accueil</a>
-            <a href="#reglement">Règlement</a>
+            <a href="index.html" class="active">Accueil</a>
+            <a href="reglement.html">Règlement</a>
             <a href="#boutique">Boutique</a>
             <a href="#cad">CAD / PTT</a>
         </nav>
@@ -360,8 +253,7 @@
         </a>
     </header>
 
-    <!-- Section d'Accueil -->
-    <section id="accueil" class="hero">
+    <section class="hero">
         <div class="hero-content">
             <h1>Bienvenue sur <span>Ville De Québec RP</span></h1>
             <p>Une expérience de roleplay immersive inspirée de la capitale nationale, avec des services d'urgence réalistes et une communauté passionnée.</p>
@@ -369,12 +261,11 @@
                 <a href="https://discord.gg/3AwjGBaFQN" target="_blank" class="btn-primary">
                     <i class="fa-brands fa-discord"></i> Serveur Discord
                 </a>
-                <a href="#reglement" class="btn-secondary">Lire le Règlement</a>
+                <a href="reglement.html" class="btn-secondary">Lire le Règlement</a>
             </div>
         </div>
     </section>
 
-    <!-- Cartes d'Informations -->
     <section class="stats">
         <div class="stat-card">
             <i class="fa-solid fa-users"></i>
@@ -393,85 +284,6 @@
         </div>
     </section>
 
-    <!-- Section Règlement -->
-    <section id="reglement" class="rules-section">
-        <div class="rules-title">
-            <h2>Règlement du <span>Serveur & du Jeu</span></h2>
-        </div>
-        <div class="rules-container">
-            
-            <!-- Carte Règlement Discord -->
-            <div class="rules-card">
-                <h3><i class="fa-brands fa-discord"></i> Règlement du Serveur</h3>
-                <ol class="rules-list">
-                    <li><strong>1. Bon sens</strong> Utilise ton bon sens. Ne sois pas volontairement agaçant.</li>
-                    <li><strong>2. Respect</strong> Reste respectueux envers tous les membres. Les insultes excessives ne sont pas permises.</li>
-                    <li><strong>3. Spam & Pub</strong> Ne spam pas, ne shitpost pas et ne fais aucune publicité.</li>
-                    <li><strong>4. Contenu inapproprié</strong> Aucun contenu 18+ (NSFW), gore, violent ou dérangeant.</li>
-                    <li><strong>5. Usurpation</strong> N’usurpe pas l’identité d’autres personnes et ne prétends pas être quelqu’un que tu n’es pas.</li>
-                    <li><strong>6. Mentions inutiles</strong> Ne mentionne pas les membres sans raison (@ inutile).</li>
-                </ol>
-            </div>
-
-            <!-- Carte Règlement du Jeu -->
-            <div class="rules-card">
-                <h3><i class="fa-solid fa-gamepad"></i> Règlement du Jeu</h3>
-                <ul class="rules-list">
-                    <li>
-                        <strong>1. Respect</strong>
-                        <ul>
-                            <li>Comportement courtois en tout temps</li>
-                            <li>Aucune insulte, provocation ou discrimination</li>
-                            <li>Les décisions du staff doivent être respectées</li>
-                        </ul>
-                    </li>
-                    <li>
-                        <strong>2. Roleplay</strong>
-                        <ul>
-                            <li>Rester en RP en tout temps</li>
-                            <li>Pas de troll ou d’actions irréalistes</li>
-                            <li>Interdiction de metagaming et powergaming</li>
-                        </ul>
-                    </li>
-                    <li>
-                        <strong>3. Interactions et Combat</strong>
-                        <ul>
-                            <li>Pas de RDM / VDM</li>
-                            <li>Toute action hostile doit être justifiée RP</li>
-                            <li>Utilisation cohérente des armes et de la force</li>
-                        </ul>
-                    </li>
-                    <li>
-                        <strong>4. Conduite et Véhicules</strong>
-                        <ul>
-                            <li>Conduite réaliste et contrôlée</li>
-                            <li>Pas de crash volontaire ou conduite troll</li>
-                            <li>Respect minimal du trafic selon le contexte RP</li>
-                        </ul>
-                    </li>
-                    <li>
-                        <strong>5. Triche et Exploits</strong>
-                        <ul>
-                            <li>Interdiction de toute forme de triche</li>
-                            <li>Aucun exploit de bug ou glitch</li>
-                            <li>Tout problème doit être signalé au staff</li>
-                        </ul>
-                    </li>
-                    <li>
-                        <strong>6. Sanctions</strong>
-                        <ul>
-                            <li>Le staff peut intervenir à tout moment</li>
-                            <li>Avertissement → kick → ban selon la gravité</li>
-                            <li>Les sanctions sont définitives une fois appliquées</li>
-                        </ul>
-                    </li>
-                </ul>
-            </div>
-
-        </div>
-    </section>
-
-    <!-- Pied de page -->
     <footer>
         <p>&copy; 2026 Ville De Québec Roleplay. Tous droits réservés.</p>
     </footer>

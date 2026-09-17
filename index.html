@@ -10,18 +10,18 @@
 
     <style>
         /* ==========================================
-           STYLE GÉNÉRAL & VARIABLES
+           VARIABLES & STYLE DE BASE
            ========================================== */
         :root {
             --bg-dark: #0f172a;
-            --card-bg: #1e293b;
+            --card-bg: rgba(30, 41, 59, 0.85); /* Semi-transparent pour voir le fond */
             --primary: #38bdf8;
             --primary-hover: #0284c7;
             --text-main: #f8fafc;
             --text-muted: #94a3b8;
             --discord-color: #5865F2;
             --discord-hover: #4752C4;
-            --border-color: rgba(255, 255, 255, 0.1);
+            --border-color: rgba(255, 255, 255, 0.15);
         }
 
         * {
@@ -31,13 +31,20 @@
             font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
         }
 
+        /* L'IMAGE PREND TOUT L'ÉCRAN ET RESTENT FIXE AU DÉFILEMENT */
         body {
-            background-color: var(--bg-dark);
             color: var(--text-main);
             line-height: 1.6;
+            min-height: 100vh;
+            
+            /* Image de fond fixe */
+            background-image: linear-gradient(rgba(15, 23, 42, 0.75), rgba(15, 23, 42, 0.85)), url('fond.png');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-attachment: fixed; /* L'image ne bouge pas quand on descend */
         }
 
-        /* Annule la couleur mauve des liens visités */
         a, a:visited, a:hover, a:active {
             text-decoration: none;
         }
@@ -50,13 +57,13 @@
             justify-content: space-between;
             align-items: center;
             padding: 1rem 5%;
-            background-color: rgba(15, 23, 42, 0.95);
+            background-color: rgba(15, 23, 42, 0.9);
             position: fixed;
             width: 100%;
             top: 0;
             left: 0;
             z-index: 1000;
-            backdrop-filter: blur(8px);
+            backdrop-filter: blur(10px);
             border-bottom: 1px solid var(--border-color);
         }
 
@@ -122,7 +129,7 @@
         }
 
         /* ==========================================
-           HERO SECTION (FOND PLEIN ÉCRAN)
+           HERO SECTION
            ========================================== */
         .hero {
             min-height: 100vh;
@@ -132,13 +139,6 @@
             align-items: center;
             text-align: center;
             padding: 7rem 1.5rem 3rem 1.5rem;
-            
-            /* L'image prend tout l'espace */
-            background-image: linear-gradient(rgba(15, 23, 42, 0.75), rgba(15, 23, 42, 0.9)), url('fond.png');
-            background-size: cover;
-            background-position: center;
-            background-repeat: no-repeat;
-            background-attachment: fixed;
         }
 
         .hero-content {
@@ -201,15 +201,17 @@
         }
 
         /* ==========================================
-           SECTION STATISTIQUES
+           SECTION STATISTIQUES (PAR-DESSUS L'IMAGE)
            ========================================== */
         .stats {
             display: flex;
             justify-content: center;
             gap: 2rem;
-            padding: 4rem 2rem;
-            background-color: #0b1120;
+            padding: 5rem 2rem;
+            background-color: rgba(11, 17, 32, 0.7); /* Transparence pour laisser voir l'image derrière */
+            backdrop-filter: blur(5px);
             flex-wrap: wrap;
+            border-top: 1px solid var(--border-color);
         }
 
         .stat-card {
@@ -219,6 +221,7 @@
             text-align: center;
             width: 280px;
             border: 1px solid var(--border-color);
+            backdrop-filter: blur(8px);
             transition: transform 0.3s ease;
         }
 
@@ -249,7 +252,7 @@
         footer {
             text-align: center;
             padding: 1.8rem;
-            background-color: #070a12;
+            background-color: rgba(7, 10, 18, 0.9);
             color: #64748b;
             font-size: 0.9rem;
             border-top: 1px solid var(--border-color);
@@ -277,7 +280,7 @@
         </a>
     </header>
 
-    <!-- Accueil Plein Écran -->
+    <!-- Section Principale -->
     <section class="hero">
         <div class="hero-content">
             <h1>Bienvenue sur <span>Ville De Québec RP</span></h1>
@@ -291,7 +294,7 @@
         </div>
     </section>
 
-    <!-- Cartes Statisiques -->
+    <!-- Section Statistiques qui défile par-dessus le fond -->
     <section class="stats">
         <div class="stat-card">
             <i class="fa-solid fa-users"></i>

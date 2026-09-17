@@ -36,7 +36,7 @@
             line-height: 1.6;
             min-height: 100vh;
             
-            /* Image de fond fixe sur tout le site */
+            /* Image de fond fixe qui couvre tout le site */
             background-image: linear-gradient(rgba(15, 23, 42, 0.75), rgba(15, 23, 42, 0.85)), url('fond.png');
             background-size: cover;
             background-position: center;
@@ -297,8 +297,8 @@
     <section class="stats">
         <div class="stat-card">
             <i class="fa-solid fa-users"></i>
-            <h3 id="member-count">...</h3>
-            <p>Joueurs actifs & passionnés</p>
+            <h3>Membres</h3>
+            <p id="member-count">???</p>
         </div>
         <div class="stat-card">
             <i class="fa-solid fa-shield-halved"></i>
@@ -317,21 +317,27 @@
         <p>&copy; 2026 Ville De Québec Roleplay. Tous droits réservés.</p>
     </footer>
 
-    <!-- SCRIPT JS POUR INTERROGER TON BOT SUR CANNER -->
+    <!-- SCRIPT JS POUR RÉCUPÉRER LE NOMBRE DE MEMBRES OU AFFICHER ??? -->
     <script>
         async function fetchMemberCount() {
+            const countElement = document.getElementById('member-count');
+
             try {
                 const response = await fetch('https://vqc.canner.app/api/members');
+                
+                // Si la réponse réseau n'est pas OK, on passe au bloc catch
+                if (!response.ok) throw new Error("Erreur de connexion");
+
                 const data = await response.json();
 
                 if (data.count !== undefined) {
-                    document.getElementById('member-count').innerText = `${data.count} Membres`;
+                    countElement.innerText = data.count;
                 } else {
-                    document.getElementById('member-count').innerText = 'Communauté';
+                    throw new Error("Format JSON invalide");
                 }
             } catch (error) {
-                console.error('Erreur lors du chargement des membres:', error);
-                document.getElementById('member-count').innerText = 'Communauté';
+                console.log('API indisponible, affichage du mode de secours (???)');
+                countElement.innerText = "???";
             }
         }
 

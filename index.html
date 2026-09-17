@@ -4,13 +4,256 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Ville De Québec Roleplay - Communauté RP</title>
-    <link rel="stylesheet" href="style.css">
+    
     <!-- FontAwesome pour les icônes -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        /* ==========================================
+           STYLE GÉNÉRAL & VARIABLES
+           ========================================== */
+        :root {
+            --bg-dark: #0f172a;
+            --card-bg: #1e293b;
+            --primary: #38bdf8;
+            --primary-hover: #0284c7;
+            --text-main: #f8fafc;
+            --text-muted: #94a3b8;
+            --discord-color: #5865F2;
+            --discord-hover: #4752C4;
+            --border-color: rgba(255, 255, 255, 0.1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background-color: var(--bg-dark);
+            color: var(--text-main);
+            line-height: 1.6;
+        }
+
+        /* FIX DES LIENS (Évite la couleur mauve visitée) */
+        a, a:visited, a:hover, a:active {
+            text-decoration: none;
+        }
+
+        /* ==========================================
+           NAVBAR (EN-TÊTE)
+           ========================================== */
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 5%;
+            background-color: rgba(15, 23, 42, 0.95);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            left: 0;
+            z-index: 1000;
+            backdrop-filter: blur(8px);
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .logo-link {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .site-logo {
+            height: 42px;
+            width: auto;
+            object-fit: contain;
+        }
+
+        .logo-text {
+            font-size: 1.3rem;
+            font-weight: 800;
+            letter-spacing: 0.5px;
+        }
+
+        .logo-bold {
+            color: #ffffff !important;
+        }
+
+        .logo-tag {
+            color: var(--primary) !important;
+        }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+        }
+
+        .nav-links a {
+            color: var(--text-muted);
+            margin: 0 1rem;
+            font-weight: 600;
+            font-size: 0.95rem;
+            transition: color 0.3s ease;
+        }
+
+        .nav-links a:hover, 
+        .nav-links a.active {
+            color: var(--primary);
+        }
+
+        .btn-discord {
+            background-color: var(--discord-color);
+            color: #ffffff !important;
+            padding: 0.6rem 1.2rem;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 0.95rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            transition: background 0.3s ease;
+        }
+
+        .btn-discord:hover {
+            background-color: var(--discord-hover);
+        }
+
+        /* ==========================================
+           HERO SECTION
+           ========================================== */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 7rem 1.5rem 3rem 1.5rem;
+            background: linear-gradient(rgba(15, 23, 42, 0.8), rgba(15, 23, 42, 0.95)), 
+                        url('fond.png') center/cover no-repeat;
+        }
+
+        .hero-content {
+            max-width: 800px;
+        }
+
+        .hero-content h1 {
+            font-size: 3rem;
+            font-weight: 800;
+            margin-bottom: 1rem;
+            color: #ffffff;
+        }
+
+        .hero-content h1 span {
+            color: var(--primary);
+        }
+
+        .hero-content p {
+            font-size: 1.15rem;
+            color: #cbd5e1;
+            margin-bottom: 2rem;
+        }
+
+        .hero-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .btn-primary {
+            background-color: var(--primary);
+            color: #0f172a !important;
+            padding: 0.8rem 1.8rem;
+            border-radius: 8px;
+            font-weight: 700;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            transition: transform 0.2s, background-color 0.2s;
+        }
+
+        .btn-primary:hover {
+            background-color: var(--primary-hover);
+            color: #ffffff !important;
+            transform: translateY(-2px);
+        }
+
+        .btn-secondary {
+            border: 2px solid var(--primary);
+            color: var(--primary) !important;
+            padding: 0.8rem 1.8rem;
+            border-radius: 8px;
+            font-weight: 700;
+            transition: background 0.3s ease;
+        }
+
+        .btn-secondary:hover {
+            background-color: rgba(56, 189, 248, 0.15);
+        }
+
+        /* ==========================================
+           SECTION STATISTIQUES / INFOS
+           ========================================== */
+        .stats {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            padding: 4rem 2rem;
+            background-color: #0b1120;
+            flex-wrap: wrap;
+        }
+
+        .stat-card {
+            background-color: var(--card-bg);
+            padding: 2.5rem 2rem;
+            border-radius: 12px;
+            text-align: center;
+            width: 280px;
+            border: 1px solid var(--border-color);
+            transition: transform 0.3s ease;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .stat-card i {
+            font-size: 2.5rem;
+            color: var(--primary);
+            margin-bottom: 1.2rem;
+        }
+
+        .stat-card h3 {
+            font-size: 1.6rem;
+            color: #ffffff;
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-card p {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+        }
+
+        /* ==========================================
+           FOOTER
+           ========================================== */
+        footer {
+            text-align: center;
+            padding: 1.8rem;
+            background-color: #070a12;
+            color: #64748b;
+            font-size: 0.9rem;
+            border-top: 1px solid var(--border-color);
+        }
+    </style>
 </head>
 <body>
 
-    <!-- Entête / Navbar -->
+    <!-- Barre de Navigation -->
     <header class="navbar">
         <a href="#accueil" class="logo-link">
             <img src="logo.png" alt="Logo Ville De Québec RP" class="site-logo">
@@ -29,7 +272,7 @@
         </a>
     </header>
 
-    <!-- Section Principale (Hero) -->
+    <!-- Section d'Accueil -->
     <section id="accueil" class="hero">
         <div class="hero-content">
             <h1>Bienvenue sur <span>Ville De Québec RP</span></h1>
@@ -43,7 +286,7 @@
         </div>
     </section>
 
-    <!-- Section Statistiques / Infos -->
+    <!-- Cartes d'Informations -->
     <section class="stats">
         <div class="stat-card">
             <i class="fa-solid fa-users"></i>

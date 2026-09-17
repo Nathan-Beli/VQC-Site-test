@@ -10,18 +10,18 @@
 
     <style>
         /* ==========================================
-           VARIABLES & STYLE DE BASE
+           VARIABLES & STYLE DE BASE (THÈME ROUGE)
            ========================================== */
         :root {
             --bg-dark: #0f172a;
             --card-bg: rgba(30, 41, 59, 0.85);
-            --primary: #38bdf8;
-            --primary-hover: #0284c7;
+            --primary: #ef4444;            /* Rouge principal */
+            --primary-hover: #dc2626;      /* Rouge foncé au survol */
             --text-main: #f8fafc;
             --text-muted: #94a3b8;
             --discord-color: #5865F2;
             --discord-hover: #4752C4;
-            --border-color: rgba(255, 255, 255, 0.15);
+            --border-color: rgba(239, 68, 68, 0.25); /* Bordure teintée rouge */
         }
 
         * {
@@ -36,8 +36,8 @@
             line-height: 1.6;
             min-height: 100vh;
             
-            /* Image de fond fixe qui couvre tout le site */
-            background-image: linear-gradient(rgba(15, 23, 42, 0.75), rgba(15, 23, 42, 0.85)), url('fond.png');
+            /* Image de fond fixe avec filtre sombre */
+            background-image: linear-gradient(rgba(15, 23, 42, 0.8), rgba(15, 23, 42, 0.9)), url('fond.png');
             background-size: cover;
             background-position: center;
             background-repeat: no-repeat;
@@ -56,7 +56,7 @@
             justify-content: space-between;
             align-items: center;
             padding: 1rem 5%;
-            background-color: rgba(15, 23, 42, 0.9);
+            background-color: rgba(15, 23, 42, 0.95);
             position: fixed;
             width: 100%;
             top: 0;
@@ -170,7 +170,7 @@
 
         .btn-primary {
             background-color: var(--primary);
-            color: #0f172a !important;
+            color: #ffffff !important;
             padding: 0.8rem 1.8rem;
             border-radius: 8px;
             font-weight: 700;
@@ -182,7 +182,6 @@
 
         .btn-primary:hover {
             background-color: var(--primary-hover);
-            color: #ffffff !important;
             transform: translateY(-2px);
         }
 
@@ -196,7 +195,7 @@
         }
 
         .btn-secondary:hover {
-            background-color: rgba(56, 189, 248, 0.15);
+            background-color: rgba(239, 68, 68, 0.15);
         }
 
         /* ==========================================
@@ -263,9 +262,9 @@
     <!-- Navigation -->
     <header class="navbar">
         <a href="index.html" class="logo-link">
-            <img src="logo.png" alt="Logo Ville De Québec RP" class="site-logo">
+            <img src="logo.png" alt="Logo Blainville RP QC" class="site-logo">
             <div class="logo-text">
-                <span class="logo-bold">VILLE DE QUÉBEC</span> <span class="logo-tag">RP</span>
+                <span class="logo-bold">BLAINVILLE</span> <span class="logo-tag">RP QC</span>
             </div>
         </a>
         <nav class="nav-links">
@@ -282,7 +281,7 @@
     <section class="hero">
         <div class="hero-content">
             <h1>Bienvenue sur <span>Blainville RP QC</span></h1>
-            <p>Une expérience de roleplay immersive inspirée de la capitale nationale, avec des services d'urgence réalistes et une communauté passionnée.</p>
+            <p>Une expérience de roleplay immersive, avec des services d'urgence réalistes et une communauté passionnée.</p>
             <div class="hero-buttons">
                 <a href="https://discord.gg/3AwjGBaFQN" target="_blank" class="btn-primary">
                     <i class="fa-brands fa-discord"></i> Serveur Discord
@@ -302,21 +301,21 @@
         <div class="stat-card">
             <i class="fa-solid fa-shield-halved"></i>
             <h3>Factions</h3>
-            <p>SPVB, SQ, US, SIVB, MTQ</p>
+            <p>Police, Pompiers, Paramédics</p>
         </div>
         <div class="stat-card">
             <i class="fa-solid fa-map-location-dot"></i>
-            <h3>Québec</h3>
+            <h3>Blainville</h3>
             <p>Carte & ambiance 100% locale</p>
         </div>
     </section>
 
     <!-- Pied de page -->
     <footer>
-        <p>&copy; 2026 Ville De Québec Roleplay. Tous droits réservés.</p>
+        <p>&copy; 2026 Blainville RP QC. Tous droits réservés.</p>
     </footer>
 
-    <!-- SCRIPT JS POUR INTERROGER L'API BOT DU SERVEUR -->
+    <!-- SCRIPT JS POUR L'API -->
     <script>
         async function fetchMemberCount() {
             const countElement = document.getElementById('member-count');

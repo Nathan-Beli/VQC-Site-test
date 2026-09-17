@@ -7,10 +7,9 @@ const path = require('path');
 const app = express();
 app.use(cors());
 
-// 1. SERVIR LE SITE WEB HTML
+// Servir les fichiers du site
 app.use(express.static(path.join(__dirname)));
 
-// 2. BOT DISCORD
 const client = new Client({
     intents: [
         GatewayIntentBits.Guilds,
@@ -18,7 +17,7 @@ const client = new Client({
     ]
 });
 
-// 3. ROUTE API MEMBRES
+// Route API pour les membres
 app.get('/api/members', async (req, res) => {
     try {
         const guild = client.guilds.cache.get(process.env.GUILD_ID);
@@ -31,16 +30,14 @@ app.get('/api/members', async (req, res) => {
 
         res.json({ count: humanCount });
     } catch (error) {
-        console.error(error);
+        console.error("Erreur Discord API:", error);
         res.status(500).json({ error: "Erreur récupération membres" });
     }
 });
 
-// Connexion Discord
 client.login(process.env.DISCORD_TOKEN);
 
-// Démarrage sur le port Canner
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
-    console.log(`Serveur prêt sur le port ${PORT}`);
+    console.log(`Serveur Blainville RP QC démarré sur le port ${PORT}`);
 });

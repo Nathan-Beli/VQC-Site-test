@@ -28,7 +28,7 @@ body {
 }
 
 .logo {
-    font-size: 1.5rem;
+    font-size: 1.4rem;
     font-weight: 800;
     letter-spacing: 1px;
 }
@@ -67,7 +67,7 @@ body {
     background-color: #4752C4;
 }
 
-/* Hero Section */
+/* Hero Section avec ton image Discord en fond */
 .hero {
     height: 100vh;
     display: flex;
@@ -75,8 +75,8 @@ body {
     align-items: center;
     text-align: center;
     padding: 0 1rem;
-    background: linear-gradient(rgba(15, 23, 42, 0.75), rgba(15, 23, 42, 0.95)), 
-                url('https://images.unsplash.com/photo-1542751371-adc38448a05e?q=80&w=1920') center/cover no-repeat;
+    background: linear-gradient(rgba(15, 23, 42, 0.75), rgba(15, 23, 42, 0.90)), 
+                url('https://media.discordapp.net/attachments/1490444416681246932/1537590361193713734/image.png?ex=6aac6b1d&is=6aab199d&hm=db6aeb802f698d80bbdbe3e16e42f09134456f5f489d74365174986e48d411a7&=&format=webp&quality=lossless&width=1595&height=838') center/cover no-repeat;
 }
 
 .hero-content {

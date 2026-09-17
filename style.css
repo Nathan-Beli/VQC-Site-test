@@ -67,7 +67,7 @@ body {
     background-color: #4752C4;
 }
 
-/* Hero Section avec ton image Discord en fond */
+/* Hero Section - Image de fond fixe */
 .hero {
     height: 100vh;
     display: flex;
@@ -75,8 +75,12 @@ body {
     align-items: center;
     text-align: center;
     padding: 0 1rem;
+    /* 
+       CONSEIL : Télécharge ton image et enregistre-la sous le nom "banner.png" 
+       dans le même dossier que ton fichier index.html, puis remplace l'URL ci-dessous par 'banner.png'.
+    */
     background: linear-gradient(rgba(15, 23, 42, 0.75), rgba(15, 23, 42, 0.90)), 
-                url('https://media.discordapp.net/attachments/1490444416681246932/1537590361193713734/image.png?ex=6aac6b1d&is=6aab199d&hm=db6aeb802f698d80bbdbe3e16e42f09134456f5f489d74365174986e48d411a7&=&format=webp&quality=lossless&width=1595&height=838') center/cover no-repeat;
+                url('https://media.discordapp.net/attachments/1490444416681246932/1537590361193713734/image.png') center/cover no-repeat;
 }
 
 .hero-content {

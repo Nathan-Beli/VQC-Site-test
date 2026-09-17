@@ -28,13 +28,13 @@ body {
 }
 
 /* ==========================================
-   NAVBAR
+   NAVBAR & LOGO
    ========================================== */
 .navbar {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 1rem 6%;
+    padding: 0.8rem 6%;
     background: rgba(9, 13, 22, 0.85);
     position: fixed;
     width: 100%;
@@ -44,20 +44,21 @@ body {
     border-bottom: 1px solid var(--border-color);
 }
 
-.logo {
-    font-size: 1.3rem;
-    font-weight: 900;
-    letter-spacing: 1.5px;
-    text-transform: uppercase;
+.logo-link {
+    display: flex;
+    align-items: center;
+    text-decoration: none;
 }
 
-.logo-bold {
-    color: #ffffff;
+.site-logo {
+    height: 45px; /* Ajuste la hauteur de ton logo selon tes besoins */
+    width: auto;
+    object-fit: contain;
+    transition: transform 0.3s ease;
 }
 
-.logo-tag {
-    color: var(--primary);
-    text-shadow: 0 0 10px var(--primary-glow);
+.site-logo:hover {
+    transform: scale(1.05);
 }
 
 .nav-links a {
@@ -92,7 +93,7 @@ body {
 }
 
 /* ==========================================
-   HERO SECTION (UTILISE FOND.PNG EN LOCAL)
+   HERO SECTION (IMAGE DE FOND LOCAL)
    ========================================== */
 .hero {
     min-height: 100vh;
@@ -103,7 +104,6 @@ body {
     padding: 6rem 1.5rem 2rem 1.5rem;
     position: relative;
     
-    /* Charge le fichier fond.png présent dans le même dossier */
     background: linear-gradient(180deg, rgba(9, 13, 22, 0.6) 0%, rgba(9, 13, 22, 0.95) 100%), 
                 url('fond.png') center/cover no-repeat !important;
 }

@@ -1,11 +1,11 @@
+require('dotenv').config();
+const { Client, GatewayIntentBits } = require('discord.js');
 const express = require('express');
 const cors = require('cors');
-const { Client, GatewayIntentBits } = require('discord.js');
 
 const app = express();
-app.use(cors());
+app.use(cors()); // Autorise le site à lire la donnée
 
-// Initialisation du bot Discord
 const client = new Client({
     intents: [
         GatewayIntentBits.Guilds,
@@ -13,28 +13,22 @@ const client = new Client({
     ]
 });
 
-// Route API pour les membres
+// Le token récupère les membres et les envoie au site sous format JSON
 app.get('/api/members', async (req, res) => {
     try {
         const guild = client.guilds.cache.get(process.env.GUILD_ID);
-        if (!guild) {
-            return res.status(404).json({ error: "Serveur non trouvé" });
-        }
+        if (!guild) return res.status(404).json({ error: "Serveur introuvable" });
 
         await guild.members.fetch();
-        const humanCount = guild.members.cache.filter(member => !member.user.bot).size;
+        const humanCount = guild.members.cache.filter(m => !m.user.bot).size;
 
-        // Renvoie du JSON obligatoire pour fetch()
         res.json({ count: humanCount });
     } catch (error) {
-        console.error(error);
-        res.status(500).json({ error: "Erreur serveur" });
+        res.status(500).json({ error: "Erreur lors de la récupération" });
     }
 });
 
-// Connexion au bot
 client.login(process.env.DISCORD_TOKEN);
 
-// Écoute sur le port fourni par Canner
 const PORT = process.env.PORT || 3000;
-app.listen(PORT, () => console.log(`API lancée sur le port ${PORT}`));
+app.listen(PORT, () => console.log(`API démarrée sur le port ${PORT}`));

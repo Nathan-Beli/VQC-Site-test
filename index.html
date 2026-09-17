@@ -317,12 +317,11 @@
         <p>&copy; 2026 Ville De Québec Roleplay. Tous droits réservés.</p>
     </footer>
 
-    <!-- SCRIPT POUR RÉCUPÉRER LE NOMBRE DE MEMBRES -->
+    <!-- SCRIPT JS POUR INTERROGER TON BOT SUR CANNER -->
     <script>
         async function fetchMemberCount() {
             try {
-                // Remplace l'URL ci-dessous par l'adresse de l'API de ton bot (ex: https://mon-bot.onrender.com/api/members)
-                const response = await fetch('https://TON-BOT-URL.com/api/members');
+                const response = await fetch('https://vqc.canner.app/api/members');
                 const data = await response.json();
 
                 if (data.count !== undefined) {
@@ -331,7 +330,7 @@
                     document.getElementById('member-count').innerText = 'Communauté';
                 }
             } catch (error) {
-                console.error('Erreur chargement membres:', error);
+                console.error('Erreur lors du chargement des membres:', error);
                 document.getElementById('member-count').innerText = 'Communauté';
             }
         }

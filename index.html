@@ -297,8 +297,8 @@
     <section class="stats">
         <div class="stat-card">
             <i class="fa-solid fa-users"></i>
-            <h3>Membres</h3>
-            <p id="member-count">???</p>
+            <h3 id="member-count">???</h3>
+            <p>Joueurs actifs & passionnés</p>
         </div>
         <div class="stat-card">
             <i class="fa-solid fa-shield-halved"></i>
@@ -317,26 +317,27 @@
         <p>&copy; 2026 Ville De Québec Roleplay. Tous droits réservés.</p>
     </footer>
 
-    <!-- SCRIPT JS POUR RÉCUPÉRER LE NOMBRE DE MEMBRES OU AFFICHER ??? -->
+    <!-- SCRIPT JS SEULEMENT POUR TON BOT API (SANS WIDGET) -->
     <script>
         async function fetchMemberCount() {
             const countElement = document.getElementById('member-count');
 
             try {
-                const response = await fetch('https://vqc.canner.app/api/members');
+                // Remplace l'URL ci-dessous par l'adresse réelle de l'API de ton bot
+                const response = await fetch('/api/members');
                 
-                // Si la réponse réseau n'est pas OK, on passe au bloc catch
-                if (!response.ok) throw new Error("Erreur de connexion");
+                // Si la réponse n'est pas au format JSON valide ou en erreur HTTP, passe au catch
+                if (!response.ok) throw new Error("API non disponible");
 
                 const data = await response.json();
 
                 if (data.count !== undefined) {
                     countElement.innerText = data.count;
                 } else {
-                    throw new Error("Format JSON invalide");
+                    throw new Error("Donnée manquante dans le JSON");
                 }
             } catch (error) {
-                console.log('API indisponible, affichage du mode de secours (???)');
+                console.log('Bot non joignable, affichage de ???');
                 countElement.innerText = "???";
             }
         }

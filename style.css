@@ -26,7 +26,7 @@ body {
 }
 
 /* ==========================================
-   NAVBAR (LOGO + NOM DU SERVEUR)
+   NAVBAR (FIX COULEUR MAUVE)
    ========================================== */
 .navbar {
     display: flex;
@@ -42,11 +42,16 @@ body {
     border-bottom: 1px solid var(--border-color);
 }
 
-.logo-link {
+/* Force les liens du logo à garder leur couleur sans passer au mauve */
+.logo-link, 
+.logo-link:visited, 
+.logo-link:hover, 
+.logo-link:active {
     display: flex;
     align-items: center;
     gap: 12px;
     text-decoration: none;
+    color: inherit;
 }
 
 .site-logo {
@@ -62,11 +67,11 @@ body {
 }
 
 .logo-bold {
-    color: #ffffff;
+    color: #ffffff !important;
 }
 
 .logo-tag {
-    color: var(--primary);
+    color: var(--primary) !important;
 }
 
 .nav-links a {

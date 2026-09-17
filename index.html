@@ -200,7 +200,7 @@
         }
 
         /* ==========================================
-           SECTION STATISTIQUES
+           SECTION STATISTIQUES / INFORMATIONS
            ========================================== */
         .stats {
             display: flex;
@@ -293,7 +293,7 @@
         </div>
     </section>
 
-    <!-- Section Statistiques -->
+    <!-- Section Cartes / Infos -->
     <section class="stats">
         <div class="stat-card">
             <i class="fa-solid fa-users"></i>
@@ -306,9 +306,9 @@
             <p>SPVQ, SQ, SPCIQ, CTAQ, MTQ</p>
         </div>
         <div class="stat-card">
-            <i class="fa-solid fa-server"></i>
-            <h3>99.9%</h3>
-            <p>Uptime Serveur</p>
+            <i class="fa-solid fa-map-location-dot"></i>
+            <h3>Québec</h3>
+            <p>Carte & ambiance 100% locale</p>
         </div>
     </section>
 
@@ -317,16 +317,14 @@
         <p>&copy; 2026 Ville De Québec Roleplay. Tous droits réservés.</p>
     </footer>
 
-    <!-- SCRIPT JS SEULEMENT POUR TON BOT API (SANS WIDGET) -->
+    <!-- SCRIPT JS POUR INTERROGER L'API BOT DU SERVEUR -->
     <script>
         async function fetchMemberCount() {
             const countElement = document.getElementById('member-count');
 
             try {
-                // Remplace l'URL ci-dessous par l'adresse réelle de l'API de ton bot
                 const response = await fetch('/api/members');
                 
-                // Si la réponse n'est pas au format JSON valide ou en erreur HTTP, passe au catch
                 if (!response.ok) throw new Error("API non disponible");
 
                 const data = await response.json();
@@ -334,7 +332,7 @@
                 if (data.count !== undefined) {
                     countElement.innerText = data.count;
                 } else {
-                    throw new Error("Donnée manquante dans le JSON");
+                    throw new Error("Donnée manquante");
                 }
             } catch (error) {
                 console.log('Bot non joignable, affichage de ???');

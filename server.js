@@ -1,49 +1,40 @@
-require('dotenv').config(); // Permet de lire le fichier .env en local
-const { Client, GatewayIntentBits } = require('discord.js');
 const express = require('express');
 const cors = require('cors');
+const { Client, GatewayIntentBits } = require('discord.js');
 
 const app = express();
-app.use(cors()); // Autorise ton site web à lire l'API
+app.use(cors());
 
 // Initialisation du bot Discord
 const client = new Client({
     intents: [
         GatewayIntentBits.Guilds,
-        GatewayIntentBits.GuildMembers // Nécessaire pour compter les membres
+        GatewayIntentBits.GuildMembers
     ]
 });
 
-// Route API pour récupérer le nombre de membres sans les bots
+// Route API pour les membres
 app.get('/api/members', async (req, res) => {
     try {
-        const guildId = process.env.GUILD_ID; // ID de ton serveur Discord
-        const guild = client.guilds.cache.get(guildId);
-        
+        const guild = client.guilds.cache.get(process.env.GUILD_ID);
         if (!guild) {
-            return res.status(404).json({ error: "Serveur Discord non trouvé" });
+            return res.status(404).json({ error: "Serveur non trouvé" });
         }
 
-        // Récupère la liste à jour des membres
         await guild.members.fetch();
-
-        // Filtre pour ne garder que les membres qui NE SONT PAS des bots
         const humanCount = guild.members.cache.filter(member => !member.user.bot).size;
 
+        // Renvoie du JSON obligatoire pour fetch()
         res.json({ count: humanCount });
     } catch (error) {
-        console.error("Erreur API:", error);
-        res.status(500).json({ error: "Erreur lors du comptage des membres" });
+        console.error(error);
+        res.status(500).json({ error: "Erreur serveur" });
     }
 });
 
-client.once('ready', () => {
-    console.log(`Bot connecté sous le nom de ${client.user.tag}`);
-});
-
-// Connexion du bot avec le Token depuis les variables d'environnement
+// Connexion au bot
 client.login(process.env.DISCORD_TOKEN);
 
-// Démarrage de l'API web
+// Écoute sur le port fourni par Canner
 const PORT = process.env.PORT || 3000;
-app.listen(PORT, () => console.log(`Serveur API lancé sur le port ${PORT}`));
+app.listen(PORT, () => console.log(`API lancée sur le port ${PORT}`));

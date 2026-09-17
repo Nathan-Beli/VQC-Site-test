@@ -5,9 +5,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Ville De Québec Roleplay - Accueil</title>
     
+    <!-- FontAwesome pour les icônes -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
     <style>
+        /* ==========================================
+           STYLE GÉNÉRAL & VARIABLES
+           ========================================== */
         :root {
             --bg-dark: #0f172a;
             --card-bg: #1e293b;
@@ -33,10 +37,14 @@
             line-height: 1.6;
         }
 
+        /* Annule la couleur mauve des liens visités */
         a, a:visited, a:hover, a:active {
             text-decoration: none;
         }
 
+        /* ==========================================
+           NAVBAR (EN-TÊTE)
+           ========================================== */
         .navbar {
             display: flex;
             justify-content: space-between;
@@ -113,15 +121,24 @@
             background-color: var(--discord-hover);
         }
 
+        /* ==========================================
+           HERO SECTION (FOND PLEIN ÉCRAN)
+           ========================================== */
         .hero {
             min-height: 100vh;
+            width: 100%;
             display: flex;
             justify-content: center;
             align-items: center;
             text-align: center;
             padding: 7rem 1.5rem 3rem 1.5rem;
-            background: linear-gradient(rgba(15, 23, 42, 0.8), rgba(15, 23, 42, 0.95)), 
-                        url('fond.png') center/cover no-repeat;
+            
+            /* L'image prend tout l'espace */
+            background-image: linear-gradient(rgba(15, 23, 42, 0.75), rgba(15, 23, 42, 0.9)), url('fond.png');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
         }
 
         .hero-content {
@@ -183,6 +200,9 @@
             background-color: rgba(56, 189, 248, 0.15);
         }
 
+        /* ==========================================
+           SECTION STATISTIQUES
+           ========================================== */
         .stats {
             display: flex;
             justify-content: center;
@@ -223,6 +243,9 @@
             font-size: 0.95rem;
         }
 
+        /* ==========================================
+           FOOTER
+           ========================================== */
         footer {
             text-align: center;
             padding: 1.8rem;
@@ -235,6 +258,7 @@
 </head>
 <body>
 
+    <!-- Navigation -->
     <header class="navbar">
         <a href="index.html" class="logo-link">
             <img src="logo.png" alt="Logo Ville De Québec RP" class="site-logo">
@@ -253,6 +277,7 @@
         </a>
     </header>
 
+    <!-- Accueil Plein Écran -->
     <section class="hero">
         <div class="hero-content">
             <h1>Bienvenue sur <span>Ville De Québec RP</span></h1>
@@ -266,6 +291,7 @@
         </div>
     </section>
 
+    <!-- Cartes Statisiques -->
     <section class="stats">
         <div class="stat-card">
             <i class="fa-solid fa-users"></i>
@@ -284,6 +310,7 @@
         </div>
     </section>
 
+    <!-- Pied de page -->
     <footer>
         <p>&copy; 2026 Ville De Québec Roleplay. Tous droits réservés.</p>
     </footer>

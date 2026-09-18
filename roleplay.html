@@ -1,1 +1,202 @@
 
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blainville RP QC - Roleplay</title>
+    
+    <!-- FontAwesome pour les icônes -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        /* ==========================================
+           VARIABLES & STYLE DE BASE (THÈME ROUGE)
+           ========================================== */
+        :root {
+            --bg-dark: #0f172a;
+            --card-bg: rgba(30, 41, 59, 0.85);
+            --primary: #ef4444;            /* Rouge principal */
+            --primary-hover: #dc2626;      /* Rouge foncé au survol */
+            --text-main: #f8fafc;
+            --text-muted: #94a3b8;
+            --discord-color: #5865F2;
+            --discord-hover: #4752C4;
+            --border-color: rgba(239, 68, 68, 0.25);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+        }
+
+        body {
+            color: var(--text-main);
+            line-height: 1.6;
+            min-height: 100vh;
+            background-image: linear-gradient(rgba(15, 23, 42, 0.85), rgba(15, 23, 42, 0.95)), url('fond.png');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+        }
+
+        a, a:visited, a:hover, a:active {
+            text-decoration: none;
+        }
+
+        /* ==========================================
+           NAVBAR (EN-TÊTE)
+           ========================================== */
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 5%;
+            background-color: rgba(15, 23, 42, 0.95);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            left: 0;
+            z-index: 1000;
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .logo-link {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .site-logo {
+            height: 42px;
+            width: auto;
+            object-fit: contain;
+        }
+
+        .logo-text {
+            font-size: 1.3rem;
+            font-weight: 800;
+            letter-spacing: 0.5px;
+        }
+
+        .logo-bold {
+            color: #ffffff !important;
+        }
+
+        .logo-tag {
+            color: var(--primary) !important;
+        }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+        }
+
+        .nav-links a {
+            color: var(--text-muted);
+            margin: 0 1rem;
+            font-weight: 600;
+            font-size: 0.95rem;
+            transition: color 0.3s ease;
+        }
+
+        .nav-links a:hover, 
+        .nav-links a.active {
+            color: var(--primary);
+        }
+
+        .btn-discord {
+            background-color: var(--discord-color);
+            color: #ffffff !important;
+            padding: 0.6rem 1.2rem;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 0.95rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            transition: background 0.3s ease;
+        }
+
+        .btn-discord:hover {
+            background-color: var(--discord-hover);
+        }
+
+        /* ==========================================
+           CONTENU DE LA PAGE
+           ========================================== */
+        .page-container {
+            max-width: 900px;
+            margin: 8rem auto 4rem auto;
+            padding: 0 1.5rem;
+            text-align: center;
+        }
+
+        .page-header h1 {
+            font-size: 2.8rem;
+            font-weight: 800;
+            color: #ffffff;
+            margin-bottom: 0.5rem;
+        }
+
+        .page-header h1 span {
+            color: var(--primary);
+        }
+
+        .page-header p {
+            color: var(--text-muted);
+            font-size: 1.1rem;
+        }
+
+        /* ==========================================
+           FOOTER
+           ========================================== */
+        footer {
+            text-align: center;
+            padding: 1.8rem;
+            background-color: rgba(7, 10, 18, 0.9);
+            color: #64748b;
+            font-size: 0.9rem;
+            border-top: 1px solid var(--border-color);
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Navigation -->
+    <header class="navbar">
+        <a href="index.html" class="logo-link">
+            <img src="logo.png" alt="Logo Blainville RP QC" class="site-logo">
+            <div class="logo-text">
+                <span class="logo-bold">BLAINVILLE</span> <span class="logo-tag">RP QC</span>
+            </div>
+        </a>
+        <nav class="nav-links">
+            <a href="index.html">Accueil</a>
+            <a href="reglement.html">Règlement</a>
+            <a href="roleplay.html" class="active">Roleplay</a>
+        </nav>
+        <a href="https://discord.gg/9xUYtvceWm" target="_blank" class="btn-discord">
+            <i class="fa-brands fa-discord"></i> Rejoindre
+        </a>
+    </header>
+
+    <!-- Contenu Roleplay -->
+    <main class="page-container">
+        <div class="page-header">
+            <h1>Section <span>Roleplay</span></h1>
+            <p>Le contenu de cette section arrive bientôt...</p>
+        </div>
+    </main>
+
+    <!-- Pied de page -->
+    <footer>
+        <p>&copy; 2026 Blainville RP QC. Tous droits réservés.</p>
+    </footer>
+
+</body>
+</html>

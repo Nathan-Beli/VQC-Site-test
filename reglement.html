@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Blainville RP QC - Accueil</title>
+    <title>Blainville RP QC - Règlement</title>
     
     <!-- FontAwesome pour les icônes -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -35,7 +35,7 @@
             color: var(--text-main);
             line-height: 1.6;
             min-height: 100vh;
-            background-image: linear-gradient(rgba(15, 23, 42, 0.8), rgba(15, 23, 42, 0.9)), url('fond.png');
+            background-image: linear-gradient(rgba(15, 23, 42, 0.85), rgba(15, 23, 42, 0.95)), url('fond.png');
             background-size: cover;
             background-position: center;
             background-repeat: no-repeat;
@@ -126,120 +126,78 @@
         }
 
         /* ==========================================
-           HERO SECTION
+           SECTION RÈGLEMENT
            ========================================== */
-        .hero {
-            min-height: 100vh;
-            width: 100%;
-            display: flex;
-            justify-content: center;
-            align-items: center;
+        .rules-container {
+            max-width: 900px;
+            margin: 8rem auto 4rem auto;
+            padding: 0 1.5rem;
+        }
+
+        .rules-header {
             text-align: center;
-            padding: 7rem 1.5rem 3rem 1.5rem;
+            margin-bottom: 3rem;
         }
 
-        .hero-content {
-            max-width: 800px;
-        }
-
-        .hero-content h1 {
-            font-size: 3rem;
+        .rules-header h1 {
+            font-size: 2.8rem;
             font-weight: 800;
-            margin-bottom: 1rem;
-            color: #ffffff;
-        }
-
-        .hero-content h1 span {
-            color: var(--primary);
-        }
-
-        .hero-content p {
-            font-size: 1.15rem;
-            color: #cbd5e1;
-            margin-bottom: 2rem;
-        }
-
-        .hero-buttons {
-            display: flex;
-            justify-content: center;
-            gap: 1rem;
-            flex-wrap: wrap;
-        }
-
-        .btn-primary {
-            background-color: var(--primary);
-            color: #ffffff !important;
-            padding: 0.8rem 1.8rem;
-            border-radius: 8px;
-            font-weight: 700;
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            transition: transform 0.2s, background-color 0.2s;
-        }
-
-        .btn-primary:hover {
-            background-color: var(--primary-hover);
-            transform: translateY(-2px);
-        }
-
-        .btn-secondary {
-            border: 2px solid var(--primary);
-            color: var(--primary) !important;
-            padding: 0.8rem 1.8rem;
-            border-radius: 8px;
-            font-weight: 700;
-            transition: background 0.3s ease;
-        }
-
-        .btn-secondary:hover {
-            background-color: rgba(239, 68, 68, 0.15);
-        }
-
-        /* ==========================================
-           SECTION CARTES / INFOS
-           ========================================== */
-        .stats {
-            display: flex;
-            justify-content: center;
-            gap: 2rem;
-            padding: 5rem 2rem;
-            background-color: rgba(11, 17, 32, 0.7);
-            backdrop-filter: blur(5px);
-            flex-wrap: wrap;
-            border-top: 1px solid var(--border-color);
-        }
-
-        .stat-card {
-            background-color: var(--card-bg);
-            padding: 2.5rem 2rem;
-            border-radius: 12px;
-            text-align: center;
-            width: 280px;
-            border: 1px solid var(--border-color);
-            backdrop-filter: blur(8px);
-            transition: transform 0.3s ease;
-        }
-
-        .stat-card:hover {
-            transform: translateY(-5px);
-        }
-
-        .stat-card i {
-            font-size: 2.5rem;
-            color: var(--primary);
-            margin-bottom: 1.2rem;
-        }
-
-        .stat-card h3 {
-            font-size: 1.6rem;
             color: #ffffff;
             margin-bottom: 0.5rem;
         }
 
-        .stat-card p {
+        .rules-header h1 span {
+            color: var(--primary);
+        }
+
+        .rules-header p {
             color: var(--text-muted);
-            font-size: 0.95rem;
+            font-size: 1.1rem;
+        }
+
+        .rule-card {
+            background-color: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 2rem;
+            margin-bottom: 1.5rem;
+            backdrop-filter: blur(8px);
+        }
+
+        .rule-card h2 {
+            color: var(--primary);
+            font-size: 1.4rem;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .rule-card ul {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .rule-card li {
+            color: #cbd5e1;
+            margin-bottom: 0.8rem;
+            padding-left: 1.5rem;
+            position: relative;
+        }
+
+        .rule-card li::before {
+            content: "•";
+            color: var(--primary);
+            font-weight: bold;
+            font-size: 1.2rem;
+            position: absolute;
+            left: 0;
+            top: -2px;
+        }
+
+        .highlight-red {
+            color: #f87171;
+            font-weight: 600;
         }
 
         /* ==========================================
@@ -266,78 +224,170 @@
             </div>
         </a>
         <nav class="nav-links">
-            <a href="index.html" class="active">Accueil</a>
+            <a href="index.html">Accueil</a>
+            <a href="reglement.html" class="active">Règlement</a>
             <a href="roleplay.html">Roleplay</a>
-            <a href="reglement.html">Règlement</a>
         </nav>
         <a href="https://discord.gg/9xUYtvceWm" target="_blank" class="btn-discord">
             <i class="fa-brands fa-discord"></i> Rejoindre
         </a>
     </header>
 
-    <!-- Section Principale -->
-    <section class="hero">
-        <div class="hero-content">
-            <h1>Bienvenue sur <span>Blainville RP QC</span></h1>
-            <p>Une expérience de roleplay immersive, avec des services d'urgence réalistes et une communauté passionnée.</p>
-            <div class="hero-buttons">
-                <a href="https://discord.gg/9xUYtvceWm" target="_blank" class="btn-primary">
-                    <i class="fa-brands fa-discord"></i> Serveur Discord
-                </a>
-                <a href="reglement.html" class="btn-secondary">Lire le Règlement</a>
-            </div>
+    <!-- Contenu du Règlement -->
+    <main class="rules-container">
+        <div class="rules-header">
+            <h1>Règlement Officiel <span>Blainville RP QC</span></h1>
+            <p>Les règles suivantes s’appliquent sur Discord et en jeu. Le respect, le sérieux et le réalisme sont obligatoires.</p>
         </div>
-    </section>
 
-    <!-- Section Cartes / Infos -->
-    <section class="stats">
-        <div class="stat-card">
-            <i class="fa-solid fa-users"></i>
-            <h3 id="member-count">???</h3>
-            <p>Joueurs actifs & passionnés</p>
+        <div class="rule-card">
+            <h2><i class="fa-solid fa-book"></i> 1. Règlement Général</h2>
+            <ul>
+                <li>La présence sur le Discord est obligatoire.</li>
+                <li>Communication en français obligatoire.</li>
+                <li>Les décisions du staff doivent être respectées.</li>
+                <li>Le respect envers tous les membres est exigé.</li>
+                <li>Spam / abus de mentions interdits.</li>
+                <li>Publicité en privé : <span class="highlight-red">Blacklist immédiate</span>.</li>
+                <li>Contenus NSFW / choquants strictly interdits.</li>
+                <li>Discussions HRP inutiles à proscrire.</li>
+                <li>Abus de bots / tickets interdits.</li>
+                <li>Double compte / usurpation interdits.</li>
+                <li>MP non demandés interdits.</li>
+                <li>Discrimination formellement interdite.</li>
+                <li>Utiliser les bons salons.</li>
+                <li>Partage d’informations personnelles interdit.</li>
+                <li>Contourner une sanction = aggravation.</li>
+                <li>Harcèlement interdit.</li>
+                <li>Quitter un rôle important sans prévenir interdit.</li>
+                <li>Prendre un rôle sans implication interdit.</li>
+                <li><em>Le staff peut sanctionner tout comportement nuisible.</em></li>
+            </ul>
         </div>
-        <div class="stat-card">
-            <i class="fa-solid fa-shield-halved"></i>
-            <h3>Factions</h3>
-            <p>Police, Pompiers, Paramédics</p>
+
+        <div class="rule-card">
+            <h2><i class="fa-solid fa-shield-halved"></i> 2. Zones Sécurisées</h2>
+            <ul>
+                <li><strong>Règle générale :</strong> Strictement interdit / Autorisé avec accord staff + RP valide.</li>
+                <li>Spawn civil</li>
+                <li>Poste de police</li>
+                <li>Caserne pompiers</li>
+                <li>Armurerie</li>
+                <li>MTQ (intérieur)</li>
+                <li>Palais de justice</li>
+                <li>Hôpital</li>
+            </ul>
         </div>
-        <div class="stat-card">
-            <i class="fa-solid fa-map-location-dot"></i>
-            <h3>Blainville</h3>
-            <p>Carte & ambiance 100% locale</p>
+
+        <div class="rule-card">
+            <h2><i class="fa-solid fa-gun"></i> 3. Armes & Équipements</h2>
+            <ul>
+                <li>Armes à feu limitées (gangs / scènes autorisées).</li>
+                <li>Équipements adaptés au RP obligatoire.</li>
+                <li>Armes lourdes : véhicule uniquement.</li>
+                <li>Utilisation logique des outils.</li>
+                <li><strong>Menottage :</strong> Autorisée si coopération, interdite sans raison RP.</li>
+                <li><strong>Drones :</strong> Usage RP autorisé, espionnage / nuisance interdits.</li>
+                <li><strong>Blocage routier :</strong> MTQ (1 voie ouverte obligatoire), Autres (urgence seulement).</li>
+            </ul>
         </div>
-    </section>
+
+        <div class="rule-card">
+            <h2><i class="fa-solid fa-masks-theater"></i> 4. Règles RP</h2>
+            <ul>
+                <li>RP irréaliste (FRP) interdit.</li>
+                <li>Pain RP obligatoire.</li>
+                <li>Metagaming interdit.</li>
+                <li>Troll interdit.</li>
+                <li>Ignorer une scène = accord mutuel requis.</li>
+                <li>Refuser une scène = justification staff requise.</li>
+                <li>Intervenir sans raison interdit.</li>
+                <li>Rassemblements HRP interdits.</li>
+            </ul>
+        </div>
+
+        <div class="rule-card">
+            <h2><i class="fa-solid fa-user"></i> 5. Personnage</h2>
+            <ul>
+                <li>1 personnage unique obligatoire.</li>
+                <li>Apparence réaliste exigée.</li>
+                <li>Copier un joueur / célébrité interdit.</li>
+                <li>Skins troll interdits.</li>
+                <li>Avatar enfant : autorisation requise.</li>
+                <li>Modifications staff : obligatoires.</li>
+            </ul>
+        </div>
+
+        <div class="rule-card">
+            <h2><i class="fa-solid fa-triangle-exclamation"></i> 6. Combat & Actions</h2>
+            <ul>
+                <li>Quitter une scène interdit.</li>
+                <li>RDM interdit (avertissement requis).</li>
+                <li>RDM en zone safe / staff : <span class="highlight-red">BAN</span>.</li>
+                <li>VDM interdit.</li>
+                <li>NLR (New Life Rule) obligatoire.</li>
+                <li>Fear RP + Pain RP : obligatoires.</li>
+                <li>Scènes importantes = modérateur requis.</li>
+                <li>Cop baiting : limité.</li>
+                <li>Crimes : 2 max (2 gangs officiels).</li>
+            </ul>
+        </div>
+
+        <div class="rule-card">
+            <h2><i class="fa-solid fa-car"></i> 7. Conduite</h2>
+            <ul>
+                <li>Conduite réaliste obligatoire.</li>
+                <li>Style GTA interdit.</li>
+                <li>1 véhicule par joueur.</li>
+                <li>Car surfing interdit.</li>
+                <li>Bloquer la route sans raison interdit.</li>
+                <li>Véhicules de service conformes obligatoires.</li>
+            </ul>
+        </div>
+
+        <div class="rule-card">
+            <h2><i class="fa-solid fa-robot"></i> 8. Système & Abus</h2>
+            <ul>
+                <li>Groupes non autorisés interdits.</li>
+                <li>Les entreprises doivent être validées.</li>
+                <li>Fake staff interdit.</li>
+                <li>Mentir au staff interdit.</li>
+                <li>Éviter sanction interdit.</li>
+                <li>Contourner ban : <span class="highlight-red">BLACKLIST</span>.</li>
+                <li>Abus staff → passer par un ticket.</li>
+                <li>Soundboard / voice changer : interdit sans accord.</li>
+            </ul>
+        </div>
+
+        <div class="rule-card">
+            <h2><i class="fa-solid fa-lock"></i> 9. Confidentialité</h2>
+            <ul>
+                <li>Divulguer des infos personnelles interdit.</li>
+                <li>Menaces (dox, DDoS, etc.) : <span class="highlight-red">BAN</span>.</li>
+                <li>Ajouter sur autres réseaux sans accord interdit.</li>
+                <li>Flirt (même RP) interdit.</li>
+                <li>Les interactions restent sur Discord (Exception : IRL).</li>
+                <li>Former des groupes contre quelqu'un interdit.</li>
+            </ul>
+        </div>
+
+        <div class="rule-card">
+            <h2><i class="fa-solid fa-ban"></i> 10. Sanctions</h2>
+            <p style="color: #cbd5e1; margin-bottom: 1rem;">Le non-respect des règles peut entraîner :</p>
+            <ul>
+                <li>Avertissement</li>
+                <li>Suspension</li>
+                <li>Rétrogradation</li>
+                <li>Bannissement</li>
+                <li>Blacklist</li>
+            </ul>
+        </div>
+    </main>
 
     <!-- Pied de page -->
     <footer>
         <p>&copy; 2026 Blainville RP QC. Tous droits réservés.</p>
     </footer>
-
-    <!-- SCRIPT JS POUR L'API -->
-    <script>
-        async function fetchMemberCount() {
-            const countElement = document.getElementById('member-count');
-
-            try {
-                const response = await fetch('/api/members');
-                
-                if (!response.ok) throw new Error("API non disponible");
-
-                const data = await response.json();
-
-                if (data.count !== undefined) {
-                    countElement.innerText = data.count;
-                } else {
-                    throw new Error("Donnée manquante");
-                }
-            } catch (error) {
-                console.log('Bot non joignable, affichage de ???');
-                countElement.innerText = "???";
-            }
-        }
-
-        fetchMemberCount();
-    </script>
 
 </body>
 </html>

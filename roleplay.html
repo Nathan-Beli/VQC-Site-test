@@ -504,6 +504,103 @@
 
         .key-btn:active { background: rgba(255, 255, 255, 0.3); }
 
+        /* BANQUE STYLE & MODALE CODES */
+        .bank-card {
+            background: linear-gradient(135deg, #0284c7 0%, #0f172a 100%);
+            border-radius: 18px;
+            padding: 16px;
+            position: relative;
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            box-shadow: 0 8px 16px rgba(0,0,0,0.4);
+            margin-bottom: 12px;
+        }
+
+        .bank-card-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 20px;
+        }
+
+        .bank-card-title {
+            font-size: 0.95rem;
+            font-weight: 800;
+            letter-spacing: 0.5px;
+        }
+
+        .bank-card-chip {
+            width: 32px;
+            height: 22px;
+            background: linear-gradient(135deg, #eab308, #ca8a04);
+            border-radius: 4px;
+        }
+
+        .bank-card-num {
+            font-size: 1.1rem;
+            letter-spacing: 2px;
+            font-weight: 600;
+            margin-bottom: 16px;
+        }
+
+        .bank-card-bottom {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.65rem;
+            color: #cbd5e1;
+            text-transform: uppercase;
+        }
+
+        .bank-actions {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+            margin-bottom: 12px;
+        }
+
+        .bank-action-btn {
+            background: var(--phone-card);
+            border: 1px solid var(--phone-card-border);
+            color: var(--phone-text);
+            padding: 8px;
+            border-radius: 10px;
+            font-size: 0.8rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+            cursor: pointer;
+        }
+
+        .bank-modal {
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0, 0, 0, 0.85);
+            backdrop-filter: blur(10px);
+            z-index: 150;
+            display: none;
+            flex-direction: column;
+            justify-content: flex-end;
+        }
+
+        .bank-modal-content {
+            background: #1e293b;
+            border-top-left-radius: 20px;
+            border-top-right-radius: 20px;
+            padding: 16px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .modal-item {
+            background: rgba(15, 23, 42, 0.6);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 10px;
+            padding: 10px;
+            margin-bottom: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
         footer {
             text-align: center;
             padding: 1.5rem;
@@ -595,7 +692,7 @@
                             <span class="app-label">Réglages</span>
                         </div>
                         <div class="app-icon" onclick="openApp('view-bank')">
-                            <div class="icon-box" style="background:#3b82f6;"><i class="fa-solid fa-building-columns"></i></div>
+                            <div class="icon-box" style="background:#0284c7;"><i class="fa-solid fa-building-columns"></i></div>
                             <span class="app-label">Banque</span>
                         </div>
                         <div class="app-icon" onclick="openApp('view-motors')">
@@ -637,7 +734,7 @@
                         </div>
                     </div>
 
-                    <!-- Liste des Paramètres (Sans Langue et Sans Mode d'ouverture) -->
+                    <!-- Liste des Paramètres -->
                     <div class="settings-group">
                         <div class="settings-item" onclick="openApp('view-settings-theme')">
                             <div class="settings-item-left">
@@ -847,13 +944,101 @@
                     <button class="phone-btn" onclick="saveNewPin()">Changer le code</button>
                 </div>
 
-                <!-- AUTRES VUES -->
+                <!-- APPLICATION BANQUE REMANIÉE -->
                 <div id="view-bank" class="app-view">
                     <div class="app-header">
                         <span class="btn-back" onclick="openApp('view-home')"><i class="fa-solid fa-chevron-left"></i> Retour</span>
                     </div>
-                    <h2>Banque RP</h2>
-                    <p style="margin-top:10px;">Solde : <strong id="bank-balance" style="color:#22c55e;">2,500.00 $</strong></p>
+                    <h2 style="font-size:1.2rem; font-weight:800; margin-bottom:8px;">Blainville National Bank</h2>
+
+                    <!-- Carte virtuelle -->
+                    <div class="bank-card">
+                        <div class="bank-card-top">
+                            <span class="bank-card-title">BNB Card</span>
+                            <div class="bank-card-chip"></div>
+                        </div>
+                        <div class="bank-card-num">•••• •••• •••• 7749</div>
+                        <div class="bank-card-bottom">
+                            <div>
+                                <div style="font-size:0.55rem; color:#94a3b8;">TITULAIRE</div>
+                                <div class="profile-name">NATHAN</div>
+                            </div>
+                            <div>
+                                <div style="font-size:0.55rem; color:#94a3b8;">EXP</div>
+                                <div>03/34</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Actions Carte (Codes & Geler) -->
+                    <div class="bank-actions">
+                        <button class="bank-action-btn" onclick="toggleBankModal(true)">
+                            <i class="fa-regular fa-eye"></i> Codes
+                        </button>
+                        <button class="bank-action-btn" onclick="showNotification('Carte gelée / dégelée')">
+                            <i class="fa-solid fa-snowflake"></i> Geler
+                        </button>
+                    </div>
+
+                    <!-- Remplacement IBAN par Code du compte -->
+                    <div class="settings-group">
+                        <div class="settings-item" style="cursor:default;">
+                            <div>
+                                <div style="font-size:0.65rem; color:var(--text-muted); text-transform:uppercase;">Code du compte</div>
+                                <strong id="bank-acc-code" style="font-size:0.85rem;">RP-7229-1035</strong>
+                            </div>
+                            <i class="fa-regular fa-copy" style="color:var(--text-muted); cursor:pointer;" onclick="copyBankCode()"></i>
+                        </div>
+                    </div>
+
+                    <!-- Informations Soldes -->
+                    <div class="settings-group">
+                        <div class="settings-item">
+                            <span>Compte bancaire</span>
+                            <strong style="color:#22c55e;">10,000 $</strong>
+                        </div>
+                        <div class="settings-item">
+                            <span>Argent liquide</span>
+                            <strong style="color:var(--text-muted);">0 $</strong>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- FENÊTRE MODALE CODES BANCAIRES -->
+                <div class="bank-modal" id="bank-modal">
+                    <div class="bank-modal-content">
+                        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px;">
+                            <strong style="font-size:0.9rem;">Codes de la carte</strong>
+                            <i class="fa-solid fa-xmark" style="cursor:pointer;" onclick="toggleBankModal(false)"></i>
+                        </div>
+
+                        <div class="modal-item">
+                            <div>
+                                <div style="font-size:0.6rem; color:var(--text-muted);">NUMÉRO DE CARTE</div>
+                                <span id="modal-card-num" style="font-size:0.8rem; font-weight:600;">•••• •••• •••• 7749</span>
+                            </div>
+                            <i class="fa-regular fa-eye" style="cursor:pointer;" onclick="toggleSecret('modal-card-num', '7015 4813 7877 7749')"></i>
+                        </div>
+
+                        <div style="display:grid; grid-template-columns:1fr 1fr; gap:8px;">
+                            <div class="modal-item">
+                                <div>
+                                    <div style="font-size:0.6rem; color:var(--text-muted);">EXPIRE</div>
+                                    <span id="modal-card-exp" style="font-size:0.8rem; font-weight:600;">••/••</span>
+                                </div>
+                                <i class="fa-regular fa-eye" style="cursor:pointer;" onclick="toggleSecret('modal-card-exp', '03/34')"></i>
+                            </div>
+                            <div class="modal-item">
+                                <div>
+                                    <div style="font-size:0.6rem; color:var(--text-muted);">CVV</div>
+                                    <span id="modal-card-cvv" style="font-size:0.8rem; font-weight:600;">•••</span>
+                                </div>
+                                <i class="fa-regular fa-eye" style="cursor:pointer;" onclick="toggleSecret('modal-card-cvv', '842')"></i>
+                            </div>
+                        </div>
+
+                        <button class="phone-btn" style="margin-top:8px;" onclick="toggleBankModal(false)">Fermer</button>
+                    </div>
                 </div>
 
                 <div id="view-motors" class="app-view">
@@ -866,7 +1051,7 @@
                 <!-- Dock Navigation -->
                 <div class="phone-dock">
                     <div class="icon-box" style="background:#64748b; width:42px; height:42px; font-size:0.95rem;" onclick="openApp('view-settings')"><i class="fa-solid fa-gear"></i></div>
-                    <div class="icon-box" style="background:#3b82f6; width:42px; height:42px; font-size:0.95rem;" onclick="openApp('view-bank')"><i class="fa-solid fa-building-columns"></i></div>
+                    <div class="icon-box" style="background:#0284c7; width:42px; height:42px; font-size:0.95rem;" onclick="openApp('view-bank')"><i class="fa-solid fa-building-columns"></i></div>
                     <div class="icon-box" style="background:#2563eb; width:42px; height:42px; font-size:0.95rem;" onclick="openApp('view-motors')"><i class="fa-solid fa-car"></i></div>
                 </div>
 
@@ -898,8 +1083,8 @@
         let textSize = localStorage.getItem('phone_textSize') || 'Normal';
         let wallpaperName = localStorage.getItem('phone_wpName') || 'Blainville';
         let wallpaperBg = localStorage.getItem('phone_wpBg') || 'linear-gradient(to bottom, #0f172a, #1e293b)';
-        let lockEnabled = localStorage.getItem('phone_lockEnabled') !== 'false'; // Activé par défaut
-        let currentPin = localStorage.getItem('phone_pin') || '1234'; // PIN par défaut : 1234
+        let lockEnabled = localStorage.getItem('phone_lockEnabled') !== 'false';
+        let currentPin = localStorage.getItem('phone_pin') || '1234';
 
         let enteredPin = "";
 
@@ -974,12 +1159,33 @@
             }
         }
 
+        /* FONCTIONS BANQUE */
+        function toggleBankModal(show) {
+            document.getElementById('bank-modal').style.display = show ? 'flex' : 'none';
+        }
+
+        function toggleSecret(elementId, realValue) {
+            const el = document.getElementById(elementId);
+            if (el.innerText.includes('•')) {
+                el.innerText = realValue;
+            } else {
+                if(elementId === 'modal-card-num') el.innerText = '•••• •••• •••• 7749';
+                if(elementId === 'modal-card-exp') el.innerText = '••/••';
+                if(elementId === 'modal-card-cvv') el.innerText = '•••';
+            }
+        }
+
+        function copyBankCode() {
+            const code = document.getElementById('bank-acc-code').innerText;
+            navigator.clipboard.writeText(code);
+            showNotification("Code copié dans le presse-papier !");
+        }
+
         function applySavedSettings() {
             document.querySelectorAll('.profile-name').forEach(el => el.innerText = userName);
             document.getElementById('account-name-input').value = userName;
             document.getElementById('account-phone-display').innerText = getOrGeneratePhoneNumber();
 
-            // Rétablir le statut du switch de verrouillage
             document.getElementById('toggle-lock-active').checked = lockEnabled;
             document.getElementById('lbl-lock').innerText = lockEnabled ? 'Activé' : 'Désactivé';
 

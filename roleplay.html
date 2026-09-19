@@ -27,7 +27,6 @@
             --phone-card-border: rgba(255, 255, 255, 0.08);
         }
 
-        /* Mode Clair du Téléphone */
         .phone-screen.theme-light {
             --phone-bg: #f2f2f7;
             --phone-card: #ffffff;
@@ -57,9 +56,7 @@
             text-decoration: none;
         }
 
-        /* ==========================================
-           NAVBAR
-           ========================================== */
+        /* NAVBAR */
         .navbar {
             display: flex;
             justify-content: space-between;
@@ -120,9 +117,7 @@
             gap: 8px;
         }
 
-        /* ==========================================
-           SMARTPHONE FRAME & UI
-           ========================================== */
+        /* SMARTPHONE FRAME */
         .page-container {
             max-width: 1100px;
             margin: 6rem auto 3rem auto;
@@ -194,7 +189,6 @@
             flex-shrink: 0;
         }
 
-        /* PERMET DE SCROLLER DANS TOUTES LES VUES */
         .app-view {
             flex: 1;
             display: none;
@@ -204,9 +198,7 @@
             scrollbar-width: thin;
         }
 
-        .app-view::-webkit-scrollbar {
-            width: 4px;
-        }
+        .app-view::-webkit-scrollbar { width: 4px; }
         .app-view::-webkit-scrollbar-thumb {
             background: rgba(255, 255, 255, 0.2);
             border-radius: 4px;
@@ -345,16 +337,11 @@
             font-family: "Font Awesome 6 Free";
             font-weight: 900;
             position: absolute;
-            top: 8px;
-            right: 8px;
-            background: #2563eb;
-            color: #fff;
-            width: 18px;
-            height: 18px;
+            top: 8px; right: 8px;
+            background: #2563eb; color: #fff;
+            width: 18px; height: 18px;
             border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
+            display: flex; align-items: center; justify-content: center;
             font-size: 0.6rem;
         }
 
@@ -460,6 +447,63 @@
             z-index: 110;
         }
 
+        /* ÉCRAN DE VERROUILLAGE & CLAVIER PIN */
+        .lock-screen {
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(15, 23, 42, 0.98);
+            backdrop-filter: blur(20px);
+            z-index: 200;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .pin-dots {
+            display: flex;
+            gap: 12px;
+            margin: 20px 0 30px 0;
+        }
+
+        .dot {
+            width: 14px;
+            height: 14px;
+            border-radius: 50%;
+            border: 2px solid #64748b;
+            transition: background 0.2s;
+        }
+
+        .dot.active {
+            background: #ef4444;
+            border-color: #ef4444;
+        }
+
+        .pin-keypad {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
+            width: 220px;
+        }
+
+        .key-btn {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.1);
+            color: #fff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+
+        .key-btn:active { background: rgba(255, 255, 255, 0.3); }
+
         footer {
             text-align: center;
             padding: 1.5rem;
@@ -503,6 +547,35 @@
             
             <div class="phone-screen" id="phone-screen">
                 <div class="phone-notif" id="phone-notif"></div>
+
+                <!-- ÉCRAN DE VERROUILLAGE PIN -->
+                <div class="lock-screen" id="lock-screen">
+                    <i class="fa-solid fa-lock" style="font-size:2rem; color:#ef4444; margin-bottom:10px;"></i>
+                    <p style="font-size:0.9rem; font-weight:600;">Entrez le code PIN</p>
+                    <p style="font-size:0.7rem; color:var(--text-muted); margin-top:2px;">(Code par défaut : 1234)</p>
+
+                    <div class="pin-dots">
+                        <div class="dot" id="dot-0"></div>
+                        <div class="dot" id="dot-1"></div>
+                        <div class="dot" id="dot-2"></div>
+                        <div class="dot" id="dot-3"></div>
+                    </div>
+
+                    <div class="pin-keypad">
+                        <div class="key-btn" onclick="pressPin('1')">1</div>
+                        <div class="key-btn" onclick="pressPin('2')">2</div>
+                        <div class="key-btn" onclick="pressPin('3')">3</div>
+                        <div class="key-btn" onclick="pressPin('4')">4</div>
+                        <div class="key-btn" onclick="pressPin('5')">5</div>
+                        <div class="key-btn" onclick="pressPin('6')">6</div>
+                        <div class="key-btn" onclick="pressPin('7')">7</div>
+                        <div class="key-btn" onclick="pressPin('8')">8</div>
+                        <div class="key-btn" onclick="pressPin('9')">9</div>
+                        <div></div>
+                        <div class="key-btn" onclick="pressPin('0')">0</div>
+                        <div class="key-btn" onclick="clearPin()"><i class="fa-solid fa-backspace"></i></div>
+                    </div>
+                </div>
 
                 <!-- Status Bar -->
                 <div class="status-bar">
@@ -564,7 +637,7 @@
                         </div>
                     </div>
 
-                    <!-- Liste des Paramètres -->
+                    <!-- Liste des Paramètres (Sans Langue et Sans Mode d'ouverture) -->
                     <div class="settings-group">
                         <div class="settings-item" onclick="openApp('view-settings-theme')">
                             <div class="settings-item-left">
@@ -577,17 +650,6 @@
                             </div>
                         </div>
 
-                        <div class="settings-item" onclick="openApp('view-settings-lang')">
-                            <div class="settings-item-left">
-                                <div class="settings-icon" style="background:#3b82f6;"><i class="fa-solid fa-language"></i></div>
-                                <span>Langue</span>
-                            </div>
-                            <div class="settings-item-right">
-                                <span id="lbl-lang">Français</span>
-                                <i class="fa-solid fa-chevron-right"></i>
-                            </div>
-                        </div>
-
                         <div class="settings-item" onclick="openApp('view-settings-textsize')">
                             <div class="settings-item-left">
                                 <div class="settings-icon" style="background:#6366f1;"><i class="fa-solid fa-font"></i></div>
@@ -595,17 +657,6 @@
                             </div>
                             <div class="settings-item-right">
                                 <span id="lbl-textsize">Normal</span>
-                                <i class="fa-solid fa-chevron-right"></i>
-                            </div>
-                        </div>
-
-                        <div class="settings-item" onclick="openApp('view-settings-openmode')">
-                            <div class="settings-item-left">
-                                <div class="settings-icon" style="background:#10b981;"><i class="fa-solid fa-mobile-screen"></i></div>
-                                <span>Mode d'ouverture</span>
-                            </div>
-                            <div class="settings-item-right">
-                                <span id="lbl-openmode">En superposition</span>
                                 <i class="fa-solid fa-chevron-right"></i>
                             </div>
                         </div>
@@ -675,10 +726,6 @@
                     <input type="email" id="account-email-input" class="phone-input" placeholder="Email RP">
 
                     <button class="phone-btn" onclick="saveAccountDetails()">Enregistrer</button>
-
-                    <p style="font-size:0.7rem; color:var(--text-muted); margin-top:12px; line-height:1.3;">
-                        Votre identifiant BlainOS sécurise votre progression RP et synchronise vos données personnelles sur le réseau de Blainville RP QC.
-                    </p>
                 </div>
 
                 <!-- SOUS-PAGE : THÈME -->
@@ -696,25 +743,6 @@
                         <div class="settings-item" onclick="setTheme('light')">
                             <span><i class="fa-solid fa-sun" style="margin-right:8px;"></i> Clair</span>
                             <i class="fa-solid fa-check" id="check-theme-light" style="color:#2563eb; display:none;"></i>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- SOUS-PAGE : LANGUE -->
-                <div id="view-settings-lang" class="app-view">
-                    <div class="app-header">
-                        <span class="btn-back" onclick="openApp('view-settings')"><i class="fa-solid fa-chevron-left"></i> Retour</span>
-                    </div>
-                    <h2 style="font-size:1.4rem; font-weight:800; margin-bottom:12px;" id="lang-title">Langue</h2>
-
-                    <div class="settings-group">
-                        <div class="settings-item" onclick="setLanguage('fr')">
-                            <span>Français</span>
-                            <i class="fa-solid fa-check" id="check-lang-fr" style="color:#2563eb;"></i>
-                        </div>
-                        <div class="settings-item" onclick="setLanguage('en')">
-                            <span>English</span>
-                            <i class="fa-solid fa-check" id="check-lang-en" style="color:#2563eb; display:none;"></i>
                         </div>
                     </div>
                 </div>
@@ -752,31 +780,6 @@
                     </div>
                 </div>
 
-                <!-- SOUS-PAGE : MODE D'OUVERTURE -->
-                <div id="view-settings-openmode" class="app-view">
-                    <div class="app-header">
-                        <span class="btn-back" onclick="openApp('view-settings')"><i class="fa-solid fa-chevron-left"></i> Retour</span>
-                    </div>
-                    <h2 style="font-size:1.4rem; font-weight:800; margin-bottom:12px;">Mode d'ouverture</h2>
-
-                    <div class="settings-group">
-                        <div class="settings-item" onclick="setOpenMode('En superposition')">
-                            <div>
-                                <strong>En superposition</strong>
-                                <p style="font-size:0.65rem; color:var(--text-muted);">Le téléphone s'ouvre par-dessus la page</p>
-                            </div>
-                            <i class="fa-solid fa-check" id="check-mode-overlay" style="color:#2563eb;"></i>
-                        </div>
-                        <div class="settings-item" onclick="setOpenMode('Page dédiée')">
-                            <div>
-                                <strong>Page dédiée</strong>
-                                <p style="font-size:0.65rem; color:var(--text-muted);">Le téléphone s'ouvre sur sa propre page</p>
-                            </div>
-                            <i class="fa-solid fa-check" id="check-mode-page" style="color:#2563eb; display:none;"></i>
-                        </div>
-                    </div>
-                </div>
-
                 <!-- SOUS-PAGE : FOND D'ÉCRAN -->
                 <div id="view-settings-wallpaper" class="app-view">
                     <div class="app-header">
@@ -784,17 +787,11 @@
                     </div>
                     <h2 style="font-size:1.4rem; font-weight:800; margin-bottom:8px;">Fond d'écran</h2>
 
-                    <button class="phone-btn" style="background:#1e293b; margin-bottom:10px;"><i class="fa-solid fa-upload"></i> Importer une image</button>
-
                     <div class="wallpaper-grid">
                         <div class="wallpaper-card selected" id="wp-Blainville" style="background:linear-gradient(to bottom, #0f172a, #1e293b);" onclick="setWallpaper('Blainville', 'linear-gradient(to bottom, #0f172a, #1e293b)')">Blainville</div>
                         <div class="wallpaper-card" id="wp-Océan" style="background:linear-gradient(to bottom, #0284c7, #0f172a);" onclick="setWallpaper('Océan', 'linear-gradient(to bottom, #0284c7, #0f172a)')">Océan</div>
                         <div class="wallpaper-card" id="wp-Crépuscule" style="background:linear-gradient(to bottom, #ea580c, #0f172a);" onclick="setWallpaper('Crépuscule', 'linear-gradient(to bottom, #ea580c, #0f172a)')">Crépuscule</div>
-                        <div class="wallpaper-card" id="wp-Forêt" style="background:linear-gradient(to bottom, #16a34a, #0f172a);" onclick="setWallpaper('Forêt', 'linear-gradient(to bottom, #16a34a, #0f172a)')">Forêt</div>
-                        <div class="wallpaper-card" id="wp-Rose" style="background:linear-gradient(to bottom, #db2777, #0f172a);" onclick="setWallpaper('Rose', 'linear-gradient(to bottom, #db2777, #0f172a)')">Rose</div>
-                        <div class="wallpaper-card" id="wp-Violet" style="background:linear-gradient(to bottom, #9333ea, #0f172a);" onclick="setWallpaper('Violet', 'linear-gradient(to bottom, #9333ea, #0f172a)')">Violet</div>
                         <div class="wallpaper-card" id="wp-Noir" style="background:#000000;" onclick="setWallpaper('Noir', '#000000')">Noir</div>
-                        <div class="wallpaper-card" id="wp-Clair" style="background:#e2e8f0; color:#000;" onclick="setWallpaper('Clair', '#e2e8f0')">Clair</div>
                     </div>
                 </div>
 
@@ -808,10 +805,6 @@
                     <div class="settings-group">
                         <div class="settings-item">
                             <span>Sons</span>
-                            <label class="switch"><input type="checkbox" checked><span class="slider"></span></label>
-                        </div>
-                        <div class="settings-item">
-                            <span>Vibrations</span>
                             <label class="switch"><input type="checkbox" checked><span class="slider"></span></label>
                         </div>
                     </div>
@@ -830,7 +823,6 @@
                             <label class="switch"><input type="checkbox"><span class="slider"></span></label>
                         </div>
                     </div>
-                    <p style="font-size:0.65rem; color:var(--text-muted);">Les appels en numéro masqué ne feront plus sonner votre appareil.</p>
                 </div>
 
                 <!-- SOUS-PAGE : CODE DE VERROUILLAGE -->
@@ -841,16 +833,21 @@
                     <h2 style="font-size:1.4rem; font-weight:800; margin-bottom:12px;">Code de verrouillage</h2>
 
                     <div class="settings-group">
-                        <div class="settings-item" onclick="showNotification('Modifier le code secret')">
-                            <span>Modifier le code</span>
-                        </div>
-                        <div class="settings-item" onclick="showNotification('Code désactivé')">
-                            <span style="color:#ef4444;">Retirer le code</span>
+                        <div class="settings-item">
+                            <span>Activer le verrouillage</span>
+                            <label class="switch">
+                                <input type="checkbox" id="toggle-lock-active" onchange="toggleLockState(this.checked)">
+                                <span class="slider"></span>
+                            </label>
                         </div>
                     </div>
+
+                    <label style="font-size:0.7rem; color:var(--text-muted); text-transform:uppercase; margin-bottom:4px; display:block;">CHANGER LE CODE PIN (4 CHIFFRES)</label>
+                    <input type="password" id="new-pin-input" class="phone-input" maxlength="4" placeholder="Nouveau code (ex: 1234)">
+                    <button class="phone-btn" onclick="saveNewPin()">Changer le code</button>
                 </div>
 
-                <!-- AUTRES VUES (Banque / Motors) -->
+                <!-- AUTRES VUES -->
                 <div id="view-bank" class="app-view">
                     <div class="app-header">
                         <span class="btn-back" onclick="openApp('view-home')"><i class="fa-solid fa-chevron-left"></i> Retour</span>
@@ -883,7 +880,7 @@
     </footer>
 
     <script>
-        // Génération et récupération du numéro de téléphone unique
+        // Numéro unique par navigateur
         function getOrGeneratePhoneNumber() {
             let savedPhone = localStorage.getItem('phone_number');
             if (!savedPhone) {
@@ -895,31 +892,100 @@
             return savedPhone;
         }
 
-        // État de l'application & Sauvegarde
+        // Configuration Sauvegardée
         let userName = localStorage.getItem('phone_userName') || 'Nathan';
         let currentTheme = localStorage.getItem('phone_theme') || 'dark';
-        let currentLang = localStorage.getItem('phone_lang') || 'fr';
         let textSize = localStorage.getItem('phone_textSize') || 'Normal';
-        let openMode = localStorage.getItem('phone_openMode') || 'En superposition';
         let wallpaperName = localStorage.getItem('phone_wpName') || 'Blainville';
         let wallpaperBg = localStorage.getItem('phone_wpBg') || 'linear-gradient(to bottom, #0f172a, #1e293b)';
+        let lockEnabled = localStorage.getItem('phone_lockEnabled') !== 'false'; // Activé par défaut
+        let currentPin = localStorage.getItem('phone_pin') || '1234'; // PIN par défaut : 1234
+
+        let enteredPin = "";
 
         document.addEventListener('DOMContentLoaded', () => {
             applySavedSettings();
+            checkLockScreen();
         });
 
+        function checkLockScreen() {
+            const lockScreen = document.getElementById('lock-screen');
+            if (lockEnabled) {
+                lockScreen.style.display = 'flex';
+            } else {
+                lockScreen.style.display = 'none';
+            }
+        }
+
+        /* GESTION DU CLAVIER PIN */
+        function pressPin(num) {
+            if (enteredPin.length < 4) {
+                enteredPin += num;
+                updatePinDots();
+            }
+
+            if (enteredPin.length === 4) {
+                setTimeout(() => {
+                    if (enteredPin === currentPin) {
+                        document.getElementById('lock-screen').style.display = 'none';
+                        enteredPin = "";
+                        updatePinDots();
+                    } else {
+                        showNotification("Code PIN incorrect !");
+                        enteredPin = "";
+                        updatePinDots();
+                    }
+                }, 200);
+            }
+        }
+
+        function clearPin() {
+            enteredPin = enteredPin.slice(0, -1);
+            updatePinDots();
+        }
+
+        function updatePinDots() {
+            for (let i = 0; i < 4; i++) {
+                const dot = document.getElementById(`dot-${i}`);
+                if (i < enteredPin.length) {
+                    dot.classList.add('active');
+                } else {
+                    dot.classList.remove('active');
+                }
+            }
+        }
+
+        function toggleLockState(enabled) {
+            lockEnabled = enabled;
+            localStorage.setItem('phone_lockEnabled', enabled);
+            document.getElementById('lbl-lock').innerText = enabled ? 'Activé' : 'Désactivé';
+            showNotification(enabled ? "Verrouillage activé" : "Verrouillage désactivé");
+        }
+
+        function saveNewPin() {
+            const newPin = document.getElementById('new-pin-input').value.trim();
+            if (newPin.length === 4 && !isNaN(newPin)) {
+                currentPin = newPin;
+                localStorage.setItem('phone_pin', currentPin);
+                document.getElementById('new-pin-input').value = "";
+                showNotification("Nouveau code PIN enregistré !");
+            } else {
+                showNotification("Le code doit contenir 4 chiffres !");
+            }
+        }
+
         function applySavedSettings() {
-            // Appliquer le profil et le numéro unique
             document.querySelectorAll('.profile-name').forEach(el => el.innerText = userName);
             document.getElementById('account-name-input').value = userName;
             document.getElementById('account-phone-display').innerText = getOrGeneratePhoneNumber();
 
-            // Appliquer les paramètres enregistrés
+            // Rétablir le statut du switch de verrouillage
+            document.getElementById('toggle-lock-active').checked = lockEnabled;
+            document.getElementById('lbl-lock').innerText = lockEnabled ? 'Activé' : 'Désactivé';
+
             setTheme(currentTheme, false);
-            setLanguage(currentLang, false);
             setWallpaper(wallpaperName, wallpaperBg, false);
             setTextSize(textSize, false);
-            setOpenMode(openMode, false);
         }
 
         function updateClock() {
@@ -943,10 +1009,9 @@
             views.forEach(view => view.classList.remove('active'));
             const activeView = document.getElementById(appId);
             activeView.classList.add('active');
-            activeView.scrollTop = 0; // Remonte automatiquement en haut au changement de page
+            activeView.scrollTop = 0;
         }
 
-        // Sauvegarde Identité
         function saveAccountDetails() {
             const name = document.getElementById('account-name-input').value.trim();
             if (name !== "") {
@@ -957,7 +1022,6 @@
             }
         }
 
-        // Thème
         function setTheme(theme, notify = true) {
             currentTheme = theme;
             localStorage.setItem('phone_theme', theme);
@@ -981,28 +1045,6 @@
             if (notify) showNotification(`Thème ${theme === 'light' ? 'Clair' : 'Sombre'} appliqué.`);
         }
 
-        // Langue
-        function setLanguage(lang, notify = true) {
-            currentLang = lang;
-            localStorage.setItem('phone_lang', lang);
-
-            const checkFr = document.getElementById('check-lang-fr');
-            const checkEn = document.getElementById('check-lang-en');
-
-            if (lang === 'en') {
-                checkFr.style.display = 'none';
-                checkEn.style.display = 'block';
-                document.getElementById('lbl-lang').innerText = 'English';
-            } else {
-                checkFr.style.display = 'block';
-                checkEn.style.display = 'none';
-                document.getElementById('lbl-lang').innerText = 'Français';
-            }
-
-            if (notify) showNotification(`Langue mise à jour.`);
-        }
-
-        // Taille du texte
         function setTextSize(size, notify = true) {
             textSize = size;
             localStorage.setItem('phone_textSize', size);
@@ -1019,19 +1061,6 @@
             document.getElementById('phone-screen').style.fontWeight = isBold ? '700' : 'normal';
         }
 
-        // Mode d'ouverture
-        function setOpenMode(mode, notify = true) {
-            openMode = mode;
-            localStorage.setItem('phone_openMode', mode);
-
-            document.getElementById('check-mode-overlay').style.display = mode === 'En superposition' ? 'block' : 'none';
-            document.getElementById('check-mode-page').style.display = mode === 'Page dédiée' ? 'block' : 'none';
-            document.getElementById('lbl-openmode').innerText = mode;
-
-            if (notify) showNotification(`Mode : ${mode}`);
-        }
-
-        // Fond d'écran
         function setWallpaper(name, background, notify = true) {
             wallpaperName = name;
             wallpaperBg = background;

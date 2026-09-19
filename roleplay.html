@@ -447,6 +447,75 @@
             z-index: 110;
         }
 
+        /* CONNEXION DISCORD */
+        .discord-login-screen {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(160deg, #0b0f1a 0%, #111827 55%, #1e1b4b 100%);
+            z-index: 300;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 24px;
+            text-align: center;
+        }
+
+        .discord-login-icon {
+            width: 68px;
+            height: 68px;
+            border-radius: 20px;
+            background: #5865F2;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            color: #fff;
+            box-shadow: 0 12px 30px rgba(88,101,242,.35);
+            margin-bottom: 16px;
+        }
+
+        .discord-login-title {
+            font-size: 1.25rem;
+            font-weight: 800;
+            margin-bottom: 6px;
+        }
+
+        .discord-login-text {
+            color: #94a3b8;
+            font-size: .75rem;
+            line-height: 1.5;
+            max-width: 270px;
+            margin-bottom: 18px;
+        }
+
+        .discord-login-btn {
+            width: 100%;
+            max-width: 250px;
+            border: 0;
+            border-radius: 12px;
+            padding: 12px 16px;
+            background: #5865F2;
+            color: #fff;
+            font-size: .82rem;
+            font-weight: 700;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            box-shadow: 0 8px 20px rgba(88,101,242,.25);
+        }
+
+        .discord-login-btn:active { transform: scale(.98); }
+
+        .discord-login-error {
+            color: #f87171;
+            font-size: .68rem;
+            margin-top: 12px;
+            display: none;
+        }
+
         /* ÉCRAN DE VERROUILLAGE & CLAVIER PIN */
         .lock-screen {
             position: absolute;
@@ -687,6 +756,17 @@
             
             <div class="phone-screen" id="phone-screen">
                 <div class="phone-notif" id="phone-notif"></div>
+
+                <!-- CONNEXION DISCORD OBLIGATOIRE -->
+                <div class="discord-login-screen" id="discord-login-screen">
+                    <div class="discord-login-icon"><i class="fa-brands fa-discord"></i></div>
+                    <div class="discord-login-title">Connexion requise</div>
+                    <div class="discord-login-text">Connecte ton compte Discord pour accéder au téléphone BlainOS.</div>
+                    <button class="discord-login-btn" onclick="loginWithDiscord()">
+                        <i class="fa-brands fa-discord"></i> Se connecter avec Discord
+                    </button>
+                    <div class="discord-login-error" id="discord-login-error"></div>
+                </div>
 
                 <!-- ÉCRAN DE VERROUILLAGE PIN -->
                 <div class="lock-screen" id="lock-screen">
@@ -1147,9 +1227,92 @@
 
         let enteredPin = "";
 
-        document.addEventListener('DOMContentLoaded', () => {
-            applySavedSettings();
+        // ==========================================
+        // CONNEXION DISCORD
+        // ==========================================
+        // Mets ici le Client ID de ton application Discord.
+        // Ne mets JAMAIS le Client Secret dans ce fichier.
+        const DISCORD_CLIENT_ID = 'COLLE_TON_CLIENT_ID_ICI';
+
+        function getDiscordRedirectUri() {
+            return window.location.origin + window.location.pathname;
+        }
+
+        function loginWithDiscord() {
+            if (DISCORD_CLIENT_ID === 'COLLE_TON_CLIENT_ID_ICI') {
+                showDiscordError('Configure d’abord le Client ID de ton application Discord dans le code.');
+                return;
+            }
+
+            const state = crypto.randomUUID();
+            sessionStorage.setItem('discord_oauth_state', state);
+
+            const params = new URLSearchParams({
+                client_id: DISCORD_CLIENT_ID,
+                response_type: 'token',
+                redirect_uri: getDiscordRedirectUri(),
+                scope: 'identify',
+                state: state
+            });
+
+            window.location.href = 'https://discord.com/oauth2/authorize?' + params.toString();
+        }
+
+        async function handleDiscordCallback() {
+            const hash = window.location.hash.substring(1);
+            if (!hash) return;
+
+            const params = new URLSearchParams(hash);
+            const accessToken = params.get('access_token');
+            const returnedState = params.get('state');
+            const savedState = sessionStorage.getItem('discord_oauth_state');
+
+            if (!accessToken) return;
+
+            if (!savedState || returnedState !== savedState) {
+                showDiscordError('Connexion Discord refusée : état de sécurité invalide.');
+                return;
+            }
+
+            try {
+                const response = await fetch('https://discord.com/api/users/@me', {
+                    headers: { Authorization: `Bearer ${accessToken}` }
+                });
+
+                if (!response.ok) throw new Error('Discord a refusé la connexion.');
+
+                const user = await response.json();
+                sessionStorage.setItem('discord_authenticated', 'true');
+                sessionStorage.setItem('discord_username', user.global_name || user.username || 'Utilisateur Discord');
+
+                // Nettoie le token de l’URL et ne le conserve pas dans le stockage.
+                history.replaceState(null, '', window.location.pathname + window.location.search);
+                sessionStorage.removeItem('discord_oauth_state');
+                showPhoneAfterDiscordLogin();
+            } catch (error) {
+                showDiscordError('Impossible de vérifier la connexion Discord. Réessaie.');
+            }
+        }
+
+        function showDiscordError(message) {
+            const error = document.getElementById('discord-login-error');
+            error.textContent = message;
+            error.style.display = 'block';
+        }
+
+        function showPhoneAfterDiscordLogin() {
+            const loginScreen = document.getElementById('discord-login-screen');
+            if (loginScreen) loginScreen.style.display = 'none';
             checkLockScreen();
+        }
+
+        document.addEventListener('DOMContentLoaded', async () => {
+            applySavedSettings();
+            await handleDiscordCallback();
+
+            if (sessionStorage.getItem('discord_authenticated') === 'true') {
+                showPhoneAfterDiscordLogin();
+            }
         });
 
         function checkLockScreen() {

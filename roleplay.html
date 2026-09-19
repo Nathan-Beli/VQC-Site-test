@@ -22,15 +22,25 @@
             --discord-color: #5865F2;
             --discord-hover: #4752C4;
             --border-color: rgba(239, 68, 68, 0.25);
-            --phone-bg: #0b0f19;
-            --phone-card: #182232;
+            --phone-bg: #000000;
+            --phone-card: #121212;
+            --phone-text: #ffffff;
+            --phone-card-border: rgba(255, 255, 255, 0.08);
+        }
+
+        /* Mode Clair du Téléphone */
+        .phone-screen.theme-light {
+            --phone-bg: #f2f2f7;
+            --phone-card: #ffffff;
+            --phone-text: #000000;
+            --phone-card-border: rgba(0, 0, 0, 0.08);
         }
 
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
         }
 
         body {
@@ -49,7 +59,7 @@
         }
 
         /* ==========================================
-           NAVBAR (EN-TÊTE)
+           NAVBAR
            ========================================== */
         .navbar {
             display: flex;
@@ -84,18 +94,8 @@
             letter-spacing: 0.5px;
         }
 
-        .logo-bold {
-            color: #ffffff !important;
-        }
-
-        .logo-tag {
-            color: var(--primary) !important;
-        }
-
-        .nav-links {
-            display: flex;
-            align-items: center;
-        }
+        .logo-bold { color: #ffffff !important; }
+        .logo-tag { color: var(--primary) !important; }
 
         .nav-links a {
             color: var(--text-muted);
@@ -105,8 +105,7 @@
             transition: color 0.3s ease;
         }
 
-        .nav-links a:hover, 
-        .nav-links a.active {
+        .nav-links a:hover, .nav-links a.active {
             color: var(--primary);
         }
 
@@ -120,19 +119,14 @@
             display: inline-flex;
             align-items: center;
             gap: 8px;
-            transition: background 0.3s ease;
-        }
-
-        .btn-discord:hover {
-            background-color: var(--discord-hover);
         }
 
         /* ==========================================
-           SECTION PRINCIPALE & SIMULATEUR SMARTPHONE
+           SMARTPHONE FRAME & UI
            ========================================== */
         .page-container {
             max-width: 1100px;
-            margin: 7rem auto 4rem auto;
+            margin: 6rem auto 3rem auto;
             padding: 0 1.5rem;
             display: flex;
             flex-direction: column;
@@ -141,32 +135,24 @@
 
         .page-header {
             text-align: center;
-            margin-bottom: 2rem;
+            margin-bottom: 1.5rem;
         }
 
         .page-header h1 {
-            font-size: 2.5rem;
+            font-size: 2.2rem;
             font-weight: 800;
             color: #ffffff;
         }
 
-        .page-header h1 span {
-            color: var(--primary);
-        }
+        .page-header h1 span { color: var(--primary); }
 
-        .page-header p {
-            color: var(--text-muted);
-            font-size: 1.1rem;
-        }
-
-        /* Smartphone Frame */
         .phone-wrapper {
-            width: 350px;
-            height: 700px;
+            width: 360px;
+            height: 720px;
             background: #000;
-            border-radius: 44px;
+            border-radius: 46px;
             padding: 12px;
-            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.8), 0 0 20px rgba(239, 68, 68, 0.35);
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.9), 0 0 25px rgba(239, 68, 68, 0.25);
             border: 3px solid #334155;
             position: relative;
             user-select: none;
@@ -176,17 +162,15 @@
             width: 100%;
             height: 100%;
             background-color: var(--phone-bg);
-            background-size: cover;
-            background-position: center;
-            border-radius: 34px;
+            color: var(--phone-text);
+            border-radius: 36px;
             overflow: hidden;
             position: relative;
             display: flex;
             flex-direction: column;
-            transition: background-image 0.3s ease;
+            transition: background-color 0.2s ease, color 0.2s ease;
         }
 
-        /* Notch / Dynamic Island */
         .phone-notch {
             position: absolute;
             top: 8px;
@@ -199,7 +183,6 @@
             z-index: 100;
         }
 
-        /* Status Bar */
         .status-bar {
             height: 38px;
             display: flex;
@@ -208,25 +191,162 @@
             padding: 0 20px;
             font-size: 0.75rem;
             font-weight: 700;
-            color: #fff;
             z-index: 90;
-            background: linear-gradient(to bottom, rgba(0,0,0,0.6), transparent);
         }
 
-        /* App Views */
         .app-view {
             flex: 1;
             display: none;
             flex-direction: column;
-            padding: 10px 14px 70px 14px;
+            padding: 6px 14px 65px 14px;
             overflow-y: auto;
         }
 
-        .app-view.active {
+        .app-view.active { display: flex; }
+
+        .app-header {
             display: flex;
+            align-items: center;
+            justify-content: space-between;
+            font-weight: 800;
+            font-size: 1.4rem;
+            margin-bottom: 12px;
+            padding-top: 4px;
         }
 
-        /* Home View */
+        .btn-back {
+            color: #3b82f6;
+            cursor: pointer;
+            font-size: 0.9rem;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        /* Items style iOS */
+        .settings-group {
+            background-color: var(--phone-card);
+            border-radius: 14px;
+            overflow: hidden;
+            margin-bottom: 14px;
+            border: 1px solid var(--phone-card-border);
+        }
+
+        .settings-item {
+            padding: 12px 14px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            font-size: 0.85rem;
+            border-bottom: 1px solid var(--phone-card-border);
+            cursor: pointer;
+        }
+
+        .settings-item:last-child { border-bottom: none; }
+
+        .settings-item-left {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .settings-icon {
+            width: 28px;
+            height: 28px;
+            border-radius: 7px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #fff;
+            font-size: 0.85rem;
+        }
+
+        .settings-item-right {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            color: var(--text-muted);
+            font-size: 0.8rem;
+        }
+
+        /* Switch Toggle */
+        .switch {
+            position: relative;
+            display: inline-block;
+            width: 42px;
+            height: 24px;
+        }
+
+        .switch input { opacity: 0; width: 0; height: 0; }
+
+        .slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background-color: #334155;
+            transition: .3s;
+            border-radius: 24px;
+        }
+
+        .slider:before {
+            position: absolute;
+            content: "";
+            height: 18px;
+            width: 18px;
+            left: 3px;
+            bottom: 3px;
+            background-color: white;
+            transition: .3s;
+            border-radius: 50%;
+        }
+
+        input:checked + .slider { background-color: #22c55e; }
+        input:checked + .slider:before { transform: translateX(18px); }
+
+        /* Wallpaper Grid */
+        .wallpaper-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 10px;
+            margin-top: 8px;
+        }
+
+        .wallpaper-card {
+            height: 110px;
+            border-radius: 12px;
+            cursor: pointer;
+            border: 2px solid transparent;
+            display: flex;
+            align-items: flex-end;
+            justify-content: center;
+            padding-bottom: 8px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            color: #fff;
+            position: relative;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+        }
+
+        .wallpaper-card.selected::after {
+            content: "\f00c";
+            font-family: "Font Awesome 6 Free";
+            font-weight: 900;
+            position: absolute;
+            top: 8px;
+            right: 8px;
+            background: #2563eb;
+            color: #fff;
+            width: 18px;
+            height: 18px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.6rem;
+        }
+
+        /* Grid Home App */
         .home-grid {
             display: grid;
             grid-template-columns: repeat(4, 1fr);
@@ -239,16 +359,11 @@
             flex-direction: column;
             align-items: center;
             cursor: pointer;
-            transition: transform 0.1s;
-        }
-
-        .app-icon:active {
-            transform: scale(0.9);
         }
 
         .icon-box {
-            width: 54px;
-            height: 54px;
+            width: 52px;
+            height: 52px;
             border-radius: 14px;
             display: flex;
             justify-content: center;
@@ -261,168 +376,49 @@
 
         .app-label {
             font-size: 0.65rem;
-            color: #fff;
             text-align: center;
             font-weight: 500;
-            text-shadow: 0 1px 3px rgba(0,0,0,0.8);
         }
 
-        /* Bottom Dock */
         .phone-dock {
             position: absolute;
             bottom: 14px;
             left: 12px;
             right: 12px;
-            height: 62px;
+            height: 60px;
             background: rgba(255, 255, 255, 0.15);
             backdrop-filter: blur(15px);
             border-radius: 22px;
             display: flex;
             justify-content: space-around;
             align-items: center;
-            padding: 0 10px;
             z-index: 95;
         }
 
-        /* App Headers */
-        .app-header {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            font-weight: 700;
-            font-size: 1.1rem;
-            margin-bottom: 12px;
-            color: #fff;
-            border-bottom: 1px solid rgba(255,255,255,0.1);
-            padding-bottom: 8px;
-        }
-
-        .btn-back {
-            color: #3b82f6;
-            cursor: pointer;
-            font-size: 0.85rem;
-            display: flex;
-            align-items: center;
-            gap: 4px;
-        }
-
-        /* Standard Cards */
-        .phone-card-item {
-            background-color: var(--phone-card);
-            border-radius: 12px;
-            padding: 12px;
-            margin-bottom: 10px;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            font-size: 0.85rem;
-            border: 1px solid rgba(255,255,255,0.05);
-        }
-
-        /* Inputs & Buttons */
         .phone-input {
             width: 100%;
-            padding: 8px 12px;
-            border-radius: 8px;
-            border: 1px solid #334155;
-            background: #1e293b;
-            color: #fff;
-            font-size: 0.8rem;
-            margin-bottom: 8px;
+            padding: 10px 12px;
+            border-radius: 10px;
+            border: 1px solid var(--phone-card-border);
+            background: var(--phone-card);
+            color: var(--phone-text);
+            font-size: 0.85rem;
+            margin-bottom: 10px;
             outline: none;
         }
 
         .phone-btn {
             width: 100%;
-            padding: 8px;
+            padding: 10px;
             background: #2563eb;
             color: #fff;
             border: none;
-            border-radius: 8px;
+            border-radius: 10px;
             font-weight: 600;
-            font-size: 0.8rem;
+            font-size: 0.85rem;
             cursor: pointer;
-            transition: background 0.2s;
         }
 
-        .phone-btn:hover {
-            background: #1d4ed8;
-        }
-
-        /* Dialpad */
-        .dial-display {
-            text-align: center;
-            font-size: 1.4rem;
-            font-weight: 700;
-            color: #fff;
-            min-height: 35px;
-            margin-bottom: 10px;
-            letter-spacing: 1px;
-        }
-
-        .dial-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 10px;
-            padding: 0 10px;
-        }
-
-        .dial-btn {
-            width: 52px;
-            height: 52px;
-            border-radius: 50%;
-            background-color: #1e293b;
-            color: #fff;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            font-size: 1.1rem;
-            font-weight: 600;
-            margin: auto;
-            cursor: pointer;
-            transition: background 0.2s;
-        }
-
-        .dial-btn:active {
-            background-color: #334155;
-        }
-
-        .dial-call {
-            background-color: #22c55e;
-        }
-
-        /* Messages Chat UI */
-        .chat-box {
-            flex: 1;
-            display: flex;
-            flex-direction: column;
-            gap: 8px;
-            overflow-y: auto;
-            margin-bottom: 10px;
-            max-height: 360px;
-        }
-
-        .msg-bubble {
-            max-width: 80%;
-            padding: 8px 12px;
-            border-radius: 12px;
-            font-size: 0.78rem;
-            word-wrap: break-word;
-        }
-
-        .msg-sent {
-            align-self: flex-end;
-            background: #2563eb;
-            color: #fff;
-        }
-
-        .msg-received {
-            align-self: flex-start;
-            background: #334155;
-            color: #fff;
-        }
-
-        /* Home Indicator Bar */
         .home-bar {
             position: absolute;
             bottom: 4px;
@@ -430,13 +426,13 @@
             transform: translateX(-50%);
             width: 100px;
             height: 4px;
-            background-color: #fff;
+            background-color: var(--phone-text);
             border-radius: 2px;
             cursor: pointer;
             z-index: 100;
+            opacity: 0.6;
         }
 
-        /* Notification Pop */
         .phone-notif {
             position: absolute;
             top: 42px;
@@ -450,18 +446,14 @@
             color: #fff;
             display: none;
             z-index: 110;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.5);
         }
 
-        /* ==========================================
-           FOOTER
-           ========================================== */
         footer {
             text-align: center;
-            padding: 1.8rem;
+            padding: 1.5rem;
             background-color: rgba(7, 10, 18, 0.9);
             color: #64748b;
-            font-size: 0.9rem;
+            font-size: 0.85rem;
             border-top: 1px solid var(--border-color);
             margin-top: auto;
             width: 100%;
@@ -488,24 +480,21 @@
         </a>
     </header>
 
-    <!-- Contenu Roleplay -->
     <main class="page-container">
         <div class="page-header">
             <h1>Espace <span>Roleplay</span></h1>
-            <p>Découvre et teste le téléphone GreenOS 100% interactif avec sauvegarde.</p>
+            <p>Interface système GreenOS complète pour Blainville RP.</p>
         </div>
 
-        <!-- Simulator Frame -->
         <div class="phone-wrapper">
             <div class="phone-notch"></div>
             
             <div class="phone-screen" id="phone-screen">
-                <!-- Notification Banner -->
                 <div class="phone-notif" id="phone-notif"></div>
 
                 <!-- Status Bar -->
                 <div class="status-bar">
-                    <span id="clock">21:23</span>
+                    <span id="clock">21:31</span>
                     <div>
                         <i class="fa-solid fa-signal"></i>
                         <i class="fa-solid fa-wifi"></i>
@@ -516,6 +505,10 @@
                 <!-- 1. ACCUEIL -->
                 <div id="view-home" class="app-view active">
                     <div class="home-grid" id="home-grid">
+                        <div class="app-icon" onclick="openApp('view-settings')">
+                            <div class="icon-box" style="background:#64748b;"><i class="fa-solid fa-gear"></i></div>
+                            <span class="app-label">Réglages</span>
+                        </div>
                         <div class="app-icon" onclick="openApp('view-bank')">
                             <div class="icon-box" style="background:#3b82f6;"><i class="fa-solid fa-building-columns"></i></div>
                             <span class="app-label">Banque</span>
@@ -524,237 +517,394 @@
                             <div class="icon-box" style="background:#2563eb;"><i class="fa-solid fa-car"></i></div>
                             <span class="app-label">Motors</span>
                         </div>
-                        <div class="app-icon" onclick="openApp('view-immo')">
-                            <div class="icon-box" style="background:#d97706;"><i class="fa-solid fa-city"></i></div>
-                            <span class="app-label">Immobilier</span>
-                        </div>
-                        <div class="app-icon" onclick="openApp('view-wallet')">
-                            <div class="icon-box" style="background:#059669;"><i class="fa-solid fa-wallet"></i></div>
-                            <span class="app-label">Portefeuille</span>
-                        </div>
                     </div>
                 </div>
 
-                <!-- 2. BANQUE -->
-                <div id="view-bank" class="app-view">
-                    <div class="app-header">
-                        <span>Banque RP</span>
-                        <span class="btn-back" onclick="openApp('view-home')"><i class="fa-solid fa-chevron-left"></i> Retour</span>
-                    </div>
-                    <div class="phone-card-item" style="flex-direction:column; align-items:flex-start; background:#1e293b;">
-                        <span style="color:var(--text-muted); font-size:0.75rem;">Solde disponible</span>
-                        <strong id="bank-balance" style="font-size:1.4rem; color:#22c55e;">2,500.00 $</strong>
-                    </div>
-                    <h4 style="font-size:0.8rem; margin:8px 0;">Virement bancaire</h4>
-                    <input type="text" id="transfer-target" placeholder="Destinataire (ex: Alex)" class="phone-input">
-                    <input type="number" id="transfer-amount" placeholder="Montant ($)" class="phone-input">
-                    <button class="phone-btn" onclick="makeTransfer()">Envoyer le montant</button>
-                    
-                    <h4 style="font-size:0.8rem; margin:12px 0 6px 0;">Actions rapides</h4>
-                    <button class="phone-btn" style="background:#059669;" onclick="addMoney(500)">Déposer 500$ (Salaire)</button>
-                </div>
-
-                <!-- 3. MOTORS -->
-                <div id="view-motors" class="app-view">
-                    <div class="app-header">
-                        <span>Greendale Motors</span>
-                        <span class="btn-back" onclick="openApp('view-home')"><i class="fa-solid fa-chevron-left"></i> Retour</span>
-                    </div>
-                    
-                    <div class="phone-card-item">
-                        <div>
-                            <strong>Police Utility</strong>
-                            <p style="font-size:0.7rem; color:var(--text-muted);">SUV Intercepteur</p>
-                            <span style="color:#22c55e; font-weight:bold;">15,000 $</span>
-                        </div>
-                        <button class="phone-btn" style="width:auto; padding:4px 8px;" onclick="buyVehicle('Police Utility', 15000)">Acheter</button>
-                    </div>
-
-                    <div class="phone-card-item">
-                        <div>
-                            <strong>Sedan Standard</strong>
-                            <p style="font-size:0.7rem; color:var(--text-muted);">Véhicule civil</p>
-                            <span style="color:#22c55e; font-weight:bold;">3,500 $</span>
-                        </div>
-                        <button class="phone-btn" style="width:auto; padding:4px 8px;" onclick="buyVehicle('Sedan Standard', 3500)">Acheter</button>
-                    </div>
-                </div>
-
-                <!-- 4. IMMOBILIER -->
-                <div id="view-immo" class="app-view">
-                    <div class="app-header">
-                        <span>Immobilier</span>
-                        <span class="btn-back" onclick="openApp('view-home')"><i class="fa-solid fa-chevron-left"></i> Retour</span>
-                    </div>
-                    
-                    <div class="phone-card-item">
-                        <div>
-                            <strong>Appartement Centre-Ville</strong>
-                            <p style="font-size:0.7rem; color:var(--text-muted);">2 pièces moderne</p>
-                            <span style="color:#22c55e; font-weight:bold;">45,000 $</span>
-                        </div>
-                        <button class="phone-btn" style="width:auto; padding:4px 8px;" onclick="buyProperty('Appartement Centre-Ville', 45000)">Acheter</button>
-                    </div>
-                </div>
-
-                <!-- 5. PORTEFEUILLE -->
-                <div id="view-wallet" class="app-view">
-                    <div class="app-header">
-                        <span>Portefeuille</span>
-                        <span class="btn-back" onclick="openApp('view-home')"><i class="fa-solid fa-chevron-left"></i> Retour</span>
-                    </div>
-                    <div class="phone-card-item" style="flex-direction:column; align-items:flex-start; background:#1e293b;">
-                        <div style="display:flex; justify-content:space-between; width:100%; border-bottom:1px solid #334155; padding-bottom:6px; margin-bottom:6px;">
-                            <strong style="color:var(--primary);">CARTE D'IDENTITÉ</strong>
-                            <span style="font-size:0.65rem; color:#22c55e;">VALIDE</span>
-                        </div>
-                        <p style="font-size:0.75rem;"><strong>Nom :</strong> <span class="profile-name">Nathan</span></p>
-                        <p style="font-size:0.75rem;"><strong>Numéro :</strong> 555-267-5182</p>
-                        <p style="font-size:0.75rem;"><strong>Statut :</strong> Citoyen de Blainville</p>
-                    </div>
-
-                    <div class="phone-card-item" style="flex-direction:column; align-items:flex-start; background:#1e293b;">
-                        <div style="display:flex; justify-content:space-between; width:100%; border-bottom:1px solid #334155; padding-bottom:6px; margin-bottom:6px;">
-                            <strong style="color:#3b82f6;">PERMIS DE CONDUIRE</strong>
-                            <span style="font-size:0.65rem; color:#22c55e;">ACTIF</span>
-                        </div>
-                        <p style="font-size:0.75rem;"><strong>Catégories :</strong> A, B (Auto/Moto)</p>
-                        <p style="font-size:0.75rem;"><strong>Points :</strong> 12/12</p>
-                    </div>
-                </div>
-
-                <!-- 6. REGLAGES -->
+                <!-- 2. RÉGLAGES - MENU PRINCIPAL -->
                 <div id="view-settings" class="app-view">
                     <div class="app-header">
-                        <span>Réglages</span>
                         <span class="btn-back" onclick="openApp('view-home')"><i class="fa-solid fa-chevron-left"></i> Retour</span>
                     </div>
-                    
-                    <div class="phone-card-item">
-                        <span>Changer le nom :</span>
-                    </div>
-                    <input type="text" id="setting-name-input" value="Nathan" class="phone-input">
-                    <button class="phone-btn" onclick="updateProfileName()" style="margin-bottom:12px;">Enregistrer</button>
+                    <h2 style="font-size:1.6rem; font-weight:800; margin-bottom:12px;">Réglages</h2>
 
-                    <div class="phone-card-item">
-                        <span>Fond d'écran :</span>
-                    </div>
-                    <div style="display:flex; gap:8px;">
-                        <button class="phone-btn" style="background:#0f172a;" onclick="setWallpaper('#0b0f19')">Sombre</button>
-                        <button class="phone-btn" style="background:#dc2626;" onclick="setWallpaper('linear-gradient(to bottom, #7f1d1d, #0f172a)')">Rouge</button>
-                        <button class="phone-btn" style="background:#2563eb;" onclick="setWallpaper('linear-gradient(to bottom, #1e3a8a, #0f172a)')">Bleu</button>
-                    </div>
-                </div>
-
-                <!-- 7. APP STORE -->
-                <div id="view-store" class="app-view">
-                    <div class="app-header">
-                        <span>App Store</span>
-                        <span class="btn-back" onclick="openApp('view-home')"><i class="fa-solid fa-chevron-left"></i> Retour</span>
-                    </div>
-
-                    <div class="phone-card-item" id="app-item-casino">
-                        <div>
-                            <strong>Casino RP</strong>
-                            <p style="font-size:0.65rem; color:var(--text-muted);">Jeux de hasard</p>
+                    <!-- Profil GreenOS -->
+                    <div class="settings-group">
+                        <div class="settings-item" onclick="openApp('view-settings-account')">
+                            <div class="settings-item-left">
+                                <div class="settings-icon" style="background:#475569;"><i class="fa-solid fa-user"></i></div>
+                                <div>
+                                    <strong class="profile-name" style="font-size:0.9rem;">Nathan</strong>
+                                    <p style="font-size:0.65rem; color:var(--text-muted);">Compte GreenOS, iCloud RP, etc.</p>
+                                </div>
+                            </div>
+                            <i class="fa-solid fa-chevron-right" style="color:var(--text-muted); font-size:0.75rem;"></i>
                         </div>
-                        <button class="phone-btn" style="width:auto; padding:4px 8px;" id="btn-install-casino" onclick="toggleInstallApp('casino', 'Casino RP', 'fa-dice', '#eab308')">Obtenir</button>
                     </div>
 
-                    <div class="phone-card-item" id="app-item-glow">
-                        <div>
-                            <strong>Glow</strong>
-                            <p style="font-size:0.65rem; color:var(--text-muted);">Réseau social</p>
+                    <!-- Mon Numéro -->
+                    <div class="settings-group">
+                        <div class="settings-item" style="cursor:default;">
+                            <div class="settings-item-left">
+                                <div class="settings-icon" style="background:#22c55e;"><i class="fa-solid fa-phone"></i></div>
+                                <span>Mon numéro</span>
+                            </div>
+                            <span style="color:var(--text-muted); font-size:0.8rem;">555-267-5182 <i class="fa-regular fa-copy"></i></span>
                         </div>
-                        <button class="phone-btn" style="width:auto; padding:4px 8px;" id="btn-install-glow" onclick="toggleInstallApp('glow', 'Glow', 'fa-share-nodes', '#9333ea')">Obtenir</button>
+                    </div>
+
+                    <!-- Liste des Paramètres -->
+                    <div class="settings-group">
+                        <div class="settings-item" onclick="openApp('view-settings-theme')">
+                            <div class="settings-item-left">
+                                <div class="settings-icon" style="background:#8b5cf6;"><i class="fa-solid fa-palette"></i></div>
+                                <span>Thème</span>
+                            </div>
+                            <div class="settings-item-right">
+                                <span id="lbl-theme">Sombre</span>
+                                <i class="fa-solid fa-chevron-right"></i>
+                            </div>
+                        </div>
+
+                        <div class="settings-item" onclick="openApp('view-settings-lang')">
+                            <div class="settings-item-left">
+                                <div class="settings-icon" style="background:#3b82f6;"><i class="fa-solid fa-language"></i></div>
+                                <span>Langue</span>
+                            </div>
+                            <div class="settings-item-right">
+                                <span id="lbl-lang">Français</span>
+                                <i class="fa-solid fa-chevron-right"></i>
+                            </div>
+                        </div>
+
+                        <div class="settings-item" onclick="openApp('view-settings-textsize')">
+                            <div class="settings-item-left">
+                                <div class="settings-icon" style="background:#6366f1;"><i class="fa-solid fa-font"></i></div>
+                                <span>Taille du texte</span>
+                            </div>
+                            <div class="settings-item-right">
+                                <span id="lbl-textsize">Normal</span>
+                                <i class="fa-solid fa-chevron-right"></i>
+                            </div>
+                        </div>
+
+                        <div class="settings-item" onclick="openApp('view-settings-openmode')">
+                            <div class="settings-item-left">
+                                <div class="settings-icon" style="background:#10b981;"><i class="fa-solid fa-mobile-screen"></i></div>
+                                <span>Mode d'ouverture</span>
+                            </div>
+                            <div class="settings-item-right">
+                                <span id="lbl-openmode">En superposition</span>
+                                <i class="fa-solid fa-chevron-right"></i>
+                            </div>
+                        </div>
+
+                        <div class="settings-item" onclick="openApp('view-settings-wallpaper')">
+                            <div class="settings-item-left">
+                                <div class="settings-icon" style="background:#06b6d4;"><i class="fa-solid fa-image"></i></div>
+                                <span>Fond d'écran</span>
+                            </div>
+                            <div class="settings-item-right">
+                                <span id="lbl-wallpaper">Greendale</span>
+                                <i class="fa-solid fa-chevron-right"></i>
+                            </div>
+                        </div>
+
+                        <div class="settings-item" onclick="openApp('view-settings-notifs')">
+                            <div class="settings-item-left">
+                                <div class="settings-icon" style="background:#ef4444;"><i class="fa-solid fa-bell"></i></div>
+                                <span>Notifications</span>
+                            </div>
+                            <div class="settings-item-right">
+                                <span id="lbl-notifs">Activé</span>
+                                <i class="fa-solid fa-chevron-right"></i>
+                            </div>
+                        </div>
+
+                        <div class="settings-item" onclick="openApp('view-settings-calls')">
+                            <div class="settings-item-left">
+                                <div class="settings-icon" style="background:#f59e0b;"><i class="fa-solid fa-percent"></i></div>
+                                <span>Appels</span>
+                            </div>
+                            <div class="settings-item-right">
+                                <span id="lbl-calls">Désactivé</span>
+                                <i class="fa-solid fa-chevron-right"></i>
+                            </div>
+                        </div>
+
+                        <div class="settings-item" onclick="openApp('view-settings-lock')">
+                            <div class="settings-item-left">
+                                <div class="settings-icon" style="background:#eab308;"><i class="fa-solid fa-lock"></i></div>
+                                <span>Code de verrouillage</span>
+                            </div>
+                            <div class="settings-item-right">
+                                <span id="lbl-lock">Activé</span>
+                                <i class="fa-solid fa-chevron-right"></i>
+                            </div>
+                        </div>
                     </div>
                 </div>
 
-                <!-- 8. MESSAGES -->
-                <div id="view-messages" class="app-view">
+                <!-- SOUS-PAGE : COMPTE GREENOS -->
+                <div id="view-settings-account" class="app-view">
                     <div class="app-header">
-                        <span>Messages</span>
+                        <span class="btn-back" onclick="openApp('view-settings')"><i class="fa-solid fa-chevron-left"></i> Retour</span>
+                    </div>
+                    <h2 style="font-size:1.4rem; font-weight:800; margin-bottom:12px;">Compte GreenOS</h2>
+
+                    <div style="text-align:center; margin-bottom:14px;">
+                        <div style="width:60px; height:60px; border-radius:50%; background:#334155; margin:0 auto 8px auto; display:flex; align-items:center; justify-content:center; font-size:1.8rem; color:#fff;">
+                            <i class="fa-solid fa-user"></i>
+                        </div>
+                        <strong class="profile-name" style="font-size:1.1rem;">Nathan</strong>
+                    </div>
+
+                    <label style="font-size:0.7rem; color:var(--text-muted); text-transform:uppercase; margin-bottom:4px; display:block;">IDENTITÉ</label>
+                    <input type="text" id="account-name-input" class="phone-input" value="Nathan">
+                    <input type="email" id="account-email-input" class="phone-input" placeholder="Email">
+
+                    <button class="phone-btn" onclick="saveAccountDetails()">Enregistrer</button>
+
+                    <p style="font-size:0.7rem; color:var(--text-muted); margin-top:12px; line-height:1.3;">
+                        Votre compte GreenOS est l'équivalent Greendale d'un identifiant Apple. Il sera utilisé pour synchroniser vos données sur vos prochains appareils.
+                    </p>
+                </div>
+
+                <!-- SOUS-PAGE : THÈME -->
+                <div id="view-settings-theme" class="app-view">
+                    <div class="app-header">
+                        <span class="btn-back" onclick="openApp('view-settings')"><i class="fa-solid fa-chevron-left"></i> Retour</span>
+                    </div>
+                    <h2 style="font-size:1.4rem; font-weight:800; margin-bottom:12px;">Thème</h2>
+
+                    <div class="settings-group">
+                        <div class="settings-item" onclick="setTheme('dark')">
+                            <span><i class="fa-solid fa-moon" style="margin-right:8px;"></i> Sombre</span>
+                            <i class="fa-solid fa-check" id="check-theme-dark" style="color:#2563eb;"></i>
+                        </div>
+                        <div class="settings-item" onclick="setTheme('light')">
+                            <span><i class="fa-solid fa-sun" style="margin-right:8px;"></i> Clair</span>
+                            <i class="fa-solid fa-check" id="check-theme-light" style="color:#2563eb; display:none;"></i>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- SOUS-PAGE : LANGUE -->
+                <div id="view-settings-lang" class="app-view">
+                    <div class="app-header">
+                        <span class="btn-back" onclick="openApp('view-settings')"><i class="fa-solid fa-chevron-left"></i> Retour</span>
+                    </div>
+                    <h2 style="font-size:1.4rem; font-weight:800; margin-bottom:12px;" id="lang-title">Langue</h2>
+
+                    <div class="settings-group">
+                        <div class="settings-item" onclick="setLanguage('fr')">
+                            <span>Français</span>
+                            <i class="fa-solid fa-check" id="check-lang-fr" style="color:#2563eb;"></i>
+                        </div>
+                        <div class="settings-item" onclick="setLanguage('en')">
+                            <span>English</span>
+                            <i class="fa-solid fa-check" id="check-lang-en" style="color:#2563eb; display:none;"></i>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- SOUS-PAGE : TAILLE DU TEXTE -->
+                <div id="view-settings-textsize" class="app-view">
+                    <div class="app-header">
+                        <span class="btn-back" onclick="openApp('view-settings')"><i class="fa-solid fa-chevron-left"></i> Retour</span>
+                    </div>
+                    <h2 style="font-size:1.4rem; font-weight:800; margin-bottom:12px;">Taille du texte</h2>
+
+                    <div class="settings-group">
+                        <div class="settings-item" onclick="setTextSize('Petit')">
+                            <span>Petit</span>
+                            <i class="fa-solid fa-check" id="check-size-petit" style="color:#2563eb; display:none;"></i>
+                        </div>
+                        <div class="settings-item" onclick="setTextSize('Normal')">
+                            <span>Normal</span>
+                            <i class="fa-solid fa-check" id="check-size-normal" style="color:#2563eb;"></i>
+                        </div>
+                        <div class="settings-item" onclick="setTextSize('Grand')">
+                            <span>Grand</span>
+                            <i class="fa-solid fa-check" id="check-size-grand" style="color:#2563eb; display:none;"></i>
+                        </div>
+                    </div>
+
+                    <div class="settings-group">
+                        <div class="settings-item">
+                            <span>Texte en gras</span>
+                            <label class="switch">
+                                <input type="checkbox" id="toggle-bold" onchange="toggleBoldText(this.checked)">
+                                <span class="slider"></span>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- SOUS-PAGE : MODE D'OUVERTURE -->
+                <div id="view-settings-openmode" class="app-view">
+                    <div class="app-header">
+                        <span class="btn-back" onclick="openApp('view-settings')"><i class="fa-solid fa-chevron-left"></i> Retour</span>
+                    </div>
+                    <h2 style="font-size:1.4rem; font-weight:800; margin-bottom:12px;">Mode d'ouverture</h2>
+
+                    <div class="settings-group">
+                        <div class="settings-item" onclick="setOpenMode('En superposition')">
+                            <div>
+                                <strong>En superposition</strong>
+                                <p style="font-size:0.65rem; color:var(--text-muted);">Le téléphone s'ouvre par-dessus la page</p>
+                            </div>
+                            <i class="fa-solid fa-check" id="check-mode-overlay" style="color:#2563eb;"></i>
+                        </div>
+                        <div class="settings-item" onclick="setOpenMode('Page dédiée')">
+                            <div>
+                                <strong>Page dédiée</strong>
+                                <p style="font-size:0.65rem; color:var(--text-muted);">Le téléphone s'ouvre sur sa propre page</p>
+                            </div>
+                            <i class="fa-solid fa-check" id="check-mode-page" style="color:#2563eb; display:none;"></i>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- SOUS-PAGE : FOND D'ÉCRAN -->
+                <div id="view-settings-wallpaper" class="app-view">
+                    <div class="app-header">
+                        <span class="btn-back" onclick="openApp('view-settings')"><i class="fa-solid fa-chevron-left"></i> Retour</span>
+                    </div>
+                    <h2 style="font-size:1.4rem; font-weight:800; margin-bottom:8px;">Fond d'écran</h2>
+
+                    <button class="phone-btn" style="background:#1e293b; margin-bottom:10px;"><i class="fa-solid fa-upload"></i> Importer une image</button>
+
+                    <div class="wallpaper-grid">
+                        <div class="wallpaper-card selected" id="wp-Greendale" style="background:linear-gradient(to bottom, #0f172a, #1e293b);" onclick="setWallpaper('Greendale', 'linear-gradient(to bottom, #0f172a, #1e293b)')">Greendale</div>
+                        <div class="wallpaper-card" id="wp-Océan" style="background:linear-gradient(to bottom, #0284c7, #0f172a);" onclick="setWallpaper('Océan', 'linear-gradient(to bottom, #0284c7, #0f172a)')">Océan</div>
+                        <div class="wallpaper-card" id="wp-Crépuscule" style="background:linear-gradient(to bottom, #ea580c, #0f172a);" onclick="setWallpaper('Crépuscule', 'linear-gradient(to bottom, #ea580c, #0f172a)')">Crépuscule</div>
+                        <div class="wallpaper-card" id="wp-Forêt" style="background:linear-gradient(to bottom, #16a34a, #0f172a);" onclick="setWallpaper('Forêt', 'linear-gradient(to bottom, #16a34a, #0f172a)')">Forêt</div>
+                        <div class="wallpaper-card" id="wp-Rose" style="background:linear-gradient(to bottom, #db2777, #0f172a);" onclick="setWallpaper('Rose', 'linear-gradient(to bottom, #db2777, #0f172a)')">Rose</div>
+                        <div class="wallpaper-card" id="wp-Violet" style="background:linear-gradient(to bottom, #9333ea, #0f172a);" onclick="setWallpaper('Violet', 'linear-gradient(to bottom, #9333ea, #0f172a)')">Violet</div>
+                        <div class="wallpaper-card" id="wp-Noir" style="background:#000000;" onclick="setWallpaper('Noir', '#000000')">Noir</div>
+                        <div class="wallpaper-card" id="wp-Clair" style="background:#e2e8f0; color:#000;" onclick="setWallpaper('Clair', '#e2e8f0')">Clair</div>
+                    </div>
+                </div>
+
+                <!-- SOUS-PAGE : NOTIFICATIONS -->
+                <div id="view-settings-notifs" class="app-view">
+                    <div class="app-header">
+                        <span class="btn-back" onclick="openApp('view-settings')"><i class="fa-solid fa-chevron-left"></i> Retour</span>
+                    </div>
+                    <h2 style="font-size:1.4rem; font-weight:800; margin-bottom:12px;">Notifications</h2>
+
+                    <div class="settings-group">
+                        <div class="settings-item">
+                            <span>Sons</span>
+                            <label class="switch"><input type="checkbox" checked><span class="slider"></span></label>
+                        </div>
+                        <div class="settings-item">
+                            <span>Vibrations</span>
+                            <label class="switch"><input type="checkbox" checked><span class="slider"></span></label>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- SOUS-PAGE : APPELS -->
+                <div id="view-settings-calls" class="app-view">
+                    <div class="app-header">
+                        <span class="btn-back" onclick="openApp('view-settings')"><i class="fa-solid fa-chevron-left"></i> Retour</span>
+                    </div>
+                    <h2 style="font-size:1.4rem; font-weight:800; margin-bottom:12px;">Appels</h2>
+
+                    <div class="settings-group">
+                        <div class="settings-item">
+                            <span>Bloquer les appels masqués</span>
+                            <label class="switch"><input type="checkbox"><span class="slider"></span></label>
+                        </div>
+                    </div>
+                    <p style="font-size:0.65rem; color:var(--text-muted);">Les appels en numéro masqué ne feront plus sonner votre téléphone.</p>
+                </div>
+
+                <!-- SOUS-PAGE : CODE DE VERROUILLAGE -->
+                <div id="view-settings-lock" class="app-view">
+                    <div class="app-header">
+                        <span class="btn-back" onclick="openApp('view-settings')"><i class="fa-solid fa-chevron-left"></i> Retour</span>
+                    </div>
+                    <h2 style="font-size:1.4rem; font-weight:800; margin-bottom:12px;">Code de verrouillage</h2>
+
+                    <div class="settings-group">
+                        <div class="settings-item" onclick="showNotification('Fonctionnalité sous code.')">
+                            <span>Modifier le code</span>
+                        </div>
+                        <div class="settings-item" onclick="showNotification('Code retiré.')">
+                            <span style="color:#ef4444;">Retirer le code</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- AUTRES VUES DU TÉLÉPHONE (Banque / Motors) -->
+                <div id="view-bank" class="app-view">
+                    <div class="app-header">
                         <span class="btn-back" onclick="openApp('view-home')"><i class="fa-solid fa-chevron-left"></i> Retour</span>
                     </div>
-
-                    <div class="chat-box" id="chat-box">
-                        <div class="msg-bubble msg-received">Bienvenue sur le réseau de Blainville RP !</div>
-                    </div>
-
-                    <div style="margin-top:auto;">
-                        <input type="text" id="sms-input" placeholder="Écrire un message..." class="phone-input">
-                        <button class="phone-btn" onclick="sendSMS()">Envoyer</button>
-                    </div>
+                    <h2>Banque RP</h2>
+                    <p style="margin-top:10px;">Solde : <strong id="bank-balance" style="color:#22c55e;">2,500.00 $</strong></p>
                 </div>
 
-                <!-- 9. TÉLÉPHONE / CLAVIER -->
-                <div id="view-phone" class="app-view">
-                    <div class="dial-display" id="dial-number"></div>
-                    <div class="dial-grid">
-                        <div class="dial-btn" onclick="pressKey('1')">1</div>
-                        <div class="dial-btn" onclick="pressKey('2')">2</div>
-                        <div class="dial-btn" onclick="pressKey('3')">3</div>
-                        <div class="dial-btn" onclick="pressKey('4')">4</div>
-                        <div class="dial-btn" onclick="pressKey('5')">5</div>
-                        <div class="dial-btn" onclick="pressKey('6')">6</div>
-                        <div class="dial-btn" onclick="pressKey('7')">7</div>
-                        <div class="dial-btn" onclick="pressKey('8')">8</div>
-                        <div class="dial-btn" onclick="pressKey('9')">9</div>
-                        <div class="dial-btn" onclick="pressKey('*')">*</div>
-                        <div class="dial-btn" onclick="pressKey('0')">0</div>
-                        <div class="dial-btn" onclick="pressKey('#')">#</div>
-                        <div></div>
-                        <div class="dial-btn dial-call" onclick="startCall()"><i class="fa-solid fa-phone"></i></div>
-                        <div class="dial-btn" style="background:transparent;" onclick="deleteKey()"><i class="fa-solid fa-backspace"></i></div>
+                <div id="view-motors" class="app-view">
+                    <div class="app-header">
+                        <span class="btn-back" onclick="openApp('view-home')"><i class="fa-solid fa-chevron-left"></i> Retour</span>
                     </div>
+                    <h2>Greendale Motors</h2>
                 </div>
 
                 <!-- Dock Navigation -->
                 <div class="phone-dock">
-                    <div class="icon-box" style="background:#475569; width:42px; height:42px; font-size:0.95rem;" onclick="openApp('view-settings')"><i class="fa-solid fa-gear"></i></div>
-                    <div class="icon-box" style="background:#2563eb; width:42px; height:42px; font-size:0.95rem;" onclick="openApp('view-store')"><i class="fa-solid fa-bag-shopping"></i></div>
-                    <div class="icon-box" style="background:#22c55e; width:42px; height:42px; font-size:0.95rem;" onclick="openApp('view-messages')"><i class="fa-solid fa-comment"></i></div>
-                    <div class="icon-box" style="background:#16a34a; width:42px; height:42px; font-size:0.95rem;" onclick="openApp('view-phone')"><i class="fa-solid fa-phone"></i></div>
+                    <div class="icon-box" style="background:#64748b; width:42px; height:42px; font-size:0.95rem;" onclick="openApp('view-settings')"><i class="fa-solid fa-gear"></i></div>
+                    <div class="icon-box" style="background:#3b82f6; width:42px; height:42px; font-size:0.95rem;" onclick="openApp('view-bank')"><i class="fa-solid fa-building-columns"></i></div>
+                    <div class="icon-box" style="background:#2563eb; width:42px; height:42px; font-size:0.95rem;" onclick="openApp('view-motors')"><i class="fa-solid fa-car"></i></div>
                 </div>
 
-                <!-- Barre d'accueil iOS -->
                 <div class="home-bar" onclick="openApp('view-home')"></div>
             </div>
         </div>
     </main>
 
-    <!-- Pied de page -->
     <footer>
         <p>&copy; 2026 Blainville RP QC. Tous droits réservés.</p>
     </footer>
 
-    <!-- SCRIPT AVEC SAUVEGARDE LOCALE -->
     <script>
-        // Chargement des données sauvegardées ou valeurs par défaut
-        let balance = parseFloat(localStorage.getItem('phone_balance')) || 2500;
+        // État de l'application & Sauvegarde
         let userName = localStorage.getItem('phone_userName') || 'Nathan';
-        let wallpaper = localStorage.getItem('phone_wallpaper') || '#0b0f19';
-        let installedApps = JSON.parse(localStorage.getItem('phone_apps')) || {};
-        let phoneNumber = "";
+        let currentTheme = localStorage.getItem('phone_theme') || 'dark';
+        let currentLang = localStorage.getItem('phone_lang') || 'fr';
+        let textSize = localStorage.getItem('phone_textSize') || 'Normal';
+        let openMode = localStorage.getItem('phone_openMode') || 'En superposition';
+        let wallpaperName = localStorage.getItem('phone_wpName') || 'Greendale';
+        let wallpaperBg = localStorage.getItem('phone_wpBg') || 'linear-gradient(to bottom, #0f172a, #1e293b)';
 
-        // Application des données au chargement
         document.addEventListener('DOMContentLoaded', () => {
-            updateBalanceDisplay();
-            document.querySelectorAll('.profile-name').forEach(el => el.innerText = userName);
-            document.getElementById('setting-name-input').value = userName;
-            document.getElementById('phone-screen').style.background = wallpaper;
-
-            if (installedApps['casino']) {
-                renderInstalledApp('casino', 'Casino RP', 'fa-dice', '#eab308');
-                updateStoreButton('casino', true);
-            }
-            if (installedApps['glow']) {
-                renderInstalledApp('glow', 'Glow', 'fa-share-nodes', '#9333ea');
-                updateStoreButton('glow', true);
-            }
+            applySavedSettings();
         });
 
-        // Horloge temps réel
+        function applySavedSettings() {
+            // Appliquer le profil
+            document.querySelectorAll('.profile-name').forEach(el => el.innerText = userName);
+            document.getElementById('account-name-input').value = userName;
+
+            // Appliquer le thème
+            setTheme(currentTheme, false);
+
+            // Appliquer la langue
+            setLanguage(currentLang, false);
+
+            // Appliquer le fond d'écran
+            setWallpaper(wallpaperName, wallpaperBg, false);
+
+            // Appliquer la taille du texte
+            setTextSize(textSize, false);
+
+            // Mode d'ouverture
+            setOpenMode(openMode, false);
+        }
+
         function updateClock() {
             const now = new Date();
             const hours = String(now.getHours()).padStart(2, '0');
@@ -764,7 +914,6 @@
         setInterval(updateClock, 1000);
         updateClock();
 
-        // Notification Banner
         function showNotification(text) {
             const notif = document.getElementById('phone-notif');
             notif.innerText = text;
@@ -772,170 +921,113 @@
             setTimeout(() => { notif.style.display = 'none'; }, 3000);
         }
 
-        // Navigation
         function openApp(appId) {
             const views = document.querySelectorAll('.app-view');
             views.forEach(view => view.classList.remove('active'));
             document.getElementById(appId).classList.add('active');
         }
 
-        // Banque
-        function updateBalanceDisplay() {
-            document.getElementById('bank-balance').innerText = balance.toLocaleString('en-US', { minimumFractionDigits: 2 }) + ' $';
-            localStorage.setItem('phone_balance', balance);
-        }
-
-        function addMoney(amount) {
-            balance += amount;
-            updateBalanceDisplay();
-            showNotification(`+${amount}$ reçus sur votre compte.`);
-        }
-
-        function makeTransfer() {
-            const target = document.getElementById('transfer-target').value;
-            const amount = parseFloat(document.getElementById('transfer-amount').value);
-
-            if (!target || isNaN(amount) || amount <= 0) {
-                showNotification("Saisie invalide.");
-                return;
-            }
-
-            if (amount > balance) {
-                showNotification("Solde insuffisant.");
-                return;
-            }
-
-            balance -= amount;
-            updateBalanceDisplay();
-            showNotification(`Virement de ${amount}$ envoyé à ${target}.`);
-            document.getElementById('transfer-target').value = "";
-            document.getElementById('transfer-amount').value = "";
-        }
-
-        // Achats
-        function buyVehicle(name, price) {
-            if (balance < price) {
-                showNotification("Fonds insuffisants !");
-                return;
-            }
-            balance -= price;
-            updateBalanceDisplay();
-            showNotification(`Achat confirmé : ${name}`);
-        }
-
-        function buyProperty(name, price) {
-            if (balance < price) {
-                showNotification("Fonds insuffisants !");
-                return;
-            }
-            balance -= price;
-            updateBalanceDisplay();
-            showNotification(`Propriété acquise : ${name}`);
-        }
-
-        // Réglages
-        function updateProfileName() {
-            const newName = document.getElementById('setting-name-input').value.trim();
-            if (newName !== "") {
-                userName = newName;
+        // Gestion Compte
+        function saveAccountDetails() {
+            const name = document.getElementById('account-name-input').value.trim();
+            if (name !== "") {
+                userName = name;
                 localStorage.setItem('phone_userName', userName);
                 document.querySelectorAll('.profile-name').forEach(el => el.innerText = userName);
-                showNotification("Profil mis à jour !");
+                showNotification("Profil sauvegardé !");
             }
         }
 
-        function setWallpaper(background) {
-            wallpaper = background;
-            localStorage.setItem('phone_wallpaper', wallpaper);
-            document.getElementById('phone-screen').style.background = wallpaper;
-            showNotification("Fond d'écran changé !");
-        }
+        // Gestion Thème (Sombre / Clair)
+        function setTheme(theme, notify = true) {
+            currentTheme = theme;
+            localStorage.setItem('phone_theme', theme);
 
-        // App Store
-        function toggleInstallApp(id, name, iconClass, color) {
-            if (!installedApps[id]) {
-                installedApps[id] = true;
-                renderInstalledApp(id, name, iconClass, color);
-                updateStoreButton(id, true);
-                showNotification(`${name} installé.`);
+            const screen = document.getElementById('phone-screen');
+            const checkDark = document.getElementById('check-theme-dark');
+            const checkLight = document.getElementById('check-theme-light');
+
+            if (theme === 'light') {
+                screen.classList.add('theme-light');
+                checkDark.style.display = 'none';
+                checkLight.style.display = 'block';
+                document.getElementById('lbl-theme').innerText = 'Clair';
             } else {
-                installedApps[id] = false;
-                const iconElem = document.getElementById(`app-icon-${id}`);
-                if (iconElem) iconElem.remove();
-                updateStoreButton(id, false);
-                showNotification(`${name} désinstallé.`);
+                screen.classList.remove('theme-light');
+                checkDark.style.display = 'block';
+                checkLight.style.display = 'none';
+                document.getElementById('lbl-theme').innerText = 'Sombre';
             }
-            localStorage.setItem('phone_apps', JSON.stringify(installedApps));
+
+            if (notify) showNotification(`Thème ${theme === 'light' ? 'Clair' : 'Sombre'} appliqué.`);
         }
 
-        function renderInstalledApp(id, name, iconClass, color) {
-            if (document.getElementById(`app-icon-${id}`)) return;
-            const grid = document.getElementById('home-grid');
-            const appElem = document.createElement('div');
-            appElem.className = 'app-icon';
-            appElem.id = `app-icon-${id}`;
-            appElem.innerHTML = `
-                <div class="icon-box" style="background:${color};"><i class="fa-solid ${iconClass}"></i></div>
-                <span class="app-label">${name}</span>
-            `;
-            grid.appendChild(appElem);
-        }
+        // Gestion Langue
+        function setLanguage(lang, notify = true) {
+            currentLang = lang;
+            localStorage.setItem('phone_lang', lang);
 
-        function updateStoreButton(id, isInstalled) {
-            const btn = document.getElementById(`btn-install-${id}`);
-            if (btn) {
-                btn.innerText = isInstalled ? "Supprimer" : "Obtenir";
-                btn.style.background = isInstalled ? "#dc2626" : "#2563eb";
+            const checkFr = document.getElementById('check-lang-fr');
+            const checkEn = document.getElementById('check-lang-en');
+
+            if (lang === 'en') {
+                checkFr.style.display = 'none';
+                checkEn.style.display = 'block';
+                document.getElementById('lbl-lang').innerText = 'English';
+            } else {
+                checkFr.style.display = 'block';
+                checkEn.style.display = 'none';
+                document.getElementById('lbl-lang').innerText = 'Français';
             }
+
+            if (notify) showNotification(`Langue mise à jour.`);
         }
 
-        // Messages SMS
-        function sendSMS() {
-            const input = document.getElementById('sms-input');
-            const msg = input.value.trim();
+        // Gestion Taille du texte
+        function setTextSize(size, notify = true) {
+            textSize = size;
+            localStorage.setItem('phone_textSize', size);
 
-            if (msg === "") return;
+            document.getElementById('check-size-petit').style.display = size === 'Petit' ? 'block' : 'none';
+            document.getElementById('check-size-normal').style.display = size === 'Normal' ? 'block' : 'none';
+            document.getElementById('check-size-grand').style.display = size === 'Grand' ? 'block' : 'none';
+            document.getElementById('lbl-textsize').innerText = size;
 
-            const chatBox = document.getElementById('chat-box');
-            const sentBubble = document.createElement('div');
-            sentBubble.className = 'msg-bubble msg-sent';
-            sentBubble.innerText = msg;
-            chatBox.appendChild(sentBubble);
-
-            input.value = "";
-            chatBox.scrollTop = chatBox.scrollHeight;
-
-            setTimeout(() => {
-                const replyBubble = document.createElement('div');
-                replyBubble.className = 'msg-bubble msg-received';
-                replyBubble.innerText = "Message reçu en jeu !";
-                chatBox.appendChild(replyBubble);
-                chatBox.scrollTop = chatBox.scrollHeight;
-            }, 1000);
+            if (notify) showNotification(`Taille du texte : ${size}`);
         }
 
-        // Clavier Téléphone
-        function pressKey(key) {
-            if (phoneNumber.length < 12) {
-                phoneNumber += key;
-                document.getElementById('dial-number').innerText = phoneNumber;
-            }
+        function toggleBoldText(isBold) {
+            document.getElementById('phone-screen').style.fontWeight = isBold ? '700' : 'normal';
         }
 
-        function deleteKey() {
-            phoneNumber = phoneNumber.slice(0, -1);
-            document.getElementById('dial-number').innerText = phoneNumber;
+        // Gestion Mode d'ouverture
+        function setOpenMode(mode, notify = true) {
+            openMode = mode;
+            localStorage.setItem('phone_openMode', mode);
+
+            document.getElementById('check-mode-overlay').style.display = mode === 'En superposition' ? 'block' : 'none';
+            document.getElementById('check-mode-page').style.display = mode === 'Page dédiée' ? 'block' : 'none';
+            document.getElementById('lbl-openmode').innerText = mode;
+
+            if (notify) showNotification(`Mode : ${mode}`);
         }
 
-        function startCall() {
-            if (phoneNumber.length === 0) {
-                showNotification("Veuillez composer un numéro.");
-                return;
-            }
-            showNotification(`Appel en cours vers ${phoneNumber}...`);
-            setTimeout(() => { showNotification("Ligne occupée."); }, 3000);
+        // Gestion Fond d'écran
+        function setWallpaper(name, background, notify = true) {
+            wallpaperName = name;
+            wallpaperBg = background;
+            localStorage.setItem('phone_wpName', name);
+            localStorage.setItem('phone_wpBg', background);
+
+            document.getElementById('phone-screen').style.background = background;
+            document.getElementById('lbl-wallpaper').innerText = name;
+
+            document.querySelectorAll('.wallpaper-card').forEach(card => card.classList.remove('selected'));
+            const selectedCard = document.getElementById(`wp-${name}`);
+            if (selectedCard) selectedCard.classList.add('selected');
+
+            if (notify) showNotification(`Fond d'écran : ${name}`);
         }
     </script>
-
 </body>
 </html>

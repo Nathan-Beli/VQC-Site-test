@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -11,18 +10,20 @@
 
     <style>
         /* ==========================================
-           VARIABLES & STYLE DE BASE (THÈME ROUGE)
+           VARIABLES & STYLE DE BASE
            ========================================== */
         :root {
             --bg-dark: #0f172a;
             --card-bg: rgba(30, 41, 59, 0.85);
-            --primary: #ef4444;            /* Rouge principal */
-            --primary-hover: #dc2626;      /* Rouge foncé au survol */
+            --primary: #ef4444;
+            --primary-hover: #dc2626;
             --text-main: #f8fafc;
             --text-muted: #94a3b8;
             --discord-color: #5865F2;
             --discord-hover: #4752C4;
             --border-color: rgba(239, 68, 68, 0.25);
+            --phone-bg: #0b0f19;
+            --phone-card: #182232;
         }
 
         * {
@@ -127,20 +128,26 @@
         }
 
         /* ==========================================
-           CONTENU DE LA PAGE
+           SECTION PRINCIPALE & SIMULATEUR SMARTPHONE
            ========================================== */
         .page-container {
-            max-width: 900px;
-            margin: 8rem auto 4rem auto;
+            max-width: 1100px;
+            margin: 7rem auto 4rem auto;
             padding: 0 1.5rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .page-header {
             text-align: center;
+            margin-bottom: 2rem;
         }
 
         .page-header h1 {
-            font-size: 2.8rem;
+            font-size: 2.5rem;
             font-weight: 800;
             color: #ffffff;
-            margin-bottom: 0.5rem;
         }
 
         .page-header h1 span {
@@ -150,6 +157,265 @@
         .page-header p {
             color: var(--text-muted);
             font-size: 1.1rem;
+        }
+
+        /* Smartphone Frame */
+        .phone-wrapper {
+            width: 340px;
+            height: 680px;
+            background: #000;
+            border-radius: 40px;
+            padding: 12px;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.8), 0 0 15px rgba(239, 68, 68, 0.3);
+            border: 3px solid #334155;
+            position: relative;
+            user-select: none;
+        }
+
+        .phone-screen {
+            width: 100%;
+            height: 100%;
+            background-color: var(--phone-bg);
+            border-radius: 30px;
+            overflow: hidden;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* Notch / Dynamic Island */
+        .phone-notch {
+            position: absolute;
+            top: 8px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 90px;
+            height: 22px;
+            background-color: #000;
+            border-radius: 20px;
+            z-index: 100;
+        }
+
+        /* Status Bar */
+        .status-bar {
+            height: 35px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 18px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            color: #fff;
+            z-index: 90;
+        }
+
+        /* App Views */
+        .app-view {
+            flex: 1;
+            display: none;
+            flex-direction: column;
+            padding: 10px 14px 60px 14px;
+            overflow-y: auto;
+        }
+
+        .app-view.active {
+            display: flex;
+        }
+
+        /* Home View */
+        .home-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 12px;
+            margin-top: 20px;
+        }
+
+        .app-icon {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            cursor: pointer;
+        }
+
+        .icon-box {
+            width: 54px;
+            height: 54px;
+            border-radius: 14px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 1.3rem;
+            color: #fff;
+            margin-bottom: 4px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+        }
+
+        .app-label {
+            font-size: 0.65rem;
+            color: #fff;
+            text-align: center;
+        }
+
+        /* Bottom Dock */
+        .phone-dock {
+            position: absolute;
+            bottom: 12px;
+            left: 12px;
+            right: 12px;
+            height: 62px;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(15px);
+            border-radius: 20px;
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            padding: 0 10px;
+        }
+
+        /* App Headers */
+        .app-header {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-weight: 700;
+            font-size: 1.1rem;
+            margin-bottom: 15px;
+            color: #fff;
+        }
+
+        .btn-back {
+            color: #3b82f6;
+            cursor: pointer;
+            font-size: 0.9rem;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        /* List Styling (Réglages & Store) */
+        .settings-card {
+            background-color: var(--phone-card);
+            border-radius: 12px;
+            padding: 12px;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            font-size: 0.85rem;
+        }
+
+        .settings-user {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: #334155;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+        }
+
+        .store-item {
+            background-color: var(--phone-card);
+            border-radius: 12px;
+            padding: 10px;
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .store-item .icon-box {
+            width: 42px;
+            height: 42px;
+            font-size: 1.1rem;
+        }
+
+        .store-info {
+            flex: 1;
+        }
+
+        .store-info h4 {
+            font-size: 0.8rem;
+            color: #fff;
+        }
+
+        .store-info p {
+            font-size: 0.65rem;
+            color: var(--text-muted);
+        }
+
+        .btn-install {
+            background-color: #2563eb;
+            color: #fff;
+            border: none;
+            padding: 4px 10px;
+            border-radius: 12px;
+            font-size: 0.7rem;
+            font-weight: 600;
+            cursor: pointer;
+        }
+
+        /* Dialpad */
+        .dial-display {
+            text-align: center;
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: #fff;
+            min-height: 40px;
+            margin-bottom: 15px;
+            letter-spacing: 1px;
+        }
+
+        .dial-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 12px;
+            padding: 0 10px;
+        }
+
+        .dial-btn {
+            width: 55px;
+            height: 55px;
+            border-radius: 50%;
+            background-color: #1e293b;
+            color: #fff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin: auto;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+
+        .dial-btn:active {
+            background-color: #334155;
+        }
+
+        .dial-call {
+            background-color: #22c55e;
+        }
+
+        /* Home Indicator Bar */
+        .home-bar {
+            position: absolute;
+            bottom: 4px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 4px;
+            background-color: #fff;
+            border-radius: 2px;
+            cursor: pointer;
+            z-index: 100;
         }
 
         /* ==========================================
@@ -162,6 +428,8 @@
             color: #64748b;
             font-size: 0.9rem;
             border-top: 1px solid var(--border-color);
+            margin-top: auto;
+            width: 100%;
         }
     </style>
 </head>
@@ -188,8 +456,154 @@
     <!-- Contenu Roleplay -->
     <main class="page-container">
         <div class="page-header">
-            <h1>Section <span>Roleplay</span></h1>
-            <p>Le contenu de cette section arrive bientôt...</p>
+            <h1>Espace <span>Roleplay</span></h1>
+            <p>Découvre le téléphone GreenOS disponible directement en jeu.</p>
+        </div>
+
+        <!-- Simulator Frame -->
+        <div class="phone-wrapper">
+            <div class="phone-notch"></div>
+            
+            <div class="phone-screen">
+                <!-- Status Bar -->
+                <div class="status-bar">
+                    <span>21:23</span>
+                    <div>
+                        <i class="fa-solid fa-signal"></i>
+                        <i class="fa-solid fa-wifi"></i>
+                        <i class="fa-solid fa-battery-full"></i>
+                    </div>
+                </div>
+
+                <!-- 1. ACQUEIL -->
+                <div id="view-home" class="app-view active">
+                    <div class="home-grid">
+                        <div class="app-icon">
+                            <div class="icon-box" style="background:#3b82f6;"><i class="fa-solid fa-building-columns"></i></div>
+                            <span class="app-label">Banque</span>
+                        </div>
+                        <div class="app-icon">
+                            <div class="icon-box" style="background:#2563eb;"><i class="fa-solid fa-car"></i></div>
+                            <span class="app-label">Motors</span>
+                        </div>
+                        <div class="app-icon">
+                            <div class="icon-box" style="background:#d97706;"><i class="fa-solid fa-city"></i></div>
+                            <span class="app-label">Immobilier</span>
+                        </div>
+                        <div class="app-icon">
+                            <div class="icon-box" style="background:#059669;"><i class="fa-solid fa-wallet"></i></div>
+                            <span class="app-label">Portefeuille</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 2. REGLAGES -->
+                <div id="view-settings" class="app-view">
+                    <div class="app-header">
+                        <span class="btn-back" onclick="openApp('view-home')"><i class="fa-solid fa-chevron-left"></i> Retour</span>
+                    </div>
+                    <h2 style="font-size: 1.3rem; margin-bottom: 10px;">Réglages</h2>
+                    <div class="settings-card">
+                        <div class="settings-user">
+                            <div class="avatar"><i class="fa-solid fa-user"></i></div>
+                            <div>
+                                <strong style="color:#fff; font-size:0.9rem;">Nathan</strong>
+                                <p style="font-size:0.65rem; color:var(--text-muted);">Compte GreenOS, iCloud RP</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="settings-card">
+                        <span>Mon numéro</span>
+                        <strong style="color:var(--text-muted);">555-267-5182</strong>
+                    </div>
+                    <div class="settings-card">
+                        <span>Thème</span>
+                        <span style="color:var(--text-muted);">Sombre ></span>
+                    </div>
+                    <div class="settings-card">
+                        <span>Langue</span>
+                        <span style="color:var(--text-muted);">Français ></span>
+                    </div>
+                </div>
+
+                <!-- 3. APP STORE -->
+                <div id="view-store" class="app-view">
+                    <div class="app-header">
+                        <span class="btn-back" onclick="openApp('view-home')"><i class="fa-solid fa-chevron-left"></i> Retour</span>
+                    </div>
+                    <h2 style="font-size: 1.2rem; margin-bottom: 10px;">App Store</h2>
+                    
+                    <div class="store-item">
+                        <div class="icon-box" style="background:#ea580c;"><i class="fa-solid fa-store"></i></div>
+                        <div class="store-info">
+                            <h4>Bazardo</h4>
+                            <p>Marketplace de Greendale</p>
+                        </div>
+                        <button class="btn-install">Obtenir</button>
+                    </div>
+
+                    <div class="store-item">
+                        <div class="icon-box" style="background:#dc2626;"><i class="fa-solid fa-fire-extinguisher"></i></div>
+                        <div class="store-info">
+                            <h4>GCSO Citoyen</h4>
+                            <p>Consultez vos infractions</p>
+                        </div>
+                        <button class="btn-install">Obtenir</button>
+                    </div>
+
+                    <div class="store-item">
+                        <div class="icon-box" style="background:#9333ea;"><i class="fa-solid fa-share-nodes"></i></div>
+                        <div class="store-info">
+                            <h4>Glow</h4>
+                            <p>Réseau social RP</p>
+                        </div>
+                        <button class="btn-install">Obtenir</button>
+                    </div>
+                </div>
+
+                <!-- 4. MESSAGES -->
+                <div id="view-messages" class="app-view">
+                    <div class="app-header">
+                        <span class="btn-back" onclick="openApp('view-home')"><i class="fa-solid fa-chevron-left"></i> Annuler</span>
+                    </div>
+                    <h2 style="font-size: 1.2rem; margin-bottom: 10px;">Nouveau message</h2>
+                    <input type="text" placeholder="Numéro destinataire (555-XXX)" style="width:100%; padding:8px; border-radius:8px; border:1px solid #334155; background:#1e293b; color:#fff; font-size:0.8rem; margin-bottom:10px;">
+                    <button style="width:100%; padding:8px; background:#2563eb; color:#fff; border:none; border-radius:8px; font-weight:600; font-size:0.8rem;">Démarrer la conversation</button>
+                </div>
+
+                <!-- 5. TÉLÉPHONE -->
+                <div id="view-phone" class="app-view">
+                    <div class="dial-display" id="dial-number"></div>
+                    <div class="dial-grid">
+                        <div class="dial-btn" onclick="pressKey('1')">1</div>
+                        <div class="dial-btn" onclick="pressKey('2')">2</div>
+                        <div class="dial-btn" onclick="pressKey('3')">3</div>
+                        <div class="dial-btn" onclick="pressKey('4')">4</div>
+                        <div class="dial-btn" onclick="pressKey('5')">5</div>
+                        <div class="dial-btn" onclick="pressKey('6')">6</div>
+                        <div class="dial-btn" onclick="pressKey('7')">7</div>
+                        <div class="dial-btn" onclick="pressKey('8')">8</div>
+                        <div class="dial-btn" onclick="pressKey('9')">9</div>
+                        <div class="dial-btn" onclick="pressKey('*')">*</div>
+                        <div class="dial-btn" onclick="pressKey('0')">0</div>
+                        <div class="dial-btn" onclick="pressKey('#')">#</div>
+                        <div></div>
+                        <div class="dial-btn dial-call"><i class="fa-solid fa-phone"></i></div>
+                        <div class="dial-btn" style="background:transparent;" onclick="deleteKey()"><i class="fa-solid fa-backspace"></i></div>
+                    </div>
+                </div>
+
+                <!-- Dock Navigation -->
+                <div class="phone-dock">
+                    <div class="icon-box" style="background:#475569; width:40px; height:40px; font-size:0.9rem;" onclick="openApp('view-settings')"><i class="fa-solid fa-gear"></i></div>
+                    <div class="icon-box" style="background:#2563eb; width:40px; height:40px; font-size:0.9rem;" onclick="openApp('view-store')"><i class="fa-solid fa-bag-shopping"></i></div>
+                    <div class="icon-box" style="background:#22c55e; width:40px; height:40px; font-size:0.9rem;" onclick="openApp('view-messages')"><i class="fa-solid fa-comment"></i></div>
+                    <div class="icon-box" style="background:#16a34a; width:40px; height:40px; font-size:0.9rem;" onclick="openApp('view-phone')"><i class="fa-solid fa-phone"></i></div>
+                </div>
+
+                <!-- Barre d'accueil iOS -->
+                <div class="home-bar" onclick="openApp('view-home')"></div>
+            </div>
         </div>
     </main>
 
@@ -197,6 +611,28 @@
     <footer>
         <p>&copy; 2026 Blainville RP QC. Tous droits réservés.</p>
     </footer>
+
+    <!-- SCRIPT DE NAVIGATION DU TÉLÉPHONE -->
+    <script>
+        function openApp(appId) {
+            const views = document.querySelectorAll('.app-view');
+            views.forEach(view => view.classList.remove('active'));
+            document.getElementById(appId).classList.add('active');
+        }
+
+        let phoneNumber = "";
+        function pressKey(key) {
+            if (phoneNumber.length < 12) {
+                phoneNumber += key;
+                document.getElementById('dial-number').innerText = phoneNumber;
+            }
+        }
+
+        function deleteKey() {
+            phoneNumber = phoneNumber.slice(0, -1);
+            document.getElementById('dial-number').innerText = phoneNumber;
+        }
+    </script>
 
 </body>
 </html>

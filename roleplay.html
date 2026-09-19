@@ -161,12 +161,12 @@
 
         /* Smartphone Frame */
         .phone-wrapper {
-            width: 340px;
-            height: 680px;
+            width: 350px;
+            height: 700px;
             background: #000;
-            border-radius: 40px;
+            border-radius: 44px;
             padding: 12px;
-            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.8), 0 0 15px rgba(239, 68, 68, 0.3);
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.8), 0 0 20px rgba(239, 68, 68, 0.35);
             border: 3px solid #334155;
             position: relative;
             user-select: none;
@@ -176,11 +176,14 @@
             width: 100%;
             height: 100%;
             background-color: var(--phone-bg);
-            border-radius: 30px;
+            background-size: cover;
+            background-position: center;
+            border-radius: 34px;
             overflow: hidden;
             position: relative;
             display: flex;
             flex-direction: column;
+            transition: background-image 0.3s ease;
         }
 
         /* Notch / Dynamic Island */
@@ -189,7 +192,7 @@
             top: 8px;
             left: 50%;
             transform: translateX(-50%);
-            width: 90px;
+            width: 95px;
             height: 22px;
             background-color: #000;
             border-radius: 20px;
@@ -198,15 +201,16 @@
 
         /* Status Bar */
         .status-bar {
-            height: 35px;
+            height: 38px;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 0 18px;
+            padding: 0 20px;
             font-size: 0.75rem;
             font-weight: 700;
             color: #fff;
             z-index: 90;
+            background: linear-gradient(to bottom, rgba(0,0,0,0.6), transparent);
         }
 
         /* App Views */
@@ -214,7 +218,7 @@
             flex: 1;
             display: none;
             flex-direction: column;
-            padding: 10px 14px 60px 14px;
+            padding: 10px 14px 70px 14px;
             overflow-y: auto;
         }
 
@@ -226,8 +230,8 @@
         .home-grid {
             display: grid;
             grid-template-columns: repeat(4, 1fr);
-            gap: 12px;
-            margin-top: 20px;
+            gap: 14px;
+            margin-top: 15px;
         }
 
         .app-icon {
@@ -235,6 +239,11 @@
             flex-direction: column;
             align-items: center;
             cursor: pointer;
+            transition: transform 0.1s;
+        }
+
+        .app-icon:active {
+            transform: scale(0.9);
         }
 
         .icon-box {
@@ -254,46 +263,51 @@
             font-size: 0.65rem;
             color: #fff;
             text-align: center;
+            font-weight: 500;
+            text-shadow: 0 1px 3px rgba(0,0,0,0.8);
         }
 
         /* Bottom Dock */
         .phone-dock {
             position: absolute;
-            bottom: 12px;
+            bottom: 14px;
             left: 12px;
             right: 12px;
             height: 62px;
-            background: rgba(255, 255, 255, 0.1);
+            background: rgba(255, 255, 255, 0.15);
             backdrop-filter: blur(15px);
-            border-radius: 20px;
+            border-radius: 22px;
             display: flex;
             justify-content: space-around;
             align-items: center;
             padding: 0 10px;
+            z-index: 95;
         }
 
         /* App Headers */
         .app-header {
             display: flex;
             align-items: center;
-            gap: 10px;
+            justify-content: space-between;
             font-weight: 700;
             font-size: 1.1rem;
-            margin-bottom: 15px;
+            margin-bottom: 12px;
             color: #fff;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+            padding-bottom: 8px;
         }
 
         .btn-back {
             color: #3b82f6;
             cursor: pointer;
-            font-size: 0.9rem;
+            font-size: 0.85rem;
             display: flex;
             align-items: center;
             gap: 4px;
         }
 
-        /* List Styling (Réglages & Store) */
-        .settings-card {
+        /* Standard Cards */
+        .phone-card-item {
             background-color: var(--phone-card);
             border-radius: 12px;
             padding: 12px;
@@ -302,64 +316,37 @@
             align-items: center;
             justify-content: space-between;
             font-size: 0.85rem;
+            border: 1px solid rgba(255,255,255,0.05);
         }
 
-        .settings-user {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .avatar {
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            background: #334155;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.2rem;
-        }
-
-        .store-item {
-            background-color: var(--phone-card);
-            border-radius: 12px;
-            padding: 10px;
-            margin-bottom: 8px;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .store-item .icon-box {
-            width: 42px;
-            height: 42px;
-            font-size: 1.1rem;
-        }
-
-        .store-info {
-            flex: 1;
-        }
-
-        .store-info h4 {
-            font-size: 0.8rem;
+        /* Inputs & Buttons */
+        .phone-input {
+            width: 100%;
+            padding: 8px 12px;
+            border-radius: 8px;
+            border: 1px solid #334155;
+            background: #1e293b;
             color: #fff;
+            font-size: 0.8rem;
+            margin-bottom: 8px;
+            outline: none;
         }
 
-        .store-info p {
-            font-size: 0.65rem;
-            color: var(--text-muted);
-        }
-
-        .btn-install {
-            background-color: #2563eb;
+        .phone-btn {
+            width: 100%;
+            padding: 8px;
+            background: #2563eb;
             color: #fff;
             border: none;
-            padding: 4px 10px;
-            border-radius: 12px;
-            font-size: 0.7rem;
+            border-radius: 8px;
             font-weight: 600;
+            font-size: 0.8rem;
             cursor: pointer;
+            transition: background 0.2s;
+        }
+
+        .phone-btn:hover {
+            background: #1d4ed8;
         }
 
         /* Dialpad */
@@ -368,28 +355,28 @@
             font-size: 1.4rem;
             font-weight: 700;
             color: #fff;
-            min-height: 40px;
-            margin-bottom: 15px;
+            min-height: 35px;
+            margin-bottom: 10px;
             letter-spacing: 1px;
         }
 
         .dial-grid {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
-            gap: 12px;
+            gap: 10px;
             padding: 0 10px;
         }
 
         .dial-btn {
-            width: 55px;
-            height: 55px;
+            width: 52px;
+            height: 52px;
             border-radius: 50%;
             background-color: #1e293b;
             color: #fff;
             display: flex;
             justify-content: center;
             align-items: center;
-            font-size: 1.2rem;
+            font-size: 1.1rem;
             font-weight: 600;
             margin: auto;
             cursor: pointer;
@@ -404,6 +391,37 @@
             background-color: #22c55e;
         }
 
+        /* Messages Chat UI */
+        .chat-box {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            overflow-y: auto;
+            margin-bottom: 10px;
+            max-height: 360px;
+        }
+
+        .msg-bubble {
+            max-width: 80%;
+            padding: 8px 12px;
+            border-radius: 12px;
+            font-size: 0.78rem;
+            word-wrap: break-word;
+        }
+
+        .msg-sent {
+            align-self: flex-end;
+            background: #2563eb;
+            color: #fff;
+        }
+
+        .msg-received {
+            align-self: flex-start;
+            background: #334155;
+            color: #fff;
+        }
+
         /* Home Indicator Bar */
         .home-bar {
             position: absolute;
@@ -416,6 +434,23 @@
             border-radius: 2px;
             cursor: pointer;
             z-index: 100;
+        }
+
+        /* Notification Pop */
+        .phone-notif {
+            position: absolute;
+            top: 42px;
+            left: 10px;
+            right: 10px;
+            background: rgba(30, 41, 59, 0.95);
+            border: 1px solid var(--primary);
+            padding: 8px 12px;
+            border-radius: 10px;
+            font-size: 0.75rem;
+            color: #fff;
+            display: none;
+            z-index: 110;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.5);
         }
 
         /* ==========================================
@@ -457,17 +492,20 @@
     <main class="page-container">
         <div class="page-header">
             <h1>Espace <span>Roleplay</span></h1>
-            <p>Découvre le téléphone GreenOS disponible directement en jeu.</p>
+            <p>Découvre et teste le téléphone GreenOS 100% interactif.</p>
         </div>
 
         <!-- Simulator Frame -->
         <div class="phone-wrapper">
             <div class="phone-notch"></div>
             
-            <div class="phone-screen">
+            <div class="phone-screen" id="phone-screen">
+                <!-- Notification Banner -->
+                <div class="phone-notif" id="phone-notif"></div>
+
                 <!-- Status Bar -->
                 <div class="status-bar">
-                    <span>21:23</span>
+                    <span id="clock">21:23</span>
                     <div>
                         <i class="fa-solid fa-signal"></i>
                         <i class="fa-solid fa-wifi"></i>
@@ -475,103 +513,181 @@
                     </div>
                 </div>
 
-                <!-- 1. ACQUEIL -->
+                <!-- 1. ACCUEIL -->
                 <div id="view-home" class="app-view active">
-                    <div class="home-grid">
-                        <div class="app-icon">
+                    <div class="home-grid" id="home-grid">
+                        <div class="app-icon" onclick="openApp('view-bank')">
                             <div class="icon-box" style="background:#3b82f6;"><i class="fa-solid fa-building-columns"></i></div>
                             <span class="app-label">Banque</span>
                         </div>
-                        <div class="app-icon">
+                        <div class="app-icon" onclick="openApp('view-motors')">
                             <div class="icon-box" style="background:#2563eb;"><i class="fa-solid fa-car"></i></div>
                             <span class="app-label">Motors</span>
                         </div>
-                        <div class="app-icon">
+                        <div class="app-icon" onclick="openApp('view-immo')">
                             <div class="icon-box" style="background:#d97706;"><i class="fa-solid fa-city"></i></div>
                             <span class="app-label">Immobilier</span>
                         </div>
-                        <div class="app-icon">
+                        <div class="app-icon" onclick="openApp('view-wallet')">
                             <div class="icon-box" style="background:#059669;"><i class="fa-solid fa-wallet"></i></div>
                             <span class="app-label">Portefeuille</span>
                         </div>
                     </div>
                 </div>
 
-                <!-- 2. REGLAGES -->
+                <!-- 2. BANQUE -->
+                <div id="view-bank" class="app-view">
+                    <div class="app-header">
+                        <span>Banque RP</span>
+                        <span class="btn-back" onclick="openApp('view-home')"><i class="fa-solid fa-chevron-left"></i> Retour</span>
+                    </div>
+                    <div class="phone-card-item" style="flex-direction:column; align-items:flex-start; background:#1e293b;">
+                        <span style="color:var(--text-muted); font-size:0.75rem;">Solde disponible</span>
+                        <strong id="bank-balance" style="font-size:1.4rem; color:#22c55e;">2,500.00 $</strong>
+                    </div>
+                    <h4 style="font-size:0.8rem; margin:8px 0;">Virement bancaire</h4>
+                    <input type="text" id="transfer-target" placeholder="Destinataire (ex: Alex)" class="phone-input">
+                    <input type="number" id="transfer-amount" placeholder="Montant ($)" class="phone-input">
+                    <button class="phone-btn" onclick="makeTransfer()">Envoyer le montant</button>
+                    
+                    <h4 style="font-size:0.8rem; margin:12px 0 6px 0;">Actions rapides</h4>
+                    <button class="phone-btn" style="background:#059669;" onclick="addMoney(500)">Déposer 500$ (Salaire)</button>
+                </div>
+
+                <!-- 3. MOTORS -->
+                <div id="view-motors" class="app-view">
+                    <div class="app-header">
+                        <span>Greendale Motors</span>
+                        <span class="btn-back" onclick="openApp('view-home')"><i class="fa-solid fa-chevron-left"></i> Retour</span>
+                    </div>
+                    
+                    <div class="phone-card-item">
+                        <div>
+                            <strong>Police Utility</strong>
+                            <p style="font-size:0.7rem; color:var(--text-muted);">SUV Intercepteur</p>
+                            <span style="color:#22c55e; font-weight:bold;">15,000 $</span>
+                        </div>
+                        <button class="phone-btn" style="width:auto; padding:4px 8px;" onclick="buyVehicle('Police Utility', 15000)">Acheter</button>
+                    </div>
+
+                    <div class="phone-card-item">
+                        <div>
+                            <strong>Sedan Standard</strong>
+                            <p style="font-size:0.7rem; color:var(--text-muted);">Véhicule civil</p>
+                            <span style="color:#22c55e; font-weight:bold;">3,500 $</span>
+                        </div>
+                        <button class="phone-btn" style="width:auto; padding:4px 8px;" onclick="buyVehicle('Sedan Standard', 3500)">Acheter</button>
+                    </div>
+                </div>
+
+                <!-- 4. IMMOBILIER -->
+                <div id="view-immo" class="app-view">
+                    <div class="app-header">
+                        <span>Immobilier</span>
+                        <span class="btn-back" onclick="openApp('view-home')"><i class="fa-solid fa-chevron-left"></i> Retour</span>
+                    </div>
+                    
+                    <div class="phone-card-item">
+                        <div>
+                            <strong>Appartement Centre-Ville</strong>
+                            <p style="font-size:0.7rem; color:var(--text-muted);">2 pièces moderne</p>
+                            <span style="color:#22c55e; font-weight:bold;">45,000 $</span>
+                        </div>
+                        <button class="phone-btn" style="width:auto; padding:4px 8px;" onclick="buyProperty('Appartement Centre-Ville', 45000)">Acheter</button>
+                    </div>
+                </div>
+
+                <!-- 5. PORTEFEUILLE -->
+                <div id="view-wallet" class="app-view">
+                    <div class="app-header">
+                        <span>Portefeuille</span>
+                        <span class="btn-back" onclick="openApp('view-home')"><i class="fa-solid fa-chevron-left"></i> Retour</span>
+                    </div>
+                    <div class="phone-card-item" style="flex-direction:column; align-items:flex-start; background:#1e293b;">
+                        <div style="display:flex; justify-content:space-between; width:100%; border-bottom:1px solid #334155; padding-bottom:6px; margin-bottom:6px;">
+                            <strong style="color:var(--primary);">CARTE D'IDENTITÉ</strong>
+                            <span style="font-size:0.65rem; color:#22c55e;">VALIDE</span>
+                        </div>
+                        <p style="font-size:0.75rem;"><strong>Nom :</strong> <span class="profile-name">Nathan</span></p>
+                        <p style="font-size:0.75rem;"><strong>Numéro :</strong> 555-267-5182</p>
+                        <p style="font-size:0.75rem;"><strong>Statut :</strong> Citoyen de Blainville</p>
+                    </div>
+
+                    <div class="phone-card-item" style="flex-direction:column; align-items:flex-start; background:#1e293b;">
+                        <div style="display:flex; justify-content:space-between; width:100%; border-bottom:1px solid #334155; padding-bottom:6px; margin-bottom:6px;">
+                            <strong style="color:#3b82f6;">PERMIS DE CONDUIRE</strong>
+                            <span style="font-size:0.65rem; color:#22c55e;">ACTIF</span>
+                        </div>
+                        <p style="font-size:0.75rem;"><strong>Catégories :</strong> A, B (Auto/Moto)</p>
+                        <p style="font-size:0.75rem;"><strong>Points :</strong> 12/12</p>
+                    </div>
+                </div>
+
+                <!-- 6. REGLAGES -->
                 <div id="view-settings" class="app-view">
                     <div class="app-header">
+                        <span>Réglages</span>
                         <span class="btn-back" onclick="openApp('view-home')"><i class="fa-solid fa-chevron-left"></i> Retour</span>
                     </div>
-                    <h2 style="font-size: 1.3rem; margin-bottom: 10px;">Réglages</h2>
-                    <div class="settings-card">
-                        <div class="settings-user">
-                            <div class="avatar"><i class="fa-solid fa-user"></i></div>
-                            <div>
-                                <strong style="color:#fff; font-size:0.9rem;">Nathan</strong>
-                                <p style="font-size:0.65rem; color:var(--text-muted);">Compte GreenOS, iCloud RP</p>
-                            </div>
-                        </div>
+                    
+                    <div class="phone-card-item">
+                        <span>Changer le nom :</span>
                     </div>
-                    <div class="settings-card">
-                        <span>Mon numéro</span>
-                        <strong style="color:var(--text-muted);">555-267-5182</strong>
+                    <input type="text" id="setting-name-input" value="Nathan" class="phone-input">
+                    <button class="phone-btn" onclick="updateProfileName()" style="margin-bottom:12px;">Enregistrer</button>
+
+                    <div class="phone-card-item">
+                        <span>Fond d'écran :</span>
                     </div>
-                    <div class="settings-card">
-                        <span>Thème</span>
-                        <span style="color:var(--text-muted);">Sombre ></span>
-                    </div>
-                    <div class="settings-card">
-                        <span>Langue</span>
-                        <span style="color:var(--text-muted);">Français ></span>
+                    <div style="display:flex; gap:8px;">
+                        <button class="phone-btn" style="background:#0f172a;" onclick="setWallpaper('#0b0f19')">Sombre</button>
+                        <button class="phone-btn" style="background:#dc2626;" onclick="setWallpaper('linear-gradient(to bottom, #7f1d1d, #0f172a)')">Rouge</button>
+                        <button class="phone-btn" style="background:#2563eb;" onclick="setWallpaper('linear-gradient(to bottom, #1e3a8a, #0f172a)')">Bleu</button>
                     </div>
                 </div>
 
-                <!-- 3. APP STORE -->
+                <!-- 7. APP STORE -->
                 <div id="view-store" class="app-view">
                     <div class="app-header">
+                        <span>App Store</span>
                         <span class="btn-back" onclick="openApp('view-home')"><i class="fa-solid fa-chevron-left"></i> Retour</span>
                     </div>
-                    <h2 style="font-size: 1.2rem; margin-bottom: 10px;">App Store</h2>
-                    
-                    <div class="store-item">
-                        <div class="icon-box" style="background:#ea580c;"><i class="fa-solid fa-store"></i></div>
-                        <div class="store-info">
-                            <h4>Bazardo</h4>
-                            <p>Marketplace de Greendale</p>
+
+                    <div class="phone-card-item" id="app-item-casino">
+                        <div>
+                            <strong>Casino RP</strong>
+                            <p style="font-size:0.65rem; color:var(--text-muted);">Jeux de hasard</p>
                         </div>
-                        <button class="btn-install">Obtenir</button>
+                        <button class="phone-btn" style="width:auto; padding:4px 8px;" id="btn-install-casino" onclick="toggleInstallApp('casino', 'Casino RP', 'fa-dice', '#eab308')">Obtenir</button>
                     </div>
 
-                    <div class="store-item">
-                        <div class="icon-box" style="background:#dc2626;"><i class="fa-solid fa-fire-extinguisher"></i></div>
-                        <div class="store-info">
-                            <h4>GCSO Citoyen</h4>
-                            <p>Consultez vos infractions</p>
+                    <div class="phone-card-item" id="app-item-glow">
+                        <div>
+                            <strong>Glow</strong>
+                            <p style="font-size:0.65rem; color:var(--text-muted);">Réseau social</p>
                         </div>
-                        <button class="btn-install">Obtenir</button>
-                    </div>
-
-                    <div class="store-item">
-                        <div class="icon-box" style="background:#9333ea;"><i class="fa-solid fa-share-nodes"></i></div>
-                        <div class="store-info">
-                            <h4>Glow</h4>
-                            <p>Réseau social RP</p>
-                        </div>
-                        <button class="btn-install">Obtenir</button>
+                        <button class="phone-btn" style="width:auto; padding:4px 8px;" id="btn-install-glow" onclick="toggleInstallApp('glow', 'Glow', 'fa-share-nodes', '#9333ea')">Obtenir</button>
                     </div>
                 </div>
 
-                <!-- 4. MESSAGES -->
+                <!-- 8. MESSAGES -->
                 <div id="view-messages" class="app-view">
                     <div class="app-header">
-                        <span class="btn-back" onclick="openApp('view-home')"><i class="fa-solid fa-chevron-left"></i> Annuler</span>
+                        <span>Messages</span>
+                        <span class="btn-back" onclick="openApp('view-home')"><i class="fa-solid fa-chevron-left"></i> Retour</span>
                     </div>
-                    <h2 style="font-size: 1.2rem; margin-bottom: 10px;">Nouveau message</h2>
-                    <input type="text" placeholder="Numéro destinataire (555-XXX)" style="width:100%; padding:8px; border-radius:8px; border:1px solid #334155; background:#1e293b; color:#fff; font-size:0.8rem; margin-bottom:10px;">
-                    <button style="width:100%; padding:8px; background:#2563eb; color:#fff; border:none; border-radius:8px; font-weight:600; font-size:0.8rem;">Démarrer la conversation</button>
+
+                    <div class="chat-box" id="chat-box">
+                        <div class="msg-bubble msg-received">Bienvenue sur le réseau de Blainville RP !</div>
+                    </div>
+
+                    <div style="margin-top:auto;">
+                        <input type="text" id="sms-input" placeholder="Écrire un message..." class="phone-input">
+                        <button class="phone-btn" onclick="sendSMS()">Envoyer</button>
+                    </div>
                 </div>
 
-                <!-- 5. TÉLÉPHONE -->
+                <!-- 9. TÉLÉPHONE / CLAVIER -->
                 <div id="view-phone" class="app-view">
                     <div class="dial-display" id="dial-number"></div>
                     <div class="dial-grid">
@@ -588,17 +704,17 @@
                         <div class="dial-btn" onclick="pressKey('0')">0</div>
                         <div class="dial-btn" onclick="pressKey('#')">#</div>
                         <div></div>
-                        <div class="dial-btn dial-call"><i class="fa-solid fa-phone"></i></div>
+                        <div class="dial-btn dial-call" onclick="startCall()"><i class="fa-solid fa-phone"></i></div>
                         <div class="dial-btn" style="background:transparent;" onclick="deleteKey()"><i class="fa-solid fa-backspace"></i></div>
                     </div>
                 </div>
 
                 <!-- Dock Navigation -->
                 <div class="phone-dock">
-                    <div class="icon-box" style="background:#475569; width:40px; height:40px; font-size:0.9rem;" onclick="openApp('view-settings')"><i class="fa-solid fa-gear"></i></div>
-                    <div class="icon-box" style="background:#2563eb; width:40px; height:40px; font-size:0.9rem;" onclick="openApp('view-store')"><i class="fa-solid fa-bag-shopping"></i></div>
-                    <div class="icon-box" style="background:#22c55e; width:40px; height:40px; font-size:0.9rem;" onclick="openApp('view-messages')"><i class="fa-solid fa-comment"></i></div>
-                    <div class="icon-box" style="background:#16a34a; width:40px; height:40px; font-size:0.9rem;" onclick="openApp('view-phone')"><i class="fa-solid fa-phone"></i></div>
+                    <div class="icon-box" style="background:#475569; width:42px; height:42px; font-size:0.95rem;" onclick="openApp('view-settings')"><i class="fa-solid fa-gear"></i></div>
+                    <div class="icon-box" style="background:#2563eb; width:42px; height:42px; font-size:0.95rem;" onclick="openApp('view-store')"><i class="fa-solid fa-bag-shopping"></i></div>
+                    <div class="icon-box" style="background:#22c55e; width:42px; height:42px; font-size:0.95rem;" onclick="openApp('view-messages')"><i class="fa-solid fa-comment"></i></div>
+                    <div class="icon-box" style="background:#16a34a; width:42px; height:42px; font-size:0.95rem;" onclick="openApp('view-phone')"><i class="fa-solid fa-phone"></i></div>
                 </div>
 
                 <!-- Barre d'accueil iOS -->
@@ -612,15 +728,168 @@
         <p>&copy; 2026 Blainville RP QC. Tous droits réservés.</p>
     </footer>
 
-    <!-- SCRIPT DE NAVIGATION DU TÉLÉPHONE -->
+    <!-- SCRIPT TÉLÉPHONE FULL FONCTIONNEL -->
     <script>
+        // État Global du Téléphone
+        let balance = 2500;
+        let phoneNumber = "";
+        let installedApps = {};
+
+        // Horloge temps réel
+        function updateClock() {
+            const now = new Date();
+            const hours = String(now.getHours()).padStart(2, '0');
+            const minutes = String(now.getMinutes()).padStart(2, '0');
+            document.getElementById('clock').innerText = `${hours}:${minutes}`;
+        }
+        setInterval(updateClock, 1000);
+        updateClock();
+
+        // Notification Banner
+        function showNotification(text) {
+            const notif = document.getElementById('phone-notif');
+            notif.innerText = text;
+            notif.style.display = 'block';
+            setTimeout(() => {
+                notif.style.display = 'none';
+            }, 3000);
+        }
+
+        // Navigation
         function openApp(appId) {
             const views = document.querySelectorAll('.app-view');
             views.forEach(view => view.classList.remove('active'));
             document.getElementById(appId).classList.add('active');
         }
 
-        let phoneNumber = "";
+        // Banque
+        function updateBalanceDisplay() {
+            document.getElementById('bank-balance').innerText = balance.toLocaleString('en-US', { minimumFractionDigits: 2 }) + ' $';
+        }
+
+        function addMoney(amount) {
+            balance += amount;
+            updateBalanceDisplay();
+            showNotification(`+${amount}$ reçus sur votre compte.`);
+        }
+
+        function makeTransfer() {
+            const target = document.getElementById('transfer-target').value;
+            const amount = parseFloat(document.getElementById('transfer-amount').value);
+
+            if (!target || isNaN(amount) || amount <= 0) {
+                showNotification("Saisie invalide.");
+                return;
+            }
+
+            if (amount > balance) {
+                showNotification("Solde insuffisant.");
+                return;
+            }
+
+            balance -= amount;
+            updateBalanceDisplay();
+            showNotification(`Virement de ${amount}$ envoyé à ${target}.`);
+            document.getElementById('transfer-target').value = "";
+            document.getElementById('transfer-amount').value = "";
+        }
+
+        // Achats (Motors & Immo)
+        function buyVehicle(name, price) {
+            if (balance < price) {
+                showNotification("Fonds insuffisants en banque !");
+                return;
+            }
+            balance -= price;
+            updateBalanceDisplay();
+            showNotification(`Achat confirmé : ${name}`);
+        }
+
+        function buyProperty(name, price) {
+            if (balance < price) {
+                showNotification("Fonds insuffisants en banque !");
+                return;
+            }
+            balance -= price;
+            updateBalanceDisplay();
+            showNotification(`Propriété acquise : ${name}`);
+        }
+
+        // Réglages
+        function updateProfileName() {
+            const newName = document.getElementById('setting-name-input').value;
+            if (newName.trim() !== "") {
+                document.querySelectorAll('.profile-name').forEach(el => el.innerText = newName);
+                showNotification("Profil mis à jour !");
+            }
+        }
+
+        function setWallpaper(background) {
+            document.getElementById('phone-screen').style.background = background;
+            showNotification("Fond d'écran changé !");
+        }
+
+        // App Store (Installation dynamique)
+        function toggleInstallApp(id, name, iconClass, color) {
+            const btn = document.getElementById(`btn-install-${id}`);
+
+            if (!installedApps[id]) {
+                installedApps[id] = true;
+                btn.innerText = "Supprimer";
+                btn.style.background = "#dc2626";
+
+                // Ajouter l'icône sur le Home Screen
+                const grid = document.getElementById('home-grid');
+                const appElem = document.createElement('div');
+                appElem.className = 'app-icon';
+                appElem.id = `app-icon-${id}`;
+                appElem.innerHTML = `
+                    <div class="icon-box" style="background:${color};"><i class="fa-solid ${iconClass}"></i></div>
+                    <span class="app-label">${name}</span>
+                `;
+                grid.appendChild(appElem);
+                showNotification(`${name} a été installé.`);
+            } else {
+                installedApps[id] = false;
+                btn.innerText = "Obtenir";
+                btn.style.background = "#2563eb";
+
+                // Supprimer du Home Screen
+                const iconElem = document.getElementById(`app-icon-${id}`);
+                if (iconElem) iconElem.remove();
+                showNotification(`${name} désinstallé.`);
+            }
+        }
+
+        // Messages SMS
+        function sendSMS() {
+            const input = document.getElementById('sms-input');
+            const msg = input.value.trim();
+
+            if (msg === "") return;
+
+            const chatBox = document.getElementById('chat-box');
+            
+            // Bulle envoyée
+            const sentBubble = document.createElement('div');
+            sentBubble.className = 'msg-bubble msg-sent';
+            sentBubble.innerText = msg;
+            chatBox.appendChild(sentBubble);
+
+            input.value = "";
+            chatBox.scrollTop = chatBox.scrollHeight;
+
+            // Réponse automatique de simulation
+            setTimeout(() => {
+                const replyBubble = document.createElement('div');
+                replyBubble.className = 'msg-bubble msg-received';
+                replyBubble.innerText = "Message reçu en jeu !";
+                chatBox.appendChild(replyBubble);
+                chatBox.scrollTop = chatBox.scrollHeight;
+            }, 1000);
+        }
+
+        // Clavier Téléphone
         function pressKey(key) {
             if (phoneNumber.length < 12) {
                 phoneNumber += key;
@@ -631,6 +900,17 @@
         function deleteKey() {
             phoneNumber = phoneNumber.slice(0, -1);
             document.getElementById('dial-number').innerText = phoneNumber;
+        }
+
+        function startCall() {
+            if (phoneNumber.length === 0) {
+                showNotification("Veuillez composer un numéro.");
+                return;
+            }
+            showNotification(`Appel en cours vers ${phoneNumber}...`);
+            setTimeout(() => {
+                showNotification("Ligne occupée.");
+            }, 3000);
         }
     </script>
 

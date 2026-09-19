@@ -552,10 +552,53 @@
 
         .bank-actions {
             display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 10px;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 8px;
             margin-bottom: 12px;
         }
+
+        .bank-money-actions {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 8px;
+            margin-bottom: 12px;
+        }
+
+        .bank-money-btn {
+            background: var(--phone-card);
+            border: 1px solid var(--phone-card-border);
+            color: var(--phone-text);
+            padding: 9px 5px 8px;
+            border-radius: 11px;
+            font-size: 0.65rem;
+            font-weight: 600;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 5px;
+            cursor: pointer;
+            transition: transform 0.15s, background 0.15s;
+        }
+
+        .bank-money-btn:active {
+            transform: scale(0.96);
+        }
+
+        .bank-money-icon {
+            width: 32px;
+            height: 32px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #fff;
+            font-size: 0.9rem;
+        }
+
+        .bank-money-deposit .bank-money-icon { background: #34d399; }
+        .bank-money-withdraw .bank-money-icon { background: #fb923c; }
+        .bank-money-transfer .bank-money-icon { background: #818cf8; }
 
         .bank-action-btn {
             background: var(--phone-card);
@@ -968,6 +1011,22 @@
                                 <div>03/34</div>
                             </div>
                         </div>
+                    </div>
+
+                    <!-- Actions bancaires -->
+                    <div class="bank-money-actions">
+                        <button class="bank-money-btn bank-money-deposit" onclick="showNotification('Dépôt sélectionné')">
+                            <span class="bank-money-icon"><i class="fa-solid fa-arrow-down"></i></span>
+                            <span>Dépôt</span>
+                        </button>
+                        <button class="bank-money-btn bank-money-withdraw" onclick="showNotification('Retrait sélectionné')">
+                            <span class="bank-money-icon"><i class="fa-solid fa-arrow-up"></i></span>
+                            <span>Retrait</span>
+                        </button>
+                        <button class="bank-money-btn bank-money-transfer" onclick="showNotification('Virement sélectionné')">
+                            <span class="bank-money-icon"><i class="fa-solid fa-paper-plane"></i></span>
+                            <span>Virement</span>
+                        </button>
                     </div>
 
                     <!-- Actions Carte (Codes & Geler) -->

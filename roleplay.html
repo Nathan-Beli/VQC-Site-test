@@ -516,6 +516,28 @@
             display: none;
         }
 
+        /* CONFIGURATION INITIALE BLAINOS */
+        .setup-screen {
+            position: absolute; inset: 0;
+            background: linear-gradient(160deg, #0b0f1a 0%, #111827 60%, #172554 100%);
+            z-index: 250; display: none; flex-direction: column;
+            align-items: center; justify-content: center; padding: 24px; text-align: center;
+        }
+        .setup-progress { width: 100%; max-width: 270px; height: 5px; background: rgba(255,255,255,.10); border-radius: 99px; overflow: hidden; margin-bottom: 20px; }
+        .setup-progress-bar { height: 100%; width: 0%; background: #5865F2; border-radius: 99px; transition: width .25s ease; }
+        .setup-step { display: none; width: 100%; max-width: 285px; }
+        .setup-step.active { display: block; }
+        .setup-icon { width: 58px; height: 58px; border-radius: 18px; background: #5865F2; display:flex; align-items:center; justify-content:center; margin: 0 auto 14px; font-size:1.55rem; color:#fff; }
+        .setup-title { font-size:1.25rem; font-weight:800; margin-bottom:7px; }
+        .setup-text { color:#94a3b8; font-size:.73rem; line-height:1.5; margin-bottom:16px; }
+        .setup-options { display:grid; gap:8px; }
+        .setup-option { border:1px solid rgba(255,255,255,.12); background:rgba(255,255,255,.06); color:#fff; border-radius:12px; padding:11px; cursor:pointer; font-size:.8rem; font-weight:700; }
+        .setup-option.selected { border-color:#5865F2; background:rgba(88,101,242,.22); }
+        .setup-input { width:100%; box-sizing:border-box; border:1px solid rgba(255,255,255,.14); background:#0f172a; color:#fff; border-radius:11px; padding:12px; outline:none; margin-bottom:10px; }
+        .setup-next { width:100%; border:0; border-radius:12px; padding:12px; background:#5865F2; color:#fff; font-weight:800; cursor:pointer; margin-top:10px; }
+        .setup-error { color:#f87171; font-size:.68rem; min-height:18px; margin-top:7px; }
+        .setup-choice-row { display:grid; grid-template-columns:1fr 1fr; gap:8px; }
+
         /* ÉCRAN DE VERROUILLAGE & CLAVIER PIN */
         .lock-screen {
             position: absolute;
@@ -799,6 +821,85 @@
                         <i class="fa-brands fa-discord"></i> Se connecter avec Discord
                     </button>
                     <div class="discord-login-error" id="discord-login-error"></div>
+                </div>
+
+                <!-- CONFIGURATION INITIALE : UNE ÉTAPE À LA FOIS -->
+                <div class="setup-screen" id="setup-screen">
+                    <div class="setup-progress"><div class="setup-progress-bar" id="setup-progress-bar"></div></div>
+
+                    <div class="setup-step active" data-step="1">
+                        <div class="setup-icon"><i class="fa-solid fa-user"></i></div>
+                        <div class="setup-title">Bienvenue sur BlainOS</div>
+                        <div class="setup-text">Ton nom de téléphone sera automatiquement celui de ton compte Discord.</div>
+                        <div id="setup-discord-name" style="font-weight:800; margin-bottom:10px;">Discord</div>
+                        <button class="setup-next" onclick="setupNext()">Continuer</button>
+                    </div>
+
+                    <div class="setup-step" data-step="2">
+                        <div class="setup-icon"><i class="fa-solid fa-moon"></i></div>
+                        <div class="setup-title">Choisis ton thème</div>
+                        <div class="setup-text">Tu pourras le modifier plus tard dans Réglages.</div>
+                        <div class="setup-options">
+                            <button class="setup-option selected" data-value="dark" onclick="setupSelect('theme','dark',this)">🌙 Sombre</button>
+                            <button class="setup-option" data-value="light" onclick="setupSelect('theme','light',this)">☀️ Clair</button>
+                        </div>
+                        <button class="setup-next" onclick="setupNext()">Continuer</button>
+                    </div>
+
+                    <div class="setup-step" data-step="3">
+                        <div class="setup-icon"><i class="fa-solid fa-text-height"></i></div>
+                        <div class="setup-title">Taille du texte</div>
+                        <div class="setup-options">
+                            <button class="setup-option" onclick="setupSelect('textSize','Petit',this)">Petit</button>
+                            <button class="setup-option selected" onclick="setupSelect('textSize','Normal',this)">Normal</button>
+                            <button class="setup-option" onclick="setupSelect('textSize','Grand',this)">Grand</button>
+                        </div>
+                        <button class="setup-next" onclick="setupNext()">Continuer</button>
+                    </div>
+
+                    <div class="setup-step" data-step="4">
+                        <div class="setup-icon"><i class="fa-solid fa-image"></i></div>
+                        <div class="setup-title">Fond d'écran</div>
+                        <div class="setup-options">
+                            <button class="setup-option selected" onclick="setupSelect('wallpaper','Blainville',this)">Blainville</button>
+                            <button class="setup-option" onclick="setupSelect('wallpaper','Océan',this)">Océan</button>
+                            <button class="setup-option" onclick="setupSelect('wallpaper','Crépuscule',this)">Crépuscule</button>
+                            <button class="setup-option" onclick="setupSelect('wallpaper','Noir',this)">Noir</button>
+                        </div>
+                        <button class="setup-next" onclick="setupNext()">Continuer</button>
+                    </div>
+
+                    <div class="setup-step" data-step="5">
+                        <div class="setup-icon"><i class="fa-solid fa-bell"></i></div>
+                        <div class="setup-title">Notifications</div>
+                        <div class="setup-text">Active ou désactive les sons de notifications.</div>
+                        <div class="setup-choice-row">
+                            <button class="setup-option selected" onclick="setupSelect('notifications',true,this)">🔔 Activées</button>
+                            <button class="setup-option" onclick="setupSelect('notifications',false,this)">🔕 Désactivées</button>
+                        </div>
+                        <button class="setup-next" onclick="setupNext()">Continuer</button>
+                    </div>
+
+                    <div class="setup-step" data-step="6">
+                        <div class="setup-icon"><i class="fa-solid fa-phone"></i></div>
+                        <div class="setup-title">Appels</div>
+                        <div class="setup-text">Choisis si tu veux bloquer les appels masqués.</div>
+                        <div class="setup-choice-row">
+                            <button class="setup-option" onclick="setupSelect('blockedCalls',true,this)">🚫 Bloquer</button>
+                            <button class="setup-option selected" onclick="setupSelect('blockedCalls',false,this)">📞 Autoriser</button>
+                        </div>
+                        <button class="setup-next" onclick="setupNext()">Continuer</button>
+                    </div>
+
+                    <div class="setup-step" data-step="7">
+                        <div class="setup-icon"><i class="fa-solid fa-lock"></i></div>
+                        <div class="setup-title">Crée ton code PIN</div>
+                        <div class="setup-text">Choisis le code à 4 chiffres qui servira à déverrouiller ton téléphone.</div>
+                        <input class="setup-input" id="setup-pin" type="password" inputmode="numeric" maxlength="4" placeholder="Nouveau code (4 chiffres)">
+                        <input class="setup-input" id="setup-pin-confirm" type="password" inputmode="numeric" maxlength="4" placeholder="Confirme ton code">
+                        <div class="setup-error" id="setup-error"></div>
+                        <button class="setup-next" onclick="finishSetup()">Terminer la configuration</button>
+                    </div>
                 </div>
 
                 <!-- ÉCRAN DE VERROUILLAGE PIN -->
@@ -1334,8 +1435,11 @@
                 if (!response.ok) throw new Error('Discord a refusé la connexion.');
 
                 const user = await response.json();
+                const discordName = user.global_name || user.username || 'Utilisateur Discord';
                 sessionStorage.setItem('discord_authenticated', 'true');
-                sessionStorage.setItem('discord_username', user.global_name || user.username || 'Utilisateur Discord');
+                sessionStorage.setItem('discord_username', discordName);
+                userName = discordName;
+                localStorage.setItem('phone_userName', userName);
 
                 // Nettoie le token de l’URL et ne le conserve pas dans le stockage.
                 history.replaceState(null, '', window.location.pathname + window.location.search);
@@ -1355,17 +1459,118 @@
         function showPhoneAfterDiscordLogin() {
             const loginScreen = document.getElementById('discord-login-screen');
             if (loginScreen) loginScreen.style.display = 'none';
-            checkLockScreen();
+
+            // Le nom du téléphone reste synchronisé avec Discord.
+            const discordName = sessionStorage.getItem('discord_username');
+            if (discordName) {
+                userName = discordName;
+                localStorage.setItem('phone_userName', userName);
+            }
+            applySavedSettings();
+
+            if (localStorage.getItem('phone_setup_complete') !== 'true') {
+                startPhoneSetup();
+            } else {
+                checkLockScreen();
+            }
         }
 
         document.addEventListener('DOMContentLoaded', async () => {
-            applySavedSettings();
             await handleDiscordCallback();
 
             if (sessionStorage.getItem('discord_authenticated') === 'true') {
                 showPhoneAfterDiscordLogin();
             }
         });
+
+        // ==========================================
+        // CONFIGURATION INITIALE DU TÉLÉPHONE
+        // ==========================================
+        let setupStep = 1;
+        const setupTotalSteps = 7;
+        let setupData = {
+            theme: 'dark',
+            textSize: 'Normal',
+            wallpaper: 'Blainville',
+            notifications: true,
+            blockedCalls: false
+        };
+
+        function startPhoneSetup() {
+            const setup = document.getElementById('setup-screen');
+            const name = document.getElementById('setup-discord-name');
+            const discordName = sessionStorage.getItem('discord_username') || userName || 'Utilisateur Discord';
+            if (name) name.textContent = discordName;
+            setupStep = 1;
+            setup.style.display = 'flex';
+            updateSetupScreen();
+            document.getElementById('lock-screen').style.display = 'none';
+        }
+
+        function updateSetupScreen() {
+            document.querySelectorAll('.setup-step').forEach(step => {
+                step.classList.toggle('active', Number(step.dataset.step) === setupStep);
+            });
+            document.getElementById('setup-progress-bar').style.width = `${(setupStep / setupTotalSteps) * 100}%`;
+        }
+
+        function setupSelect(key, value, button) {
+            setupData[key] = value;
+            const parent = button.parentElement;
+            parent.querySelectorAll('.setup-option').forEach(btn => btn.classList.remove('selected'));
+            button.classList.add('selected');
+        }
+
+        function setupNext() {
+            if (setupStep < setupTotalSteps) {
+                setupStep++;
+                updateSetupScreen();
+            }
+        }
+
+        function finishSetup() {
+            const pin = document.getElementById('setup-pin').value.trim();
+            const confirm = document.getElementById('setup-pin-confirm').value.trim();
+            const error = document.getElementById('setup-error');
+
+            if (!/^\d{4}$/.test(pin)) {
+                error.textContent = 'Ton code doit contenir exactement 4 chiffres.';
+                return;
+            }
+            if (pin !== confirm) {
+                error.textContent = 'Les deux codes ne correspondent pas.';
+                return;
+            }
+
+            currentPin = pin;
+            lockEnabled = true;
+            currentTheme = setupData.theme;
+            textSize = setupData.textSize;
+
+            const wallpapers = {
+                Blainville: 'linear-gradient(to bottom, #0f172a, #1e293b)',
+                Océan: 'linear-gradient(to bottom, #0284c7, #0f172a)',
+                Crépuscule: 'linear-gradient(to bottom, #ea580c, #0f172a)',
+                Noir: '#000000'
+            };
+            wallpaperName = setupData.wallpaper;
+            wallpaperBg = wallpapers[wallpaperName];
+
+            localStorage.setItem('phone_pin', currentPin);
+            localStorage.setItem('phone_lockEnabled', 'true');
+            localStorage.setItem('phone_theme', currentTheme);
+            localStorage.setItem('phone_textSize', textSize);
+            localStorage.setItem('phone_wpName', wallpaperName);
+            localStorage.setItem('phone_wpBg', wallpaperBg);
+            localStorage.setItem('phone_notificationsEnabled', String(setupData.notifications));
+            localStorage.setItem('phone_blockedCalls', String(setupData.blockedCalls));
+            localStorage.setItem('phone_setup_complete', 'true');
+
+            applySavedSettings();
+            document.getElementById('setup-screen').style.display = 'none';
+            showNotification('Téléphone configuré avec succès !');
+            setTimeout(checkLockScreen, 350);
+        }
 
         function checkLockScreen() {
             const lockScreen = document.getElementById('lock-screen');
@@ -1568,12 +1773,15 @@
         }
 
         function saveAccountDetails() {
-            const name = document.getElementById('account-name-input').value.trim();
-            if (name !== "") {
-                userName = name;
+            const discordName = sessionStorage.getItem('discord_username');
+            if (discordName) {
+                userName = discordName;
                 localStorage.setItem('phone_userName', userName);
+                document.getElementById('account-name-input').value = userName;
                 document.querySelectorAll('.profile-name').forEach(el => el.innerText = userName);
-                showNotification("Profil sauvegardé !");
+                showNotification('Le nom du téléphone est celui de Discord.');
+            } else {
+                showNotification('Connecte-toi avec Discord pour définir ton nom.');
             }
         }
 

@@ -1248,6 +1248,9 @@
                         <button class="bank-action-btn" onclick="toggleBankModal(true)">
                             <i class="fa-regular fa-eye"></i> Codes
                         </button>
+                        <button class="bank-action-btn" onclick="claimDailySalary()" style="background:rgba(34,197,94,0.15); border-color:rgba(34,197,94,0.35); color:#22c55e;">
+                            <i class="fa-solid fa-money-bill-wave"></i> Salaire <span style="font-size:0.65rem; opacity:.85;">250 $</span>
+                        </button>
                     </div>
 
                     <!-- Remplacement IBAN par Code du compte -->
@@ -1711,6 +1714,21 @@
                 bankBalance -= amount; updateBankBalances(); closeBankTransaction();
                 showNotification('Virement de ' + formatMoney(amount) + ' envoyé à la carte •••• ' + card.slice(-4) + ' !'); return;
             }
+        }
+
+        function claimDailySalary() {
+            const today = new Date().toLocaleDateString('fr-CA');
+            const lastClaim = localStorage.getItem('rp_salary_last_claim');
+
+            if (lastClaim === today) {
+                showNotification('Salaire déjà récupéré aujourd’hui. Reviens demain !');
+                return;
+            }
+
+            bankBalance += 250;
+            localStorage.setItem('rp_salary_last_claim', today);
+            updateBankBalances();
+            showNotification('Salaire de 250 $ reçu !');
         }
 
         function toggleBankModal(show) {

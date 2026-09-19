@@ -492,7 +492,7 @@
     <main class="page-container">
         <div class="page-header">
             <h1>Espace <span>Roleplay</span></h1>
-            <p>Découvre et teste le téléphone GreenOS 100% interactif.</p>
+            <p>Découvre et teste le téléphone GreenOS 100% interactif avec sauvegarde.</p>
         </div>
 
         <!-- Simulator Frame -->
@@ -728,12 +728,31 @@
         <p>&copy; 2026 Blainville RP QC. Tous droits réservés.</p>
     </footer>
 
-    <!-- SCRIPT TÉLÉPHONE FULL FONCTIONNEL -->
+    <!-- SCRIPT AVEC SAUVEGARDE LOCALE -->
     <script>
-        // État Global du Téléphone
-        let balance = 2500;
+        // Chargement des données sauvegardées ou valeurs par défaut
+        let balance = parseFloat(localStorage.getItem('phone_balance')) || 2500;
+        let userName = localStorage.getItem('phone_userName') || 'Nathan';
+        let wallpaper = localStorage.getItem('phone_wallpaper') || '#0b0f19';
+        let installedApps = JSON.parse(localStorage.getItem('phone_apps')) || {};
         let phoneNumber = "";
-        let installedApps = {};
+
+        // Application des données au chargement
+        document.addEventListener('DOMContentLoaded', () => {
+            updateBalanceDisplay();
+            document.querySelectorAll('.profile-name').forEach(el => el.innerText = userName);
+            document.getElementById('setting-name-input').value = userName;
+            document.getElementById('phone-screen').style.background = wallpaper;
+
+            if (installedApps['casino']) {
+                renderInstalledApp('casino', 'Casino RP', 'fa-dice', '#eab308');
+                updateStoreButton('casino', true);
+            }
+            if (installedApps['glow']) {
+                renderInstalledApp('glow', 'Glow', 'fa-share-nodes', '#9333ea');
+                updateStoreButton('glow', true);
+            }
+        });
 
         // Horloge temps réel
         function updateClock() {
@@ -750,9 +769,7 @@
             const notif = document.getElementById('phone-notif');
             notif.innerText = text;
             notif.style.display = 'block';
-            setTimeout(() => {
-                notif.style.display = 'none';
-            }, 3000);
+            setTimeout(() => { notif.style.display = 'none'; }, 3000);
         }
 
         // Navigation
@@ -765,6 +782,7 @@
         // Banque
         function updateBalanceDisplay() {
             document.getElementById('bank-balance').innerText = balance.toLocaleString('en-US', { minimumFractionDigits: 2 }) + ' $';
+            localStorage.setItem('phone_balance', balance);
         }
 
         function addMoney(amount) {
@@ -794,10 +812,10 @@
             document.getElementById('transfer-amount').value = "";
         }
 
-        // Achats (Motors & Immo)
+        // Achats
         function buyVehicle(name, price) {
             if (balance < price) {
-                showNotification("Fonds insuffisants en banque !");
+                showNotification("Fonds insuffisants !");
                 return;
             }
             balance -= price;
@@ -807,7 +825,7 @@
 
         function buyProperty(name, price) {
             if (balance < price) {
-                showNotification("Fonds insuffisants en banque !");
+                showNotification("Fonds insuffisants !");
                 return;
             }
             balance -= price;
@@ -817,47 +835,57 @@
 
         // Réglages
         function updateProfileName() {
-            const newName = document.getElementById('setting-name-input').value;
-            if (newName.trim() !== "") {
-                document.querySelectorAll('.profile-name').forEach(el => el.innerText = newName);
+            const newName = document.getElementById('setting-name-input').value.trim();
+            if (newName !== "") {
+                userName = newName;
+                localStorage.setItem('phone_userName', userName);
+                document.querySelectorAll('.profile-name').forEach(el => el.innerText = userName);
                 showNotification("Profil mis à jour !");
             }
         }
 
         function setWallpaper(background) {
-            document.getElementById('phone-screen').style.background = background;
+            wallpaper = background;
+            localStorage.setItem('phone_wallpaper', wallpaper);
+            document.getElementById('phone-screen').style.background = wallpaper;
             showNotification("Fond d'écran changé !");
         }
 
-        // App Store (Installation dynamique)
+        // App Store
         function toggleInstallApp(id, name, iconClass, color) {
-            const btn = document.getElementById(`btn-install-${id}`);
-
             if (!installedApps[id]) {
                 installedApps[id] = true;
-                btn.innerText = "Supprimer";
-                btn.style.background = "#dc2626";
-
-                // Ajouter l'icône sur le Home Screen
-                const grid = document.getElementById('home-grid');
-                const appElem = document.createElement('div');
-                appElem.className = 'app-icon';
-                appElem.id = `app-icon-${id}`;
-                appElem.innerHTML = `
-                    <div class="icon-box" style="background:${color};"><i class="fa-solid ${iconClass}"></i></div>
-                    <span class="app-label">${name}</span>
-                `;
-                grid.appendChild(appElem);
-                showNotification(`${name} a été installé.`);
+                renderInstalledApp(id, name, iconClass, color);
+                updateStoreButton(id, true);
+                showNotification(`${name} installé.`);
             } else {
                 installedApps[id] = false;
-                btn.innerText = "Obtenir";
-                btn.style.background = "#2563eb";
-
-                // Supprimer du Home Screen
                 const iconElem = document.getElementById(`app-icon-${id}`);
                 if (iconElem) iconElem.remove();
+                updateStoreButton(id, false);
                 showNotification(`${name} désinstallé.`);
+            }
+            localStorage.setItem('phone_apps', JSON.stringify(installedApps));
+        }
+
+        function renderInstalledApp(id, name, iconClass, color) {
+            if (document.getElementById(`app-icon-${id}`)) return;
+            const grid = document.getElementById('home-grid');
+            const appElem = document.createElement('div');
+            appElem.className = 'app-icon';
+            appElem.id = `app-icon-${id}`;
+            appElem.innerHTML = `
+                <div class="icon-box" style="background:${color};"><i class="fa-solid ${iconClass}"></i></div>
+                <span class="app-label">${name}</span>
+            `;
+            grid.appendChild(appElem);
+        }
+
+        function updateStoreButton(id, isInstalled) {
+            const btn = document.getElementById(`btn-install-${id}`);
+            if (btn) {
+                btn.innerText = isInstalled ? "Supprimer" : "Obtenir";
+                btn.style.background = isInstalled ? "#dc2626" : "#2563eb";
             }
         }
 
@@ -869,8 +897,6 @@
             if (msg === "") return;
 
             const chatBox = document.getElementById('chat-box');
-            
-            // Bulle envoyée
             const sentBubble = document.createElement('div');
             sentBubble.className = 'msg-bubble msg-sent';
             sentBubble.innerText = msg;
@@ -879,7 +905,6 @@
             input.value = "";
             chatBox.scrollTop = chatBox.scrollHeight;
 
-            // Réponse automatique de simulation
             setTimeout(() => {
                 const replyBubble = document.createElement('div');
                 replyBubble.className = 'msg-bubble msg-received';
@@ -908,9 +933,7 @@
                 return;
             }
             showNotification(`Appel en cours vers ${phoneNumber}...`);
-            setTimeout(() => {
-                showNotification("Ligne occupée.");
-            }, 3000);
+            setTimeout(() => { showNotification("Ligne occupée."); }, 3000);
         }
     </script>
 

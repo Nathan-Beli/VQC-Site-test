@@ -20,7 +20,6 @@
             --text-main: #f8fafc;
             --text-muted: #94a3b8;
             --discord-color: #5865F2;
-            --discord-hover: #4752C4;
             --border-color: rgba(239, 68, 68, 0.25);
             --phone-bg: #000000;
             --phone-card: #121212;
@@ -192,14 +191,25 @@
             font-size: 0.75rem;
             font-weight: 700;
             z-index: 90;
+            flex-shrink: 0;
         }
 
+        /* PERMET DE SCROLLER DANS TOUTES LES VUES */
         .app-view {
             flex: 1;
             display: none;
             flex-direction: column;
-            padding: 6px 14px 65px 14px;
+            padding: 6px 14px 75px 14px;
             overflow-y: auto;
+            scrollbar-width: thin;
+        }
+
+        .app-view::-webkit-scrollbar {
+            width: 4px;
+        }
+        .app-view::-webkit-scrollbar-thumb {
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 4px;
         }
 
         .app-view.active { display: flex; }
@@ -224,13 +234,14 @@
             gap: 4px;
         }
 
-        /* Items style iOS */
+        /* Groupes de réglages */
         .settings-group {
             background-color: var(--phone-card);
             border-radius: 14px;
             overflow: hidden;
             margin-bottom: 14px;
             border: 1px solid var(--phone-card-border);
+            flex-shrink: 0;
         }
 
         .settings-item {
@@ -310,6 +321,7 @@
             grid-template-columns: repeat(2, 1fr);
             gap: 10px;
             margin-top: 8px;
+            padding-bottom: 10px;
         }
 
         .wallpaper-card {
@@ -483,7 +495,7 @@
     <main class="page-container">
         <div class="page-header">
             <h1>Espace <span>Roleplay</span></h1>
-            <p>Interface système GreenOS complète pour Blainville RP.</p>
+            <p>Interface système BlainOS pour Blainville RP QC.</p>
         </div>
 
         <div class="phone-wrapper">
@@ -527,28 +539,28 @@
                     </div>
                     <h2 style="font-size:1.6rem; font-weight:800; margin-bottom:12px;">Réglages</h2>
 
-                    <!-- Profil GreenOS -->
+                    <!-- Profil BlainOS -->
                     <div class="settings-group">
                         <div class="settings-item" onclick="openApp('view-settings-account')">
                             <div class="settings-item-left">
                                 <div class="settings-icon" style="background:#475569;"><i class="fa-solid fa-user"></i></div>
                                 <div>
                                     <strong class="profile-name" style="font-size:0.9rem;">Nathan</strong>
-                                    <p style="font-size:0.65rem; color:var(--text-muted);">Compte GreenOS, iCloud RP, etc.</p>
+                                    <p style="font-size:0.65rem; color:var(--text-muted);">Compte BlainOS, Profil RP, etc.</p>
                                 </div>
                             </div>
                             <i class="fa-solid fa-chevron-right" style="color:var(--text-muted); font-size:0.75rem;"></i>
                         </div>
                     </div>
 
-                    <!-- Mon Numéro -->
+                    <!-- Mon Numéro Généré -->
                     <div class="settings-group">
                         <div class="settings-item" style="cursor:default;">
                             <div class="settings-item-left">
                                 <div class="settings-icon" style="background:#22c55e;"><i class="fa-solid fa-phone"></i></div>
                                 <span>Mon numéro</span>
                             </div>
-                            <span style="color:var(--text-muted); font-size:0.8rem;">555-267-5182 <i class="fa-regular fa-copy"></i></span>
+                            <span style="color:var(--text-muted); font-size:0.8rem;"><span id="account-phone-display">555-000-0000</span> <i class="fa-regular fa-copy"></i></span>
                         </div>
                     </div>
 
@@ -604,7 +616,7 @@
                                 <span>Fond d'écran</span>
                             </div>
                             <div class="settings-item-right">
-                                <span id="lbl-wallpaper">Greendale</span>
+                                <span id="lbl-wallpaper">Blainville</span>
                                 <i class="fa-solid fa-chevron-right"></i>
                             </div>
                         </div>
@@ -644,12 +656,12 @@
                     </div>
                 </div>
 
-                <!-- SOUS-PAGE : COMPTE GREENOS -->
+                <!-- SOUS-PAGE : COMPTE BLAINOS -->
                 <div id="view-settings-account" class="app-view">
                     <div class="app-header">
                         <span class="btn-back" onclick="openApp('view-settings')"><i class="fa-solid fa-chevron-left"></i> Retour</span>
                     </div>
-                    <h2 style="font-size:1.4rem; font-weight:800; margin-bottom:12px;">Compte GreenOS</h2>
+                    <h2 style="font-size:1.4rem; font-weight:800; margin-bottom:12px;">Compte BlainOS</h2>
 
                     <div style="text-align:center; margin-bottom:14px;">
                         <div style="width:60px; height:60px; border-radius:50%; background:#334155; margin:0 auto 8px auto; display:flex; align-items:center; justify-content:center; font-size:1.8rem; color:#fff;">
@@ -660,12 +672,12 @@
 
                     <label style="font-size:0.7rem; color:var(--text-muted); text-transform:uppercase; margin-bottom:4px; display:block;">IDENTITÉ</label>
                     <input type="text" id="account-name-input" class="phone-input" value="Nathan">
-                    <input type="email" id="account-email-input" class="phone-input" placeholder="Email">
+                    <input type="email" id="account-email-input" class="phone-input" placeholder="Email RP">
 
                     <button class="phone-btn" onclick="saveAccountDetails()">Enregistrer</button>
 
                     <p style="font-size:0.7rem; color:var(--text-muted); margin-top:12px; line-height:1.3;">
-                        Votre compte GreenOS est l'équivalent Greendale d'un identifiant Apple. Il sera utilisé pour synchroniser vos données sur vos prochains appareils.
+                        Votre identifiant BlainOS sécurise votre progression RP et synchronise vos données personnelles sur le réseau de Blainville RP QC.
                     </p>
                 </div>
 
@@ -775,7 +787,7 @@
                     <button class="phone-btn" style="background:#1e293b; margin-bottom:10px;"><i class="fa-solid fa-upload"></i> Importer une image</button>
 
                     <div class="wallpaper-grid">
-                        <div class="wallpaper-card selected" id="wp-Greendale" style="background:linear-gradient(to bottom, #0f172a, #1e293b);" onclick="setWallpaper('Greendale', 'linear-gradient(to bottom, #0f172a, #1e293b)')">Greendale</div>
+                        <div class="wallpaper-card selected" id="wp-Blainville" style="background:linear-gradient(to bottom, #0f172a, #1e293b);" onclick="setWallpaper('Blainville', 'linear-gradient(to bottom, #0f172a, #1e293b)')">Blainville</div>
                         <div class="wallpaper-card" id="wp-Océan" style="background:linear-gradient(to bottom, #0284c7, #0f172a);" onclick="setWallpaper('Océan', 'linear-gradient(to bottom, #0284c7, #0f172a)')">Océan</div>
                         <div class="wallpaper-card" id="wp-Crépuscule" style="background:linear-gradient(to bottom, #ea580c, #0f172a);" onclick="setWallpaper('Crépuscule', 'linear-gradient(to bottom, #ea580c, #0f172a)')">Crépuscule</div>
                         <div class="wallpaper-card" id="wp-Forêt" style="background:linear-gradient(to bottom, #16a34a, #0f172a);" onclick="setWallpaper('Forêt', 'linear-gradient(to bottom, #16a34a, #0f172a)')">Forêt</div>
@@ -818,7 +830,7 @@
                             <label class="switch"><input type="checkbox"><span class="slider"></span></label>
                         </div>
                     </div>
-                    <p style="font-size:0.65rem; color:var(--text-muted);">Les appels en numéro masqué ne feront plus sonner votre téléphone.</p>
+                    <p style="font-size:0.65rem; color:var(--text-muted);">Les appels en numéro masqué ne feront plus sonner votre appareil.</p>
                 </div>
 
                 <!-- SOUS-PAGE : CODE DE VERROUILLAGE -->
@@ -829,16 +841,16 @@
                     <h2 style="font-size:1.4rem; font-weight:800; margin-bottom:12px;">Code de verrouillage</h2>
 
                     <div class="settings-group">
-                        <div class="settings-item" onclick="showNotification('Fonctionnalité sous code.')">
+                        <div class="settings-item" onclick="showNotification('Modifier le code secret')">
                             <span>Modifier le code</span>
                         </div>
-                        <div class="settings-item" onclick="showNotification('Code retiré.')">
+                        <div class="settings-item" onclick="showNotification('Code désactivé')">
                             <span style="color:#ef4444;">Retirer le code</span>
                         </div>
                     </div>
                 </div>
 
-                <!-- AUTRES VUES DU TÉLÉPHONE (Banque / Motors) -->
+                <!-- AUTRES VUES (Banque / Motors) -->
                 <div id="view-bank" class="app-view">
                     <div class="app-header">
                         <span class="btn-back" onclick="openApp('view-home')"><i class="fa-solid fa-chevron-left"></i> Retour</span>
@@ -851,7 +863,7 @@
                     <div class="app-header">
                         <span class="btn-back" onclick="openApp('view-home')"><i class="fa-solid fa-chevron-left"></i> Retour</span>
                     </div>
-                    <h2>Greendale Motors</h2>
+                    <h2>Blainville Auto</h2>
                 </div>
 
                 <!-- Dock Navigation -->
@@ -871,13 +883,25 @@
     </footer>
 
     <script>
+        // Génération et récupération du numéro de téléphone unique
+        function getOrGeneratePhoneNumber() {
+            let savedPhone = localStorage.getItem('phone_number');
+            if (!savedPhone) {
+                const prefix = Math.floor(100 + Math.random() * 900);
+                const suffix = Math.floor(1000 + Math.random() * 9000);
+                savedPhone = `555-${prefix}-${suffix}`;
+                localStorage.setItem('phone_number', savedPhone);
+            }
+            return savedPhone;
+        }
+
         // État de l'application & Sauvegarde
         let userName = localStorage.getItem('phone_userName') || 'Nathan';
         let currentTheme = localStorage.getItem('phone_theme') || 'dark';
         let currentLang = localStorage.getItem('phone_lang') || 'fr';
         let textSize = localStorage.getItem('phone_textSize') || 'Normal';
         let openMode = localStorage.getItem('phone_openMode') || 'En superposition';
-        let wallpaperName = localStorage.getItem('phone_wpName') || 'Greendale';
+        let wallpaperName = localStorage.getItem('phone_wpName') || 'Blainville';
         let wallpaperBg = localStorage.getItem('phone_wpBg') || 'linear-gradient(to bottom, #0f172a, #1e293b)';
 
         document.addEventListener('DOMContentLoaded', () => {
@@ -885,23 +909,16 @@
         });
 
         function applySavedSettings() {
-            // Appliquer le profil
+            // Appliquer le profil et le numéro unique
             document.querySelectorAll('.profile-name').forEach(el => el.innerText = userName);
             document.getElementById('account-name-input').value = userName;
+            document.getElementById('account-phone-display').innerText = getOrGeneratePhoneNumber();
 
-            // Appliquer le thème
+            // Appliquer les paramètres enregistrés
             setTheme(currentTheme, false);
-
-            // Appliquer la langue
             setLanguage(currentLang, false);
-
-            // Appliquer le fond d'écran
             setWallpaper(wallpaperName, wallpaperBg, false);
-
-            // Appliquer la taille du texte
             setTextSize(textSize, false);
-
-            // Mode d'ouverture
             setOpenMode(openMode, false);
         }
 
@@ -924,10 +941,12 @@
         function openApp(appId) {
             const views = document.querySelectorAll('.app-view');
             views.forEach(view => view.classList.remove('active'));
-            document.getElementById(appId).classList.add('active');
+            const activeView = document.getElementById(appId);
+            activeView.classList.add('active');
+            activeView.scrollTop = 0; // Remonte automatiquement en haut au changement de page
         }
 
-        // Gestion Compte
+        // Sauvegarde Identité
         function saveAccountDetails() {
             const name = document.getElementById('account-name-input').value.trim();
             if (name !== "") {
@@ -938,7 +957,7 @@
             }
         }
 
-        // Gestion Thème (Sombre / Clair)
+        // Thème
         function setTheme(theme, notify = true) {
             currentTheme = theme;
             localStorage.setItem('phone_theme', theme);
@@ -962,7 +981,7 @@
             if (notify) showNotification(`Thème ${theme === 'light' ? 'Clair' : 'Sombre'} appliqué.`);
         }
 
-        // Gestion Langue
+        // Langue
         function setLanguage(lang, notify = true) {
             currentLang = lang;
             localStorage.setItem('phone_lang', lang);
@@ -983,7 +1002,7 @@
             if (notify) showNotification(`Langue mise à jour.`);
         }
 
-        // Gestion Taille du texte
+        // Taille du texte
         function setTextSize(size, notify = true) {
             textSize = size;
             localStorage.setItem('phone_textSize', size);
@@ -1000,7 +1019,7 @@
             document.getElementById('phone-screen').style.fontWeight = isBold ? '700' : 'normal';
         }
 
-        // Gestion Mode d'ouverture
+        // Mode d'ouverture
         function setOpenMode(mode, notify = true) {
             openMode = mode;
             localStorage.setItem('phone_openMode', mode);
@@ -1012,7 +1031,7 @@
             if (notify) showNotification(`Mode : ${mode}`);
         }
 
-        // Gestion Fond d'écran
+        // Fond d'écran
         function setWallpaper(name, background, notify = true) {
             wallpaperName = name;
             wallpaperBg = background;

@@ -621,7 +621,7 @@
 
         .bank-actions {
             display: grid;
-            grid-template-columns: repeat(3, 1fr);
+            grid-template-columns: 1fr;
             gap: 8px;
             margin-bottom: 12px;
         }
@@ -712,6 +712,39 @@
             justify-content: space-between;
             align-items: center;
         }
+
+        .bank-transaction-modal {
+            position: absolute;
+            inset: 0;
+            background: rgba(0,0,0,0.88);
+            backdrop-filter: blur(10px);
+            z-index: 160;
+            display: none;
+            align-items: flex-end;
+        }
+        .bank-transaction-content {
+            width: 100%;
+            background: #1e293b;
+            border-radius: 20px 20px 0 0;
+            padding: 18px;
+            border-top: 1px solid rgba(255,255,255,0.1);
+        }
+        .bank-transaction-title { font-size: 1rem; font-weight: 800; margin-bottom: 5px; }
+        .bank-transaction-subtitle { font-size: .68rem; color: var(--text-muted); margin-bottom: 14px; }
+        .bank-field-label { font-size: .62rem; color: var(--text-muted); text-transform: uppercase; margin-bottom: 5px; display:block; }
+        .bank-transaction-input {
+            width:100%; padding:10px; border-radius:10px; border:1px solid rgba(255,255,255,.1);
+            background:#0f172a; color:#fff; outline:none; margin-bottom:10px; font-size:.8rem;
+        }
+        .bank-transaction-submit {
+            width:100%; border:0; border-radius:10px; padding:10px; background:#2563eb; color:#fff;
+            font-weight:700; cursor:pointer; margin-top:3px;
+        }
+        .bank-transaction-cancel {
+            width:100%; border:0; border-radius:10px; padding:9px; background:rgba(255,255,255,.08); color:#fff;
+            font-weight:600; cursor:pointer; margin-top:7px;
+        }
+        .bank-transaction-error { display:none; color:#f87171; font-size:.68rem; margin:4px 0 8px; }
 
         footer {
             text-align: center;
@@ -1095,15 +1128,15 @@
 
                     <!-- Actions bancaires -->
                     <div class="bank-money-actions">
-                        <button class="bank-money-btn bank-money-deposit" onclick="showNotification('Dépôt sélectionné')">
+                        <button class="bank-money-btn bank-money-deposit" onclick="openBankTransaction('deposit')">
                             <span class="bank-money-icon"><i class="fa-solid fa-arrow-down"></i></span>
                             <span>Dépôt</span>
                         </button>
-                        <button class="bank-money-btn bank-money-withdraw" onclick="showNotification('Retrait sélectionné')">
+                        <button class="bank-money-btn bank-money-withdraw" onclick="openBankTransaction('withdraw')">
                             <span class="bank-money-icon"><i class="fa-solid fa-arrow-up"></i></span>
                             <span>Retrait</span>
                         </button>
-                        <button class="bank-money-btn bank-money-transfer" onclick="showNotification('Virement sélectionné')">
+                        <button class="bank-money-btn bank-money-transfer" onclick="openBankTransaction('transfer')">
                             <span class="bank-money-icon"><i class="fa-solid fa-paper-plane"></i></span>
                             <span>Virement</span>
                         </button>
@@ -1113,9 +1146,6 @@
                     <div class="bank-actions">
                         <button class="bank-action-btn" onclick="toggleBankModal(true)">
                             <i class="fa-regular fa-eye"></i> Codes
-                        </button>
-                        <button class="bank-action-btn" onclick="showNotification('Carte gelée / dégelée')">
-                            <i class="fa-solid fa-snowflake"></i> Geler
                         </button>
                     </div>
 
@@ -1134,11 +1164,11 @@
                     <div class="settings-group">
                         <div class="settings-item">
                             <span>Compte bancaire</span>
-                            <strong style="color:#22c55e;">10,000 $</strong>
+                            <strong id="bank-balance" style="color:#22c55e;">10,000 $</strong>
                         </div>
                         <div class="settings-item">
                             <span>Argent liquide</span>
-                            <strong style="color:var(--text-muted);">0 $</strong>
+                            <strong id="cash-balance" style="color:var(--text-muted);">0 $</strong>
                         </div>
                     </div>
                 </div>
@@ -1177,6 +1207,28 @@
                         </div>
 
                         <button class="phone-btn" style="margin-top:8px;" onclick="toggleBankModal(false)">Fermer</button>
+                    </div>
+                </div>
+
+                <!-- MODALE TRANSACTIONS BANCAIRES -->
+                <div class="bank-transaction-modal" id="bank-transaction-modal">
+                    <div class="bank-transaction-content">
+                        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;">
+                            <div class="bank-transaction-title" id="bank-transaction-title">Dépôt</div>
+                            <i class="fa-solid fa-xmark" style="cursor:pointer;" onclick="closeBankTransaction()"></i>
+                        </div>
+                        <div class="bank-transaction-subtitle" id="bank-transaction-subtitle">Ajoute de l'argent à ton compte bancaire.</div>
+
+                        <div id="transfer-recipient-field" style="display:none;">
+                            <label class="bank-field-label">Numéro de carte du destinataire</label>
+                            <input id="transfer-card-input" class="bank-transaction-input" inputmode="numeric" maxlength="19" placeholder="7015 4813 7877 0000">
+                        </div>
+
+                        <label class="bank-field-label">Montant</label>
+                        <input id="bank-amount-input" class="bank-transaction-input" type="number" min="1" step="1" placeholder="Ex. 500">
+                        <div class="bank-transaction-error" id="bank-transaction-error"></div>
+                        <button class="bank-transaction-submit" onclick="submitBankTransaction()">Confirmer</button>
+                        <button class="bank-transaction-cancel" onclick="closeBankTransaction()">Annuler</button>
                     </div>
                 </div>
 
@@ -1232,7 +1284,7 @@
         // ==========================================
         // Mets ici le Client ID de ton application Discord.
         // Ne mets JAMAIS le Client Secret dans ce fichier.
-        const DISCORD_CLIENT_ID = '1498839231429218354';
+        const DISCORD_CLIENT_ID = 'COLLE_TON_CLIENT_ID_ICI';
 
         function getDiscordRedirectUri() {
             return window.location.origin + window.location.pathname;
@@ -1382,6 +1434,80 @@
         }
 
         /* FONCTIONS BANQUE */
+        // Système bancaire RP (local au navigateur)
+        let bankBalance = Number(localStorage.getItem('rp_bank_balance'));
+        let cashBalance = Number(localStorage.getItem('rp_cash_balance'));
+        if (!Number.isFinite(bankBalance)) bankBalance = 10000;
+        if (!Number.isFinite(cashBalance)) cashBalance = 0;
+        let currentBankTransaction = null;
+
+        function formatMoney(value) {
+            return new Intl.NumberFormat('fr-CA').format(value) + ' $';
+        }
+
+        function updateBankBalances() {
+            document.getElementById('bank-balance').innerText = formatMoney(bankBalance);
+            document.getElementById('cash-balance').innerText = formatMoney(cashBalance);
+            localStorage.setItem('rp_bank_balance', String(bankBalance));
+            localStorage.setItem('rp_cash_balance', String(cashBalance));
+        }
+
+        function openBankTransaction(type) {
+            currentBankTransaction = type;
+            const modal = document.getElementById('bank-transaction-modal');
+            const title = document.getElementById('bank-transaction-title');
+            const subtitle = document.getElementById('bank-transaction-subtitle');
+            const recipient = document.getElementById('transfer-recipient-field');
+            const amount = document.getElementById('bank-amount-input');
+            const error = document.getElementById('bank-transaction-error');
+            error.style.display = 'none'; error.innerText = ''; amount.value = '';
+            document.getElementById('transfer-card-input').value = '';
+            recipient.style.display = type === 'transfer' ? 'block' : 'none';
+            if (type === 'deposit') { title.innerText='Dépôt'; subtitle.innerText="Ajoute de l'argent liquide à ton compte bancaire."; }
+            if (type === 'withdraw') { title.innerText='Retrait'; subtitle.innerText="Retire de l'argent de ton compte bancaire."; }
+            if (type === 'transfer') { title.innerText='Virement'; subtitle.innerText="Envoie de l'argent à un autre joueur avec son numéro de carte."; }
+            modal.style.display='flex';
+            amount.focus();
+        }
+
+        function closeBankTransaction() {
+            document.getElementById('bank-transaction-modal').style.display='none';
+            currentBankTransaction=null;
+        }
+
+        function bankError(message) {
+            const el=document.getElementById('bank-transaction-error');
+            el.innerText=message; el.style.display='block';
+        }
+
+        function submitBankTransaction() {
+            const amount=Number(document.getElementById('bank-amount-input').value);
+            if (!Number.isFinite(amount) || amount <= 0) return bankError('Entre un montant valide.');
+            if (amount > 1000000) return bankError('Montant maximum : 1 000 000 $.');
+
+            if (currentBankTransaction === 'deposit') {
+                // RP : le dépôt transforme l'argent liquide en solde bancaire.
+                if (amount > cashBalance) return bankError('Fonds insuffisants en argent liquide.');
+                cashBalance -= amount; bankBalance += amount;
+                updateBankBalances(); closeBankTransaction(); showNotification('Dépôt de ' + formatMoney(amount) + ' effectué !'); return;
+            }
+
+            if (currentBankTransaction === 'withdraw') {
+                if (amount > bankBalance) return bankError('Solde bancaire insuffisant.');
+                bankBalance -= amount; cashBalance += amount;
+                updateBankBalances(); closeBankTransaction(); showNotification('Retrait de ' + formatMoney(amount) + ' effectué !'); return;
+            }
+
+            if (currentBankTransaction === 'transfer') {
+                const card=document.getElementById('transfer-card-input').value.replace(/\s/g,'');
+                if (!/^\d{16}$/.test(card)) return bankError('Le numéro de carte doit contenir 16 chiffres.');
+                if (card === '7015481378777749') return bankError('Tu ne peux pas faire un virement vers ta propre carte.');
+                if (amount > bankBalance) return bankError('Solde bancaire insuffisant.');
+                bankBalance -= amount; updateBankBalances(); closeBankTransaction();
+                showNotification('Virement de ' + formatMoney(amount) + ' envoyé à la carte •••• ' + card.slice(-4) + ' !'); return;
+            }
+        }
+
         function toggleBankModal(show) {
             document.getElementById('bank-modal').style.display = show ? 'flex' : 'none';
         }
@@ -1404,6 +1530,7 @@
         }
 
         function applySavedSettings() {
+            updateBankBalances();
             document.querySelectorAll('.profile-name').forEach(el => el.innerText = userName);
             document.getElementById('account-name-input').value = userName;
             document.getElementById('account-phone-display').innerText = getOrGeneratePhoneNumber();
